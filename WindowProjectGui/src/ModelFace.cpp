@@ -1,0 +1,210 @@
+//
+//  ModelFace.cpp
+//  ModelFaceTest
+//
+//  Created by bdorse on 9/3/14.
+//
+//
+
+#include "ModelFace.h"
+
+ModelFace::ModelFace(const ofMeshFace& face, int id):
+_id(id),
+_maxSpeed(2.5),
+_movementDir(ofVec3f(ofRandom(-1, 1), ofRandom(-1, 1), ofRandom(-1, 1))),
+_rotationDir(ofVec3f(ofRandom(-1, 1), ofRandom(-1, 1), ofRandom(-1, 1))),
+_thresholdDistance(200),
+_isDislodged(false),
+_thresholdCrossed(false),
+_isReturning(false),
+_isWaiting(true),
+_waitPosition(ofVec3f(ofRandom(-500, 500), ofRandom(-300, 300), ofRandom(-2000, 2000)))
+{
+    
+    ofMesh mesh;
+    mesh.addVertex(face.getVertex(0));
+    mesh.addNormal(face.getNormal(0));
+    mesh.addIndex(0);
+    mesh.addVertex(face.getVertex(1));
+    mesh.addNormal(face.getNormal(1));
+    mesh.addIndex(1);
+    mesh.addVertex(face.getVertex(2));
+    mesh.addNormal(face.getNormal(2));
+    mesh.addIndex(2);
+    mesh.enableNormals();
+    
+    ofVec3f centroid = mesh.getCentroid();
+    
+    ofVec3f v1 = (mesh.getVertex(0) - centroid);
+    ofVec3f v2 = (mesh.getVertex(1) - centroid);
+    ofVec3f v3 = (mesh.getVertex(2) - centroid);
+    
+    mesh.setVertex(0, v1);
+    mesh.setVertex(1, v2);
+    mesh.setVertex(2, v3);
+    
+    getMesh() = mesh;
+    
+    ofNode::setPosition(centroid);
+    _startPosition = ofNode::getPosition();
+    _startRotation = ofNode::getOrientationEuler();
+    
+    _movementDir.normalize();
+    _movementDir *= ofRandom(0.1);
+    
+    _rotationDir.normalize();
+    _rotationDir *= 2;
+
+}
+
+void ModelFace::update(ofVec3f& v1, ofVec3f& v2, ofVec3f& v3) {
+    
+    ofVec3f position;
+    
+    if (_isDislodged) {
+        
+        // movement
+        position = ofNode::getPosition();
+        ofVec3f desired = _currentTargetPosition - position;
+        
+        float d = desired.length();
+        desired.normalize();
+        
+        float minSpeed = _isWaiting ? 0 : 2;
+        float m = ofMap(d, 0, _thresholdDistance, minSpeed, _maxSpeed);
+        desired *= m;
+        
+        // Steering = Desired minus Velocity
+        ofVec3f steer = desired - _velocity;
+        applyForce(steer);
+        
+        _velocity += _acceleration;
+        _velocity.limit(_maxSpeed);
+        _acceleration *= 0;
+        
+        position += _velocity;
+        ofNode::setPosition(position);
+        
+        // rotation
+        if (d < _thresholdDistance &&
+            !_isWaiting) {
+            
+            if (!_thresholdCrossed) {
+                _rotationAtThreshold = ofNode::getOrientationEuler();;
+                _positionAtThreshold = ofNode::getPosition();
+                _thresholdCrossed = true;
+            }
+            
+            float rotX, rotY, rotZ;
+            
+            if (d < 2) {
+                
+                rotX = _currentTargetRotation.x;
+                rotY = _currentTargetRotation.y;
+                rotZ = _currentTargetRotation.z;
+                ofNode::setPosition(_currentTargetPosition);
+                _isDislodged = false;
+                _thresholdCrossed = false;
+                _isReturning = !_isReturning;
+            
+            } else {
+                
+                float distanceTraveled = position.distance(_positionAtThreshold);
+                float percent = distanceTraveled/_thresholdDistance;
+                
+                rotX = ofLerpDegrees(_rotationAtThreshold.x, _currentTargetRotation.x, percent);
+                rotY = ofLerpDegrees(_rotationAtThreshold.y, _currentTargetRotation.y, percent);
+                rotZ = ofLerpDegrees(_rotationAtThreshold.z, _currentTargetRotation.z, percent);
+            }
+            
+            ofQuaternion q(rotX, ofVec3f(1, 0, 0), rotY, ofVec3f(0, 1, 0), rotZ, ofVec3f(0, 0, 1));
+            ofNode::setOrientation(q);
+
+        } else {
+            
+            desired *= _maxSpeed;
+            
+            float rotX = ofNode::getPitch() + _rotationDir.x;
+            float rotY = ofNode::getHeading() + _rotationDir.y;
+            float rotZ = ofNode::getRoll() + _rotationDir.z;
+            ofQuaternion q(rotX,
+                           ofVec3f(1, 0, 0),
+                           rotY,
+                           ofVec3f(0, 1, 0),
+                           rotZ,
+                           ofVec3f(0, 0, 1));
+            
+            ofNode::setOrientation(q);
+            
+        }
+    }
+    
+    // update the actual vertex positions
+    // using the references from the mesh
+    position = ofNode::getPosition();
+    
+    float pitch = of3dPrimitive::getPitch();
+    float heading = of3dPrimitive::getHeading();
+    float roll = of3dPrimitive::getRoll();
+    
+    v1 = of3dPrimitive::getMesh().getVertex(0) + position;
+    v2 = of3dPrimitive::getMesh().getVertex(1) + position;
+    v3 = of3dPrimitive::getMesh().getVertex(2) + position;
+    
+    v1.rotate(pitch,   position, ofVec3f(1, 0, 0));
+    v1.rotate(heading, position, ofVec3f(0, 1, 0));
+    v1.rotate(roll,    position, ofVec3f(0, 0, 1));
+    
+    v2.rotate(pitch,   position, ofVec3f(1, 0, 0));
+    v2.rotate(heading, position, ofVec3f(0, 1, 0));
+    v2.rotate(roll,    position, ofVec3f(0, 0, 1));
+    
+    v3.rotate(pitch,   position, ofVec3f(1, 0, 0));
+    v3.rotate(heading, position, ofVec3f(0, 1, 0));
+    v3.rotate(roll,    position, ofVec3f(0, 0, 1));
+}
+
+void ModelFace::applyForce(const ofVec3f& force) {
+    
+    _acceleration += force;
+}
+
+void ModelFace::setTarget(const ofVec3f &targetPosition, const ofVec3f &targetRotation) {
+    
+    _targetPosition = targetPosition;
+    _targetRotation = targetRotation;
+    _currentTargetPosition = targetPosition;
+    _currentTargetRotation = targetRotation;
+}
+
+void ModelFace::dislodge() {
+    
+    _isDislodged = true;
+    _currentTargetPosition = _isReturning ? _startPosition : _targetPosition;
+    _currentTargetRotation = _isReturning ? _startRotation : _targetRotation;
+}
+
+void ModelFace::onPartnerDislodged() {
+    _isWaiting = false;
+    _currentTargetPosition = _isReturning ? _startPosition : _targetPosition;
+    _currentTargetRotation = _isReturning ? _startRotation : _targetRotation;
+}
+
+void ModelFace::setWaiting(bool wait) {
+    _isWaiting = wait;
+    if (_isWaiting) _currentTargetPosition = _waitPosition;
+}
+
+bool ModelFace::isDislodged() const {
+    
+    return _isDislodged;
+}
+
+ofVec3f ModelFace::getCentroid() const {
+    
+    return ofNode::getPosition();
+}
+
+std::vector<ofVec3f>& ModelFace::getVertices() {
+    return of3dPrimitive::getMesh().getVertices();
+}
