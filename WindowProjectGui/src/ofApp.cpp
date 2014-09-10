@@ -5,40 +5,20 @@ void ofApp::setup(){
     
     ofSetVerticalSync(true);
     ofSetWindowShape(1200, 500);
+//    ofSetWindowShape(768 * 2, 72 * 2); // real aspect ratio
     ofBackground(0);
     
     // camera
-    camera.setDistance(1000);
+    //camera.setDistance(1000);
+    cout << camera.getAspectRatio() << endl;
     
     // lights
     light.setup();
-    light.setPointLight();
-    //    GLfloat lightOnePosition[] = {-40.0, 40, 100.0, 0.0};
-    //    GLfloat lightOneColor[] = {0.03, 0.03, 0.03, 1.0};
-    //
-    //    GLfloat lightTwoPosition[] = {240.0, 40, 40.0, 0.0};
-    //    GLfloat lightTwoColor[] = {0.5, 0.5, 0.5, 1.0};
-    //
-    //    GLfloat lightThreePosition[] = {-240.0, 40, 40.0, 0.0};
-    //    GLfloat lightThreeColor[] = {0.5, 0.5, 0.5, 1.0};
-    //
-    //    /* initialize lighting */
-    //    glLightfv (GL_LIGHT0, GL_POSITION, lightOnePosition);
-    //    glLightfv (GL_LIGHT0, GL_SPECULAR, lightOneColor);
-    //    glEnable (GL_LIGHT0);
-    //    glLightfv (GL_LIGHT1, GL_POSITION, lightTwoPosition);
-    //    glLightfv (GL_LIGHT1, GL_DIFFUSE, lightTwoColor);
-    //    glEnable (GL_LIGHT1);
-    //    glLightfv (GL_LIGHT2, GL_POSITION, lightThreePosition);
-    //    glLightfv (GL_LIGHT2, GL_DIFFUSE, lightThreeColor);
-    //    glEnable (GL_LIGHT2);
-    //    glEnable (GL_LIGHTING);
-    //    glColorMaterial (GL_FRONT_AND_BACK, GL_SPECULAR);
-    //    glColorMaterial (GL_FRONT_AND_BACK, GL_DIFFUSE);
-    //    glEnable (GL_COLOR_MATERIAL);
+    light.setDirectional();
+    light.setAmbientColor(ofFloatColor(0.3));
     
     // materials
-    material.setShininess(0.01);
+    material.setShininess(60);
     material.setSpecularColor(ofFloatColor(0.3));
     
     // model
@@ -112,7 +92,7 @@ void ofApp::draw(){
     
     ofEnableDepthTest();
     
-    // light.enable();
+//    light.enable();
     camera.begin();
     material.begin();
     
@@ -127,7 +107,7 @@ void ofApp::draw(){
     material.end();
     camera.end();
     
-    // light.disable();
+//    light.disable();
     
     if (!isPaused) {
         
