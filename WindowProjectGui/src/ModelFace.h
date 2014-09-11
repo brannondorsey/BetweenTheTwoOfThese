@@ -23,6 +23,11 @@ public:
     void dislodge();
     void onPartnerDislodged();
     void setWaiting(bool wait);
+    void setWaitPosition(const ofVec3f& position);
+    void setSpeed(float min, float max);
+    void setSpeed(float speed);
+    void setRotationSpeed(float min, float max);
+    void setRotationSpeed(float speed);
     
     bool isDislodged() const;
     
@@ -35,6 +40,7 @@ protected:
     int _thresholdDistance;
     
     float _maxSpeed;
+    float _rotationSpeed;
     
     bool _isDislodged;
     bool _isWaiting;
@@ -46,7 +52,6 @@ protected:
     ofVec3f _acceleration;
     ofVec3f _velocity;
     ofVec3f _rotationDir;
-    ofVec3f _movementDir;
     ofVec3f _startPosition;
     ofVec3f _startRotation;
     ofVec3f _targetPosition;

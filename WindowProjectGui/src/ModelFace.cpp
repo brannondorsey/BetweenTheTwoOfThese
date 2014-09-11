@@ -10,15 +10,13 @@
 
 ModelFace::ModelFace(const ofMeshFace& face, int id):
 _id(id),
-_maxSpeed(2.5),
-_movementDir(ofVec3f(ofRandom(-1, 1), ofRandom(-1, 1), ofRandom(-1, 1))),
+_maxSpeed(0),
 _rotationDir(ofVec3f(ofRandom(-1, 1), ofRandom(-1, 1), ofRandom(-1, 1))),
 _thresholdDistance(200),
 _isDislodged(false),
 _thresholdCrossed(false),
 _isReturning(false),
-_isWaiting(true),
-_waitPosition(ofVec3f(ofRandom(-500, 500), ofRandom(-300, 300), ofRandom(-2000, 2000)))
+_isWaiting(true)
 {
     
     ofMesh mesh;
@@ -49,12 +47,13 @@ _waitPosition(ofVec3f(ofRandom(-500, 500), ofRandom(-300, 300), ofRandom(-2000, 
     _startPosition = ofNode::getPosition();
     _startRotation = ofNode::getOrientationEuler();
     
-    _movementDir.normalize();
-    _movementDir *= ofRandom(0.1);
-    
     _rotationDir.normalize();
-    _rotationDir *= 2;
 
+    setRotationSpeed(0.1, 0.5);
+    setSpeed(2, 3);
+    setWaitPosition(ofVec3f(ofRandom(-500, 500),
+                            ofRandom(-300, 300),
+                            ofRandom(-2000, 2000)));
 }
 
 void ModelFace::update(ofVec3f& v1, ofVec3f& v2, ofVec3f& v3) {
@@ -123,10 +122,11 @@ void ModelFace::update(ofVec3f& v1, ofVec3f& v2, ofVec3f& v3) {
         } else {
             
             desired *= _maxSpeed;
+            ofVec3f rotation = _rotationDir * _rotationSpeed;
             
-            float rotX = ofNode::getPitch() + _rotationDir.x;
-            float rotY = ofNode::getHeading() + _rotationDir.y;
-            float rotZ = ofNode::getRoll() + _rotationDir.z;
+            float rotX = ofNode::getPitch() + rotation.x;
+            float rotY = ofNode::getHeading() + rotation.y;
+            float rotZ = ofNode::getRoll() + rotation.z;
             ofQuaternion q(rotX,
                            ofVec3f(1, 0, 0),
                            rotY,
@@ -193,6 +193,26 @@ void ModelFace::onPartnerDislodged() {
 void ModelFace::setWaiting(bool wait) {
     _isWaiting = wait;
     if (_isWaiting) _currentTargetPosition = _waitPosition;
+}
+
+void ModelFace::setWaitPosition(const ofVec3f& position) {
+    _waitPosition = position;
+}
+
+void ModelFace::setSpeed(float min, float max) {
+    _maxSpeed = ofRandom(min, max);
+}
+
+void ModelFace::setSpeed(float speed) {
+    _maxSpeed = speed;
+}
+
+void ModelFace::setRotationSpeed(float min, float max) {
+    _rotationSpeed = ofRandom(min, max);
+}
+
+void ModelFace::setRotationSpeed(float speed) {
+    _rotationSpeed = speed;
 }
 
 bool ModelFace::isDislodged() const {

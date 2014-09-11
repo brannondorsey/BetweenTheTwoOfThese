@@ -3,6 +3,7 @@
 #include "ofMain.h"
 #include "ofxAssimpModelLoader.h"
 #include "ModelFace.h"
+#include "ofxUI.h"
 
 class ofApp : public ofBaseApp{
     
@@ -10,6 +11,7 @@ public:
     void setup();
     void update();
     void draw();
+    void exit();
     
     void keyPressed(int key);
     void keyReleased(int key);
@@ -20,12 +22,14 @@ public:
     void windowResized(int w, int h);
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
+    void guiEvent(ofxUIEventArgs &e);
     
     void initMeshFaces();
     
     int nearestFaceIndex;
-    int modalDistance;
+    int modelDistance;
     bool isPaused;
+    bool bShowBoundingBox;
     
     ofVec3f nearestVertex;
     
@@ -35,9 +39,12 @@ public:
     ofMesh model1Mesh;
     ofMesh model2Mesh;
     
+    ofBoxPrimitive boundingBox;
+    
     ofEasyCam camera;
     ofMaterial material;
     ofLight light;
     ofxAssimpModelLoader model;
+    ofxUICanvas *gui;
     
 };

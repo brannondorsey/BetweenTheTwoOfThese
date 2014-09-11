@@ -5,12 +5,22 @@ void ofApp::setup(){
     
     ofSetVerticalSync(true);
     ofSetWindowShape(1200, 500);
+//    ofSetFullscreen(true);
 //    ofSetWindowShape(768 * 2, 72 * 2); // real aspect ratio
     ofBackground(0);
     
+    // gui
+//    gui = new ofxUICanvas();
+//    
+//    gui->addLabel("Window Project", OFX_UI_FONT_LARGE);
+//    gui->addRangeSlider("PARTICLE SPEED", 1.5, 20, 1.5, 2.5);
+//    gui->addToggle("FULLSCREEN", false);
+//    gui->autoSizeToFitWidgets();
+//    ofAddListener(gui->newGUIEvent, this, &ofApp::guiEvent);
+//    gui->loadSettings("settings.xml");
+    
     // camera
-    //camera.setDistance(1000);
-    cout << camera.getAspectRatio() << endl;
+    camera.setDistance(1800);
     
     // lights
     light.setup();
@@ -23,11 +33,18 @@ void ofApp::setup(){
     
     // model
     model.loadModel("model.dae");
-    modalDistance = ofGetWidth() * 1.7;
-    initMeshFaces();
+    modelDistance = ofGetWidth() * 1.7;
+    
+    // Particle bounding box
+    boundingBox.set(modelDistance - 200, 300, 200);
+    boundingBox.move(0, 100, -155);
+    boundingBox.setResolution(1);
     
     // misc
     isPaused = false;
+    bShowBoundingBox = false;
+    
+    initMeshFaces();
 }
 
 //--------------------------------------------------------------
@@ -55,8 +72,8 @@ void ofApp::update(){
         int nearestIndex = 0;
         ofVec2f mouse(mouseX, mouseY);
         
-        float model1Dist = camera.worldToScreen(ofVec3f(modalDistance/2, 0, 0)).distance(mouse);
-        float model2Dist = camera.worldToScreen(ofVec3f(-(modalDistance/2), 0, 0)).distance(mouse);
+        float model1Dist = camera.worldToScreen(ofVec3f(modelDistance/2, 0, 0)).distance(mouse);
+        float model2Dist = camera.worldToScreen(ofVec3f(-(modelDistance/2), 0, 0)).distance(mouse);
         
         std::vector<ModelFace>& modelFaces = (model1Dist < model2Dist) ? model1Faces : model2Faces;
         std::vector<ModelFace>& otherModelFaces = (model1Dist > model2Dist) ? model1Faces : model2Faces;
@@ -87,6 +104,12 @@ void ofApp::update(){
     }
 }
 
+void ofApp::exit() {
+    
+//    gui->saveSettings("settings.xml");
+//    delete gui;
+}
+
 //--------------------------------------------------------------
 void ofApp::draw(){
     
@@ -99,6 +122,10 @@ void ofApp::draw(){
     ofSetColor(255);
     model1Mesh.draw();
     model2Mesh.draw();
+    
+    if (bShowBoundingBox) {
+        boundingBox.drawWireframe();
+    }
     
     ofSetColor(0);
     model1Mesh.drawWireframe();
@@ -125,7 +152,8 @@ void ofApp::draw(){
     message += "Hold SHIFT to remove faces\n";
     message += "Press SPACE to pause\n";
     message += "Press 'r' to reset\n";
-    message += "Press 'f' to toggle fullscreen";
+    message += "Press 'f' to toggle fullscreen\n";
+    message += "Press 'b' to toggle particle bounding box\n";
     
     ofSetColor(255);
     ofDrawBitmapString(message,  15, 30);
@@ -141,7 +169,7 @@ void ofApp::initMeshFaces() {
     
     ofVec3f centroid = mesh1.getCentroid();
     
-    float xOffset = modalDistance/2;
+    float xOffset = modelDistance/2;
     
     for (int i = 0; i < mesh1Vertices.size(); i++) {
         
@@ -150,7 +178,6 @@ void ofApp::initMeshFaces() {
         
         mesh2Vertices[i] = mesh2Vertices[i].rotate(-90, centroid, ofVec3f(0, 1, 0));
         mesh2Vertices[i].x -= xOffset;
-        
     }
     
     model1Faces.clear();
@@ -164,6 +191,11 @@ void ofApp::initMeshFaces() {
     model1Faces.resize(mesh1Faces.size());
     model2Faces.resize(mesh2Faces.size());
     
+    ofVec3f bBoxPosition = boundingBox.getPosition();
+    float bBoxWidth = boundingBox.getWidth();
+    float bBoxHeight = boundingBox.getHeight();
+    float bBoxDepth = boundingBox.getDepth();
+    
     for (int i = 0; i < model1Faces.size(); i++) {
         
         model1Faces[i] = ModelFace(mesh1Faces[i], i);
@@ -171,6 +203,20 @@ void ofApp::initMeshFaces() {
         
         model1Faces[i].setTarget(model2Faces[i].getPosition(), ofVec3f(0, 180, 0));
         model2Faces[i].setTarget(model1Faces[i].getPosition(), ofVec3f(0, -180, 0));
+        
+        model1Faces[i].setWaitPosition(ofVec3f(ofRandom(bBoxPosition.x - bBoxWidth/2, bBoxPosition.x + bBoxWidth/2),
+                                               ofRandom(bBoxPosition.y - bBoxHeight/2, bBoxPosition.y + bBoxHeight/2),
+                                               ofRandom(bBoxPosition.z - bBoxDepth/2, bBoxPosition.z + bBoxDepth/2)));
+        
+        model2Faces[i].setWaitPosition(ofVec3f(ofRandom(bBoxPosition.x - bBoxWidth/2, bBoxPosition.x + bBoxWidth/2),
+                                               ofRandom(bBoxPosition.y - bBoxHeight/2, bBoxPosition.y + bBoxHeight/2),
+                                               ofRandom(bBoxPosition.z - bBoxDepth/2, bBoxPosition.z + bBoxDepth/2)));
+        
+        
+//        cout << ofToString(bBoxPosition.x - bBoxWidth/2) << "," << ofToString(bBoxPosition.x + bBoxWidth/2) << endl;
+//        cout << ofToString(bBoxPosition.y - bBoxHeight/2) << "," << ofToString(bBoxPosition.y + bBoxHeight/2) << endl;
+//        cout << ofToString(bBoxPosition.z - bBoxDepth/2) << "," << ofToString(bBoxPosition.z + bBoxDepth/2) << endl;
+//        cout << endl;
         
         std::vector<ofVec3f>& model1FaceVerts = model1Faces[i].getVertices();
         model1Mesh.addVertex(model1FaceVerts[0]);
@@ -184,6 +230,20 @@ void ofApp::initMeshFaces() {
     }
 }
 
+void ofApp::guiEvent(ofxUIEventArgs &e) {
+    
+//    if(e.getName() == "PARTICLE SPEED")
+//    {
+//        ofxUISlider *slider = e.getSlider();
+//        cout << slider->getScaledValue() << endl;
+//    }
+//    else if(e.getName() == "FULLSCREEN")
+//    {
+//        ofxUIToggle *toggle = (ofxUIToggle *) e.widget;
+//        ofSetFullscreen(toggle->getValue());
+//    }
+}
+
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
     
@@ -193,6 +253,8 @@ void ofApp::keyPressed(int key){
         ofToggleFullscreen();
     } else if (key == 'r') {
         initMeshFaces();
+    } else if (key == 'b') {
+        bShowBoundingBox = !bShowBoundingBox;
     }
 }
 
