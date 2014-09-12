@@ -70,7 +70,7 @@ void ModelFace::update(ofVec3f& v1, ofVec3f& v2, ofVec3f& v3) {
         desired.normalize();
         
         float minSpeed = _isWaiting ? 0 : 2;
-        float m = ofMap(d, 0, _thresholdDistance, minSpeed, _maxSpeed);
+        float m = ofMap(d, 0, _thresholdDistance, minSpeed, _maxSpeed, true);
         desired *= m;
         
         // Steering = Desired minus Velocity
@@ -121,7 +121,6 @@ void ModelFace::update(ofVec3f& v1, ofVec3f& v2, ofVec3f& v3) {
 
         } else {
             
-            desired *= _maxSpeed;
             ofVec3f rotation = _rotationDir * _rotationSpeed;
             
             float rotX = ofNode::getPitch() + rotation.x;

@@ -25,11 +25,13 @@ public:
     void guiEvent(ofxUIEventArgs &e);
     
     void initMeshFaces();
+    ofVec3f getPointInBoundingBox();
     
     int nearestFaceIndex;
     int modelDistance;
     bool isPaused;
     bool bShowBoundingBox;
+    bool bBoundingBoxChanged;
     
     ofVec3f nearestVertex;
     
@@ -45,6 +47,5 @@ public:
     ofMaterial material;
     ofLight light;
     ofxAssimpModelLoader model;
-    ofxUICanvas *gui;
-    
+    ofxUIScrollableCanvas *gui;
 };
