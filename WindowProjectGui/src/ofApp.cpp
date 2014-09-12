@@ -5,12 +5,8 @@ void ofApp::setup(){
     
     ofSetVerticalSync(true);
     ofSetWindowShape(1200, 500);
-//    ofSetFullscreen(true);
 //    ofSetWindowShape(768 * 2, 72 * 2); // real aspect ratio
     ofBackground(0);
-    
-    // camera
-    camera.setDistance(1800);
     
     // lights
     light.setup();
@@ -36,13 +32,25 @@ void ofApp::setup(){
     names.push_back("EASY CAM");
     names.push_back("FIXED CAM");
     
-//    gui->addSpacer();
-//    gui->addLabel("CAMERA");
-//	  gui->addRadio("CURRENT CAMERA", names, OFX_UI_ORIENTATION_VERTICAL);
+    int maxModelDistance = 10000;
+    
+    gui->addSpacer();
+    gui->addButton("RESET", false);
+    
+    gui->addSpacer();
+    gui->addLabel("CAMERA");
+    gui->addRadio("CURRENT CAMERA", names, OFX_UI_ORIENTATION_VERTICAL);
 //    gui->addSlider("CAMERA FOV", 0.0, 180.0, camera.getFov());
 //    gui->addSlider("CAMERA ASPECT RATIO", 0.0, 15.0, camera.getAspectRatio());
 //    gui->addSlider("CAMERA NEAR CLIP", 0.0, 1000.0, camera.getNearClip());
 //    gui->addSlider("CAMERA FAR CLIP", 0.0, 5000.0, camera.getFarClip());
+    gui->addSlider("CAMERA DISTANCE", 100, 4000, 1800);
+    gui->addSlider("CAMERA X ORBIT", 0, 360, 0.0);
+    gui->addSlider("CAMERA Y ORBIT", 0, 360, 0.0);
+    
+    gui->addSpacer();
+    gui->addLabel("MODEL");
+    gui->addSlider("MODEL DISTANCE", 0, maxModelDistance, modelDistance);
     
     gui->addSpacer();
     gui->addLabel("PARTICLES");
@@ -52,7 +60,7 @@ void ofApp::setup(){
     gui->addSpacer();
     gui->addLabel("BOUNDING BOX");
     gui->addToggle("DRAW BOX", &bShowBoundingBox);
-    gui->addSlider("BOX WIDTH", 1.0, modelDistance, modelDistance - 200.0);
+    gui->addSlider("BOX WIDTH", 1.0, maxModelDistance, modelDistance - 200.0);
     gui->addSlider("BOX HEIGHT", 1.0, 1000.0, 300);
     gui->addSlider("BOX DEPTH", 1.0, 4000.0, 200.0);
     gui->addSlider("BOX X", - modelDistance/2, modelDistance/2, 0.0);
@@ -82,10 +90,13 @@ void ofApp::setup(){
     boundingBox.setResolution(1);
     
     // misc
+    cameraXOrbit = ((ofxUISlider *) gui->getWidget("CAMERA X ORBIT"))->getScaledValue();
+    cameraYOrbit = ((ofxUISlider *) gui->getWidget("CAMERA Y ORBIT"))->getScaledValue();
+    cameraDistance = ((ofxUIRotarySlider *) gui->getWidget("CAMERA DISTANCE"))->getScaledValue();
     isPaused = false;
     bShowBoundingBox = false;
     bBoundingBoxChanged = false;
-    
+
     initMeshFaces();
 }
 
@@ -289,6 +300,19 @@ ofVec3f ofApp::getPointInBoundingBox() {
 
 void ofApp::guiEvent(ofxUIEventArgs &e) {
     
+    if (e.getName() == "RESET") {
+        initMeshFaces();
+    }
+    
+    // MODEL POSITIONS
+    if (e.getName() == "MODEL DISTANCE") {
+        
+        modelDistance = (int) e.getSlider()->getValue();
+        ofxUISlider* boxWidthSlider = (ofxUISlider *) gui->getWidget("BOX WIDTH");
+        boxWidthSlider->setValue(modelDistance);
+        boundingBox.setWidth(modelDistance - 200);
+        initMeshFaces();
+    }
     
     //CAMERA
     if (e.getName() == "CAMERA FOV") {
@@ -305,6 +329,26 @@ void ofApp::guiEvent(ofxUIEventArgs &e) {
     
     if (e.getName() == "CAMERA FAR CLIP") {
         camera.setFarClip(e.getSlider()->getScaledValue());
+    }
+    
+    if (e.getName() == "CAMERA DISTANCE") {
+        
+        cameraDistance = e.getSlider()->getScaledValue();
+        camera.orbit(0, 0, cameraDistance);
+    }
+    
+    if (e.getName() == "CAMERA X ORBIT") {
+        
+        cameraXOrbit = e.getSlider()->getScaledValue();
+        camera.rotateAround(cameraXOrbit - camera.getHeading(), ofVec3f(0, 1, 0), ofVec3f(0, 0, 0));
+        camera.lookAt(ofVec3f(0, 0, 0));
+    }
+    
+    if (e.getName() == "CAMERA Y ORBIT") {
+        
+        cameraYOrbit = e.getSlider()->getScaledValue();
+        camera.rotateAround(cameraYOrbit - camera.getPitch(), ofVec3f(1, 0, 0), ofVec3f(0, 0, 0));
+        camera.lookAt(ofVec3f(0, 0, 0));
     }
     
     

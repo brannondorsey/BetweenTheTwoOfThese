@@ -1,8 +1,38 @@
 <Widget>
+    <Kind>2</Kind>
+    <Name>EASY CAM</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>FIXED CAM</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>CAMERA DISTANCE</Name>
+    <Value>1060.591186523</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>CAMERA X ORBIT</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>CAMERA Y ORBIT</Name>
+    <Value>211.034484863</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>MODEL DISTANCE</Name>
+    <Value>1477.832519531</Value>
+</Widget>
+<Widget>
     <Kind>6</Kind>
     <Name>SPEED</Name>
-    <HighValue>2.008866787</HighValue>
-    <LowValue>1.003940940</LowValue>
+    <HighValue>0.735960603</HighValue>
+    <LowValue>0.200000003</LowValue>
 </Widget>
 <Widget>
     <Kind>6</Kind>
@@ -18,7 +48,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>BOX WIDTH</Name>
-    <Value>1840.000000000</Value>
+    <Value>1477.000000000</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>

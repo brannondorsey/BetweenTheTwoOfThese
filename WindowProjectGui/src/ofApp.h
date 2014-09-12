@@ -29,6 +29,9 @@ public:
     
     int nearestFaceIndex;
     int modelDistance;
+    float cameraDistance;
+    float cameraXOrbit;
+    float cameraYOrbit;
     bool isPaused;
     bool bShowBoundingBox;
     bool bBoundingBoxChanged;
@@ -43,7 +46,7 @@ public:
     
     ofBoxPrimitive boundingBox;
     
-    ofEasyCam camera;
+    ofCamera camera;
     ofMaterial material;
     ofLight light;
     ofxAssimpModelLoader model;
