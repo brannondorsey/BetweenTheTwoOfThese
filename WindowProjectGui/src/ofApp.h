@@ -2,8 +2,9 @@
 
 #include "ofMain.h"
 #include "ofxAssimpModelLoader.h"
-#include "ModelFace.h"
 #include "ofxUI.h"
+#include "ofxDOF.h"
+#include "ModelFace.h"
 
 class ofApp : public ofBaseApp{
     
@@ -49,6 +50,8 @@ public:
     ofCamera camera;
     ofMaterial material;
     ofLight light;
+    
     ofxAssimpModelLoader model;
     ofxUIScrollableCanvas *gui;
+    ofxDOF depthOfField;
 };

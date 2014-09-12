@@ -78,6 +78,7 @@
 		F850CCE719C217B8008DFC9F /* tinyxml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F850CCE219C217B8008DFC9F /* tinyxml.cpp */; };
 		F850CCE819C217B8008DFC9F /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F850CCE419C217B8008DFC9F /* tinyxmlerror.cpp */; };
 		F850CCE919C217B8008DFC9F /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F850CCE519C217B8008DFC9F /* tinyxmlparser.cpp */; };
+		F852388C19C2BB1100F6C8E7 /* ofxDOF.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F852388A19C2BB1100F6C8E7 /* ofxDOF.cpp */; };
 		F880879819C0E3DB00651426 /* ModelFace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F880879619C0E3DB00651426 /* ModelFace.cpp */; };
 /* End PBXBuildFile section */
 
@@ -275,6 +276,8 @@
 		F850CCE319C217B8008DFC9F /* tinyxml.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = tinyxml.h; sourceTree = "<group>"; };
 		F850CCE419C217B8008DFC9F /* tinyxmlerror.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxmlerror.cpp; sourceTree = "<group>"; };
 		F850CCE519C217B8008DFC9F /* tinyxmlparser.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxmlparser.cpp; sourceTree = "<group>"; };
+		F852388A19C2BB1100F6C8E7 /* ofxDOF.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxDOF.cpp; sourceTree = "<group>"; };
+		F852388B19C2BB1100F6C8E7 /* ofxDOF.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxDOF.h; sourceTree = "<group>"; };
 		F880879619C0E3DB00651426 /* ModelFace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ModelFace.cpp; sourceTree = "<group>"; };
 		F880879719C0E3DB00651426 /* ModelFace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelFace.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -351,6 +354,7 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				F852388819C2BB1100F6C8E7 /* ofxDOF */,
 				F850CCDD19C217B8008DFC9F /* ofxXmlSettings */,
 				F850CC5019C21487008DFC9F /* ofxUI */,
 				2C8F245ACBE61E28646C17F2 /* ofxAssimpModelLoader */,
@@ -624,6 +628,24 @@
 			path = ../../../addons/ofxXmlSettings/libs;
 			sourceTree = "<group>";
 		};
+		F852388819C2BB1100F6C8E7 /* ofxDOF */ = {
+			isa = PBXGroup;
+			children = (
+				F852388919C2BB1100F6C8E7 /* src */,
+			);
+			name = ofxDOF;
+			sourceTree = "<group>";
+		};
+		F852388919C2BB1100F6C8E7 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				F852388A19C2BB1100F6C8E7 /* ofxDOF.cpp */,
+				F852388B19C2BB1100F6C8E7 /* ofxDOF.h */,
+			);
+			name = src;
+			path = ../../../addons/ofxDOF/src;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -720,6 +742,7 @@
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
 				F850CCB319C21487008DFC9F /* ofxUIBiLabelSlider.cpp in Sources */,
 				F850CCD519C21487008DFC9F /* ofxUITextInput.cpp in Sources */,
+				F852388C19C2BB1100F6C8E7 /* ofxDOF.cpp in Sources */,
 				F850CCD119C21487008DFC9F /* ofxUISpectrum.cpp in Sources */,
 				F850CCD419C21487008DFC9F /* ofxUITextArea.cpp in Sources */,
 				F850CCB419C21487008DFC9F /* ofxUIButton.cpp in Sources */,

@@ -89,10 +89,16 @@ void ofApp::setup(){
     
     boundingBox.setResolution(1);
     
-    // misc
     cameraXOrbit = ((ofxUISlider *) gui->getWidget("CAMERA X ORBIT"))->getScaledValue();
     cameraYOrbit = ((ofxUISlider *) gui->getWidget("CAMERA Y ORBIT"))->getScaledValue();
     cameraDistance = ((ofxUIRotarySlider *) gui->getWidget("CAMERA DISTANCE"))->getScaledValue();
+    
+    // dof
+    depthOfField.setup(ofGetWidth(), ofGetHeight());
+    depthOfField.setFocalDistance(1500);
+    depthOfField.setFocalRange(700);
+    depthOfField.setBlurAmount(0.5);
+    // misc
     isPaused = false;
     bShowBoundingBox = false;
     bBoundingBoxChanged = false;
@@ -102,6 +108,9 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
+    
+    depthOfField.setFocalDistance(ofMap(mouseX, 0, ofGetWidth(), 0, 2500));
+    cout << depthOfField.getFocalDistance() << endl;
     
     if (!isPaused) {
         
@@ -186,27 +195,35 @@ void ofApp::exit() {
 void ofApp::draw(){
     
     ofEnableDepthTest();
+    ofSetColor(255);
     
-//    light.enable();
-    camera.begin();
+    // depthOfField.begin();
+    // light.enable();
+    camera.begin(depthOfField.getDimensions());
     material.begin();
+    ofPushStyle();
     
     ofSetColor(255);
     model1Mesh.draw();
     model2Mesh.draw();
     
-    if (bShowBoundingBox) {
-        boundingBox.drawWireframe();
-    }
-    
     ofSetColor(0);
+    ofSetLineWidth(2);
     model1Mesh.drawWireframe();
     model2Mesh.drawWireframe();
     
+    ofPopStyle();
     material.end();
     camera.end();
+    // light.disable();
+    // depthOfField.end();
     
-//    light.disable();
+    // depthOfField.getFbo().draw(0, 0);
+    
+    if (bShowBoundingBox) {
+        boundingBox.drawWireframe();
+    }
+
     
     if (!isPaused) {
         
@@ -314,7 +331,7 @@ void ofApp::guiEvent(ofxUIEventArgs &e) {
         initMeshFaces();
     }
     
-    //CAMERA
+    // CAMERA
     if (e.getName() == "CAMERA FOV") {
         camera.setFov(e.getSlider()->getScaledValue());
     }
@@ -334,7 +351,7 @@ void ofApp::guiEvent(ofxUIEventArgs &e) {
     if (e.getName() == "CAMERA DISTANCE") {
         
         cameraDistance = e.getSlider()->getScaledValue();
-        camera.orbit(0, 0, cameraDistance);
+        camera.orbit(cameraXOrbit - camera.getHeading(), cameraYOrbit - camera.getPitch(), cameraDistance);
     }
     
     if (e.getName() == "CAMERA X ORBIT") {
