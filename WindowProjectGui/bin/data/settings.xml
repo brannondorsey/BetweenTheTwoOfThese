@@ -11,7 +11,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>CAMERA DISTANCE</Name>
-    <Value>1214.285766602</Value>
+    <Value>1425.615722656</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -21,12 +21,12 @@
 <Widget>
     <Kind>4</Kind>
     <Name>CAMERA Y ORBIT</Name>
-    <Value>164.926101685</Value>
+    <Value>-77.586204529</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>MODEL DISTANCE</Name>
-    <Value>1477.832519531</Value>
+    <Value>1428.571533203</Value>
 </Widget>
 <Widget>
     <Kind>6</Kind>
@@ -48,7 +48,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>BOX WIDTH</Name>
-    <Value>1084.635498047</Value>
+    <Value>1428.000000000</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>

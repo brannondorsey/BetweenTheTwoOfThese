@@ -46,7 +46,7 @@ void ofApp::setup(){
 //    gui->addSlider("CAMERA FAR CLIP", 0.0, 5000.0, camera.getFarClip());
     gui->addSlider("CAMERA DISTANCE", 100, 4000, 1800);
     gui->addSlider("CAMERA X ORBIT", 0, 360, 0.0);
-    gui->addSlider("CAMERA Y ORBIT", 0, 360, 0.0);
+    gui->addSlider("CAMERA Y ORBIT", -90, 90, 0.0);
     
     gui->addSpacer();
     gui->addLabel("MODEL");
@@ -91,13 +91,18 @@ void ofApp::setup(){
     
     cameraXOrbit = ((ofxUISlider *) gui->getWidget("CAMERA X ORBIT"))->getScaledValue();
     cameraYOrbit = ((ofxUISlider *) gui->getWidget("CAMERA Y ORBIT"))->getScaledValue();
-    cameraDistance = ((ofxUIRotarySlider *) gui->getWidget("CAMERA DISTANCE"))->getScaledValue();
+    cameraDistance = ((ofxUISlider *) gui->getWidget("CAMERA DISTANCE"))->getScaledValue();
+    
+    // camera
+    camera.disableMouseInput();
+    camera.setDistance(cameraDistance);
     
     // dof
     depthOfField.setup(ofGetWidth(), ofGetHeight());
     depthOfField.setFocalDistance(1500);
     depthOfField.setFocalRange(700);
     depthOfField.setBlurAmount(0.5);
+    
     // misc
     isPaused = false;
     bShowBoundingBox = false;
@@ -110,7 +115,6 @@ void ofApp::setup(){
 void ofApp::update(){
     
     depthOfField.setFocalDistance(ofMap(mouseX, 0, ofGetWidth(), 0, 2500));
-    cout << depthOfField.getFocalDistance() << endl;
     
     if (!isPaused) {
         
@@ -208,7 +212,6 @@ void ofApp::draw(){
     model2Mesh.draw();
     
     ofSetColor(0);
-    ofSetLineWidth(2);
     model1Mesh.drawWireframe();
     model2Mesh.drawWireframe();
     
@@ -221,7 +224,9 @@ void ofApp::draw(){
     // depthOfField.getFbo().draw(0, 0);
     
     if (bShowBoundingBox) {
+        camera.begin();
         boundingBox.drawWireframe();
+        camera.end();
     }
 
     
@@ -236,6 +241,8 @@ void ofApp::draw(){
         ofCircle(nearestVertex, 4);
         ofSetLineWidth(1);
     }
+    
+    gui->draw();
     
     std::string message = ofToString(ofGetFrameRate()) += " fps\n";
     message += "Hold SHIFT to remove faces\n";
@@ -351,20 +358,24 @@ void ofApp::guiEvent(ofxUIEventArgs &e) {
     if (e.getName() == "CAMERA DISTANCE") {
         
         cameraDistance = e.getSlider()->getScaledValue();
-        camera.orbit(cameraXOrbit - camera.getHeading(), cameraYOrbit - camera.getPitch(), cameraDistance);
+        
+        ofVec3f dir = camera.getPosition() - ofVec3f(0, 0, 0);
+        dir.normalize();
+        dir *= cameraDistance;
+        camera.setPosition(dir);
     }
     
     if (e.getName() == "CAMERA X ORBIT") {
         
         cameraXOrbit = e.getSlider()->getScaledValue();
-        camera.rotateAround(cameraXOrbit - camera.getHeading(), ofVec3f(0, 1, 0), ofVec3f(0, 0, 0));
+        camera.orbit(cameraXOrbit, cameraYOrbit, camera.getPosition().distance(ofVec3f(0, 0, 0)));
         camera.lookAt(ofVec3f(0, 0, 0));
     }
     
     if (e.getName() == "CAMERA Y ORBIT") {
         
         cameraYOrbit = e.getSlider()->getScaledValue();
-        camera.rotateAround(cameraYOrbit - camera.getPitch(), ofVec3f(1, 0, 0), ofVec3f(0, 0, 0));
+        camera.orbit(cameraXOrbit, cameraYOrbit, camera.getPosition().distance(ofVec3f(0, 0, 0)));
         camera.lookAt(ofVec3f(0, 0, 0));
     }
     

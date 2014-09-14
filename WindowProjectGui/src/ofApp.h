@@ -47,7 +47,7 @@ public:
     
     ofBoxPrimitive boundingBox;
     
-    ofCamera camera;
+    ofEasyCam camera;
     ofMaterial material;
     ofLight light;
     
