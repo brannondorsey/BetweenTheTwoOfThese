@@ -11,48 +11,53 @@
 <Widget>
     <Kind>4</Kind>
     <Name>CAMERA DISTANCE</Name>
-    <Value>753.201965332</Value>
+    <Value>1713.793212891</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>CAMERA X ORBIT</Name>
-    <Value>177.339904785</Value>
+    <Value>179.113311768</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>CAMERA Y ORBIT</Name>
-    <Value>-3.103449821</Value>
+    <Value>-5.763546944</Value>
 </Widget>
 <Widget>
     <Kind>2</Kind>
     <Name>ENABLE DOF</Name>
-    <Value>1</Value>
+    <Value>0</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>DOF FOCAL DISTANCE</Name>
-    <Value>492.610809326</Value>
+    <Value>640.394104004</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>DOF FOCAL RANGE</Name>
-    <Value>1339.901489258</Value>
+    <Value>453.201965332</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>DOF BLUR AMOUNT</Name>
-    <Value>1.374384165</Value>
+    <Value>0.827586174</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>MODEL DISTANCE</Name>
-    <Value>1379.310302734</Value>
+    <Value>1822.660156250</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>MATERIAL SHINYNESS</Name>
+    <Value>2040.000000000</Value>
 </Widget>
 <Widget>
     <Kind>6</Kind>
     <Name>SPEED</Name>
-    <HighValue>3.750739098</HighValue>
-    <LowValue>1.506403923</LowValue>
+    <HighValue>5.928078651</HighValue>
+    <LowValue>3.683743954</LowValue>
 </Widget>
 <Widget>
     <Kind>6</Kind>
@@ -68,7 +73,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>BOX WIDTH</Name>
-    <Value>1379.000000000</Value>
+    <Value>1822.000000000</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>

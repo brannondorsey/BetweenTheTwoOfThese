@@ -31,7 +31,6 @@ _isWaiting(true)
     mesh.addNormal(face.getNormal(2));
     mesh.addIndex(2);
     
-    
     ofVec3f centroid = mesh.getCentroid();
     
     ofVec3f v1 = (mesh.getVertex(0) - centroid);
@@ -171,6 +170,18 @@ void ModelFace::update(ofVec3f& v1,
     v1N = of3dPrimitive::getMesh().getNormal(0);
     v2N = of3dPrimitive::getMesh().getNormal(1);
     v3N = of3dPrimitive::getMesh().getNormal(2);
+    
+    v1N.rotate(pitch,   ofVec3f(1, 0, 0));
+    v1N.rotate(heading, ofVec3f(0, 1, 0));
+    v1N.rotate(roll,    ofVec3f(0, 0, 1));
+    
+    v2N.rotate(pitch,   ofVec3f(1, 0, 0));
+    v2N.rotate(heading, ofVec3f(0, 1, 0));
+    v2N.rotate(roll,    ofVec3f(0, 0, 1));
+    
+    v3N.rotate(pitch,   ofVec3f(1, 0, 0));
+    v3N.rotate(heading, ofVec3f(0, 1, 0));
+    v3N.rotate(roll,    ofVec3f(0, 0, 1));
 }
 
 void ModelFace::applyForce(const ofVec3f& force) {

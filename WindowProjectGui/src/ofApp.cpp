@@ -12,7 +12,9 @@ void ofApp::setup(){
     // lights
     light.setup();
     light.setDirectional();
-    light.setAmbientColor(ofFloatColor(0.3));
+    light.setAmbientColor(ofFloatColor(0.01));
+    light.setDiffuseColor(ofFloatColor(1.0));
+    light.setOrientation( ofVec3f(0, 90, 0) );
 //    GLfloat lightOnePosition[] = {-40.0, 40, 100.0, 0.0};
 //    GLfloat lightOneColor[] = {0.03, 0.03, 0.03, 1.0};
 //    
@@ -39,8 +41,8 @@ void ofApp::setup(){
 
     
     // materials
-    material.setShininess(60);
-    material.setSpecularColor(ofColor(100));
+    material.setShininess(120);
+    material.setSpecularColor(ofColor(255));
     
     // model
     model.loadModel("model.dae");
@@ -83,6 +85,10 @@ void ofApp::setup(){
     gui->addSpacer();
     gui->addLabel("MODEL");
     gui->addSlider("MODEL DISTANCE", 0, maxModelDistance, modelDistance);
+    
+    gui->addSpacer();
+    gui->addLabel("MATERIAL");
+    gui->addSlider("MATERIAL SHINYNESS", 0, maxModelDistance, modelDistance);
     
     gui->addSpacer();
     gui->addLabel("PARTICLES");
@@ -131,8 +137,6 @@ void ofApp::setup(){
     
     // dof
     depthOfField.setup();
-//    depthOfField.setFocalRange(700);
-//    depthOfField.setBlurAmount(0.5);
     
     // misc
     isPaused = false;
@@ -160,7 +164,7 @@ void ofApp::update(){
                                   model1MeshNorms[vertCounter + 2]);
             
             std::vector<ofVec3f>& model2MeshVerts = model2Mesh.getVertices();
-            std::vector<ofVec3f>& model2MeshNorms = model1Mesh.getNormals();
+            std::vector<ofVec3f>& model2MeshNorms = model2Mesh.getNormals();
             model2Faces[i].update(model2MeshVerts[vertCounter],
                                   model2MeshVerts[vertCounter + 1],
                                   model2MeshVerts[vertCounter + 2],
@@ -243,8 +247,9 @@ void ofApp::draw(){
     }
     
     ofEnableLighting();
-    light.enable();
+    
     camera.begin(depthOfField.getDimensions());
+    light.enable();
     material.begin();
     ofPushStyle();
     
@@ -258,8 +263,8 @@ void ofApp::draw(){
     
     ofPopStyle();
     material.end();
-    camera.end();
     light.disable();
+    camera.end();
     ofDisableLighting();
     
     if (bDOFEnabled) {
@@ -272,7 +277,6 @@ void ofApp::draw(){
         boundingBox.drawWireframe();
         camera.end();
     }
-
     
     if (!isPaused) {
         
@@ -307,16 +311,21 @@ void ofApp::initMeshFaces() {
     std::vector<ofVec3f>& mesh1Vertices = mesh1.getVertices();
     std::vector<ofVec3f>& mesh2Vertices = mesh2.getVertices();
     
+    std::vector<ofVec3f>& mesh1Normals = mesh1.getNormals();
+    std::vector<ofVec3f>& mesh2Normals = mesh2.getNormals();
+    
     ofVec3f centroid = mesh1.getCentroid();
     
     float xOffset = modelDistance/2;
     
     for (int i = 0; i < mesh1Vertices.size(); i++) {
         
-        mesh1Vertices[i] = mesh1Vertices[i].rotate(90, centroid, ofVec3f(0, 1, 0));
+        mesh1Normals[i].rotate(90, ofVec3f(0, 1, 0));
+        mesh1Vertices[i].rotate(90, centroid, ofVec3f(0, 1, 0));
         mesh1Vertices[i].x += xOffset;
         
-        mesh2Vertices[i] = mesh2Vertices[i].rotate(-90, centroid, ofVec3f(0, 1, 0));
+        mesh2Normals[i].rotate(-90, ofVec3f(0, 1, 0));
+        mesh2Vertices[i].rotate(-90, centroid, ofVec3f(0, 1, 0));
         mesh2Vertices[i].x -= xOffset;
     }
     
@@ -354,11 +363,11 @@ void ofApp::initMeshFaces() {
         std::vector<ofVec3f>& model2FaceVerts = model2Faces[i].getVertices();
         std::vector<ofVec3f>& model2FaceNorms = model2Faces[i].getNormals();
         model2Mesh.addVertex(model2FaceVerts[0]);
-        model2Mesh.addNormal(model1FaceNorms[0]);
+        model2Mesh.addNormal(model2FaceNorms[0]);
         model2Mesh.addVertex(model2FaceVerts[1]);
-        model2Mesh.addNormal(model1FaceNorms[1]);
+        model2Mesh.addNormal(model2FaceNorms[1]);
         model2Mesh.addVertex(model2FaceVerts[2]);
-        model2Mesh.addNormal(model1FaceNorms[2]);
+        model2Mesh.addNormal(model2FaceNorms[2]);
     }
 }
 
