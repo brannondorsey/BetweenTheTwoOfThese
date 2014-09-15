@@ -6,7 +6,7 @@ void ofApp::setup(){
     ofSetWindowShape(1200, 500);
     ofSetVerticalSync(true);
     ofEnableAntiAliasing();
-//    ofSetWindowShape(768 * 2, 72 * 2); // real aspect ratio
+   // ofSetWindowShape(768 * 2, 72 * 2); // real aspect ratio
     ofBackground(0);
     
     // lights
@@ -48,17 +48,19 @@ void ofApp::setup(){
     model.loadModel("model.dae");
     modelDistance = ofGetWidth() * 1.7;
     
+    // some camera stuff, more below
+    startCameraFOV = camera.getFov();
+    startCameraAspectRatio = camera.getAspectRatio();
+    startCameraNearClip = camera.getNearClip();
+    startCameraFarClip = camera.getFarClip();
+    
     // gui
     gui = new ofxUIScrollableCanvas();
     gui->setScrollAreaToScreen();
     gui->setScrollableDirections(false, true);
 
     gui->setColorBack(ofColor(50, 200));
-    
-    std::vector<std::string> names;
-    names.push_back("EASY CAM");
-    names.push_back("FIXED CAM");
-    
+
     int maxModelDistance = 10000;
     
     gui->addSpacer();
@@ -66,11 +68,13 @@ void ofApp::setup(){
     
     gui->addSpacer();
     gui->addLabel("CAMERA");
-    gui->addRadio("CURRENT CAMERA", names, OFX_UI_ORIENTATION_VERTICAL);
-//    gui->addSlider("CAMERA FOV", 0.0, 180.0, camera.getFov());
-//    gui->addSlider("CAMERA ASPECT RATIO", 0.0, 15.0, camera.getAspectRatio());
-//    gui->addSlider("CAMERA NEAR CLIP", 0.0, 1000.0, camera.getNearClip());
-//    gui->addSlider("CAMERA FAR CLIP", 0.0, 5000.0, camera.getFarClip());
+    gui->addButton("RESET CAMERA", false);
+    gui->addSpacer();
+    gui->addSlider("CAMERA FOV", 0.0, 180.0, camera.getFov());
+    // gui->addSlider("CAMERA ASPECT RATIO", 0.0, 15.0, camera.getAspectRatio());
+    gui->addSlider("CAMERA NEAR CLIP", 0.0, 1000.0, camera.getNearClip());
+    gui->addSlider("CAMERA FAR CLIP", 0.0, 5000.0, camera.getFarClip());
+    gui->addSpacer();
     gui->addSlider("CAMERA DISTANCE", 100, 4000, 1800);
     gui->addSlider("CAMERA X ORBIT", 0, 360, 0.0);
     gui->addSlider("CAMERA Y ORBIT", -90, 90, 0.0);
@@ -78,6 +82,8 @@ void ofApp::setup(){
     gui->addSpacer();
     gui->addLabel("DOF");
     gui->addToggle("ENABLE DOF", &bDOFEnabled);
+    gui->addToggle("DOF FOCUS ASSISTANCE", &bDrawDOFFocusAssist);
+    gui->addSpacer();
     gui->addSlider("DOF FOCAL DISTANCE", 0, 10000, cameraDistance);
     gui->addSlider("DOF FOCAL RANGE", 0, 2000, 50);
     gui->addSlider("DOF BLUR AMOUNT", 0, 3, 1);
@@ -98,12 +104,15 @@ void ofApp::setup(){
     gui->addSpacer();
     gui->addLabel("BOUNDING BOX");
     gui->addToggle("DRAW BOX", &bShowBoundingBox);
+    gui->addSpacer();
     gui->addSlider("BOX WIDTH", 1.0, maxModelDistance, modelDistance - 200.0);
     gui->addSlider("BOX HEIGHT", 1.0, 1000.0, 300);
     gui->addSlider("BOX DEPTH", 1.0, 4000.0, 200.0);
+    gui->addSpacer();
     gui->addSlider("BOX X", - modelDistance/2, modelDistance/2, 0.0);
     gui->addSlider("BOX Y", - modelDistance/2, modelDistance/2, 100.0);
     gui->addSlider("BOX Z", - modelDistance/2, modelDistance/2, -155.0);
+    gui->addSpacer();
     gui->addButton("CENTER BOX", false);
     
     gui->autoSizeToFitWidgets();
@@ -134,6 +143,9 @@ void ofApp::setup(){
     // camera
     camera.disableMouseInput();
     camera.setDistance(cameraDistance);
+    camera.orbit(cameraXOrbit, cameraYOrbit, camera.getPosition().distance(ofVec3f(0, 0, 0)));
+    camera.lookAt(ofVec3f(0, 0, 0));
+    resetCamera();
     
     // dof
     depthOfField.setup();
@@ -269,7 +281,8 @@ void ofApp::draw(){
     
     if (bDOFEnabled) {
         depthOfField.end();
-        depthOfField.getFbo().draw(0, 0);
+        if (bDrawDOFFocusAssist) depthOfField.drawFocusAssist(0, 0);
+        else depthOfField.getFbo().draw(0, 0);
     }
     
     if (bShowBoundingBox) {
@@ -320,10 +333,12 @@ void ofApp::initMeshFaces() {
         
         mesh1Normals[i].rotate(90, ofVec3f(0, 1, 0));
         mesh1Vertices[i].rotate(90, centroid, ofVec3f(0, 1, 0));
+//        mesh1Vertices[i].scale(1);
         mesh1Vertices[i].x += xOffset;
         
         mesh2Normals[i].rotate(-90, ofVec3f(0, 1, 0));
         mesh2Vertices[i].rotate(-90, centroid, ofVec3f(0, 1, 0));
+//        mesh2Vertices[i].scale(1);
         mesh2Vertices[i].x -= xOffset;
     }
     
@@ -369,6 +384,33 @@ void ofApp::initMeshFaces() {
     }
 }
 
+void ofApp::resetCamera() {
+    
+    cout << "reset camera" << endl;
+    cout << "fov: " << startCameraFOV << endl;
+    cout << "aspect ratio: " << startCameraAspectRatio << endl;
+    cout << "near clip: " << startCameraNearClip << endl;
+    cout << "far clip: " << startCameraFarClip << endl;
+    cout << endl;
+    
+    camera.setFov(startCameraFOV);
+    // camera.setAspectRatio(startCameraAspectRatio);
+    camera.setNearClip(startCameraNearClip);
+    camera.setFarClip(startCameraFarClip);
+    
+    ofxUISlider* fov = (ofxUISlider*) gui->getWidget("CAMERA FOV");
+    fov->setValue(startCameraFOV);
+    
+    ofxUISlider* aspect = (ofxUISlider*) gui->getWidget("CAMERA ASPECT RATIO");
+    if (aspect != NULL) aspect->setValue(startCameraAspectRatio);
+    
+    ofxUISlider* near = (ofxUISlider*) gui->getWidget("CAMERA NEAR CLIP");
+    near->setValue(startCameraNearClip);
+    
+    ofxUISlider* far = (ofxUISlider*) gui->getWidget("CAMERA FAR CLIP");
+    far->setValue(startCameraFarClip);
+}
+
 ofVec3f ofApp::getPointInBoundingBox() {
     
     ofVec3f bBoxPosition = boundingBox.getPosition();
@@ -398,6 +440,10 @@ void ofApp::guiEvent(ofxUIEventArgs &e) {
     }
     
     // CAMERA
+    if (e.getName() == "RESET CAMERA") {
+        resetCamera();
+    }
+    
     if (e.getName() == "CAMERA FOV") {
         camera.setFov(e.getSlider()->getScaledValue());
     }
@@ -569,6 +615,10 @@ void ofApp::mouseReleased(int x, int y, int button){
 void ofApp::windowResized(int w, int h){
     
     depthOfField.setup(w, h);
+    if (gui != NULL) {
+        gui->setPosition(w - gui->getRect()->getWidth(), 0);
+        gui->autoSizeToFitWidgets();
+    }
 }
 
 //--------------------------------------------------------------

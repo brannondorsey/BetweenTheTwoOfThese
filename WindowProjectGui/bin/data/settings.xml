@@ -1,22 +1,27 @@
 <Widget>
-    <Kind>2</Kind>
-    <Name>EASY CAM</Name>
-    <Value>0</Value>
+    <Kind>4</Kind>
+    <Name>CAMERA FOV</Name>
+    <Value>60.000000000</Value>
 </Widget>
 <Widget>
-    <Kind>2</Kind>
-    <Name>FIXED CAM</Name>
-    <Value>0</Value>
+    <Kind>4</Kind>
+    <Name>CAMERA NEAR CLIP</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>CAMERA FAR CLIP</Name>
+    <Value>0.000000000</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>CAMERA DISTANCE</Name>
-    <Value>1156.650268555</Value>
+    <Value>2136.453369141</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>CAMERA X ORBIT</Name>
-    <Value>187.980300903</Value>
+    <Value>179.113311768</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -26,44 +31,49 @@
 <Widget>
     <Kind>2</Kind>
     <Name>ENABLE DOF</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>DOF FOCUS ASSISTANCE</Name>
     <Value>1</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>DOF FOCAL DISTANCE</Name>
-    <Value>788.177307129</Value>
+    <Value>1724.137939453</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>DOF FOCAL RANGE</Name>
-    <Value>1073.891601562</Value>
+    <Value>374.384216309</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>DOF BLUR AMOUNT</Name>
-    <Value>0.827586174</Value>
+    <Value>0.487684727</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>MODEL DISTANCE</Name>
-    <Value>1822.660156250</Value>
+    <Value>2167.487792969</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>MATERIAL SHINYNESS</Name>
-    <Value>2040.000000000</Value>
+    <Value>1674.876831055</Value>
 </Widget>
 <Widget>
     <Kind>6</Kind>
     <Name>SPEED</Name>
-    <HighValue>5.928078651</HighValue>
-    <LowValue>3.683743954</LowValue>
+    <HighValue>4.521183491</HighValue>
+    <LowValue>3.013792992</LowValue>
 </Widget>
 <Widget>
     <Kind>6</Kind>
     <Name>ROTATION SPEED</Name>
-    <HighValue>0.369457871</HighValue>
-    <LowValue>0.000000000</LowValue>
+    <HighValue>0.325123072</HighValue>
+    <LowValue>0.103448272</LowValue>
 </Widget>
 <Widget>
     <Kind>2</Kind>
@@ -73,7 +83,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>BOX WIDTH</Name>
-    <Value>1822.000000000</Value>
+    <Value>2167.000000000</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -83,7 +93,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>BOX DEPTH</Name>
-    <Value>1892.152709961</Value>
+    <Value>1379.965576172</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -93,7 +103,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>BOX Y</Name>
-    <Value>100.000053406</Value>
+    <Value>100.000175476</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>

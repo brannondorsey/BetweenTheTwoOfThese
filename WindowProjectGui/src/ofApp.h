@@ -26,10 +26,15 @@ public:
     void guiEvent(ofxUIEventArgs &e);
     
     void initMeshFaces();
+    void resetCamera();
     ofVec3f getPointInBoundingBox();
     
     int nearestFaceIndex;
     int modelDistance;
+    float startCameraFOV;
+    float startCameraAspectRatio;
+    float startCameraNearClip;
+    float startCameraFarClip;
     float cameraDistance;
     float cameraXOrbit;
     float cameraYOrbit;
@@ -37,6 +42,7 @@ public:
     bool bShowBoundingBox;
     bool bBoundingBoxChanged;
     bool bDOFEnabled;
+    bool bDrawDOFFocusAssist;
     
     ofVec3f nearestVertex;
     
