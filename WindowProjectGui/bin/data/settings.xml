@@ -11,34 +11,54 @@
 <Widget>
     <Kind>4</Kind>
     <Name>CAMERA DISTANCE</Name>
-    <Value>1425.615722656</Value>
+    <Value>753.201965332</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>CAMERA X ORBIT</Name>
-    <Value>0.000000000</Value>
+    <Value>177.339904785</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>CAMERA Y ORBIT</Name>
-    <Value>-77.586204529</Value>
+    <Value>-3.103449821</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>ENABLE DOF</Name>
+    <Value>1</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>DOF FOCAL DISTANCE</Name>
+    <Value>492.610809326</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>DOF FOCAL RANGE</Name>
+    <Value>1339.901489258</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>DOF BLUR AMOUNT</Name>
+    <Value>1.374384165</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>MODEL DISTANCE</Name>
-    <Value>1428.571533203</Value>
+    <Value>1379.310302734</Value>
 </Widget>
 <Widget>
     <Kind>6</Kind>
     <Name>SPEED</Name>
-    <HighValue>1.003940940</HighValue>
-    <LowValue>0.200000003</LowValue>
+    <HighValue>3.750739098</HighValue>
+    <LowValue>1.506403923</LowValue>
 </Widget>
 <Widget>
     <Kind>6</Kind>
     <Name>ROTATION SPEED</Name>
-    <HighValue>0.768472731</HighValue>
-    <LowValue>0.059113294</LowValue>
+    <HighValue>0.369457871</HighValue>
+    <LowValue>0.000000000</LowValue>
 </Widget>
 <Widget>
     <Kind>2</Kind>
@@ -48,17 +68,17 @@
 <Widget>
     <Kind>4</Kind>
     <Name>BOX WIDTH</Name>
-    <Value>1428.000000000</Value>
+    <Value>1379.000000000</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>BOX HEIGHT</Name>
-    <Value>345.482757568</Value>
+    <Value>448.827575684</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>BOX DEPTH</Name>
-    <Value>788.980285645</Value>
+    <Value>1892.152709961</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -73,5 +93,5 @@
 <Widget>
     <Kind>4</Kind>
     <Name>BOX Z</Name>
-    <Value>-296.453216553</Value>
+    <Value>-497.438415527</Value>
 </Widget>

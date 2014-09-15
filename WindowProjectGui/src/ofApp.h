@@ -36,6 +36,7 @@ public:
     bool isPaused;
     bool bShowBoundingBox;
     bool bBoundingBoxChanged;
+    bool bDOFEnabled;
     
     ofVec3f nearestVertex;
     

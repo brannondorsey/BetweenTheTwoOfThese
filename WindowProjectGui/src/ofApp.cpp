@@ -2,9 +2,10 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-    
-    ofSetVerticalSync(true);
+
     ofSetWindowShape(1200, 500);
+    ofSetVerticalSync(true);
+    ofEnableAntiAliasing();
 //    ofSetWindowShape(768 * 2, 72 * 2); // real aspect ratio
     ofBackground(0);
     
@@ -12,10 +13,34 @@ void ofApp::setup(){
     light.setup();
     light.setDirectional();
     light.setAmbientColor(ofFloatColor(0.3));
+//    GLfloat lightOnePosition[] = {-40.0, 40, 100.0, 0.0};
+//    GLfloat lightOneColor[] = {0.03, 0.03, 0.03, 1.0};
+//    
+//    GLfloat lightTwoPosition[] = {240.0, 40, 40.0, 0.0};
+//    GLfloat lightTwoColor[] = {0.5, 0.5, 0.5, 1.0};
+//    
+//    GLfloat lightThreePosition[] = {-240.0, 40, 40.0, 0.0};
+//    GLfloat lightThreeColor[] = {0.5, 0.5, 0.5, 1.0};
+//    
+//    /* initialize lighting */
+//    glLightfv (GL_LIGHT0, GL_POSITION, lightOnePosition);
+//    glLightfv (GL_LIGHT0, GL_SPECULAR, lightOneColor);
+//    glEnable (GL_LIGHT0);
+//    glLightfv (GL_LIGHT1, GL_POSITION, lightTwoPosition);
+//    glLightfv (GL_LIGHT1, GL_DIFFUSE, lightTwoColor);
+//    glEnable (GL_LIGHT1);
+//    glLightfv (GL_LIGHT2, GL_POSITION, lightThreePosition);
+//    glLightfv (GL_LIGHT2, GL_DIFFUSE, lightThreeColor);
+//    glEnable (GL_LIGHT2);
+//    glEnable (GL_LIGHTING);
+//    glColorMaterial (GL_FRONT_AND_BACK, GL_SPECULAR);
+//    glColorMaterial (GL_FRONT_AND_BACK, GL_DIFFUSE);
+//    glEnable (GL_COLOR_MATERIAL);
+
     
     // materials
     material.setShininess(60);
-    material.setSpecularColor(ofFloatColor(0.3));
+    material.setSpecularColor(ofColor(100));
     
     // model
     model.loadModel("model.dae");
@@ -49,6 +74,13 @@ void ofApp::setup(){
     gui->addSlider("CAMERA Y ORBIT", -90, 90, 0.0);
     
     gui->addSpacer();
+    gui->addLabel("DOF");
+    gui->addToggle("ENABLE DOF", &bDOFEnabled);
+    gui->addSlider("DOF FOCAL DISTANCE", 0, 10000, cameraDistance);
+    gui->addSlider("DOF FOCAL RANGE", 0, 2000, 50);
+    gui->addSlider("DOF BLUR AMOUNT", 0, 3, 1);
+    
+    gui->addSpacer();
     gui->addLabel("MODEL");
     gui->addSlider("MODEL DISTANCE", 0, maxModelDistance, modelDistance);
     
@@ -70,7 +102,7 @@ void ofApp::setup(){
     
     gui->autoSizeToFitWidgets();
     gui->setPosition(ofGetWidth() - gui->getRect()->getWidth(), 0);
-    
+    gui->setup();
     ofAddListener(gui->newGUIEvent, this, &ofApp::guiEvent);
     gui->loadSettings("settings.xml");
 
@@ -98,10 +130,9 @@ void ofApp::setup(){
     camera.setDistance(cameraDistance);
     
     // dof
-    depthOfField.setup(ofGetWidth(), ofGetHeight());
-    depthOfField.setFocalDistance(1500);
-    depthOfField.setFocalRange(700);
-    depthOfField.setBlurAmount(0.5);
+    depthOfField.setup();
+//    depthOfField.setFocalRange(700);
+//    depthOfField.setBlurAmount(0.5);
     
     // misc
     isPaused = false;
@@ -114,22 +145,28 @@ void ofApp::setup(){
 //--------------------------------------------------------------
 void ofApp::update(){
     
-    depthOfField.setFocalDistance(ofMap(mouseX, 0, ofGetWidth(), 0, 2500));
-    
     if (!isPaused) {
         
         int vertCounter = 0;
         for (int i = 0; i < model1Faces.size(); i++) {
             
             std::vector<ofVec3f>& model1MeshVerts = model1Mesh.getVertices();
+            std::vector<ofVec3f>& model1MeshNorms = model1Mesh.getNormals();
             model1Faces[i].update(model1MeshVerts[vertCounter],
                                   model1MeshVerts[vertCounter + 1],
-                                  model1MeshVerts[vertCounter + 2]);
+                                  model1MeshVerts[vertCounter + 2],
+                                  model1MeshNorms[vertCounter],
+                                  model1MeshNorms[vertCounter + 1],
+                                  model1MeshNorms[vertCounter + 2]);
             
             std::vector<ofVec3f>& model2MeshVerts = model2Mesh.getVertices();
+            std::vector<ofVec3f>& model2MeshNorms = model1Mesh.getNormals();
             model2Faces[i].update(model2MeshVerts[vertCounter],
                                   model2MeshVerts[vertCounter + 1],
-                                  model2MeshVerts[vertCounter + 2]);
+                                  model2MeshVerts[vertCounter + 2],
+                                  model2MeshNorms[vertCounter],
+                                  model2MeshNorms[vertCounter + 1],
+                                  model2MeshNorms[vertCounter + 2]);
             
             vertCounter += 3;
         }
@@ -201,8 +238,12 @@ void ofApp::draw(){
     ofEnableDepthTest();
     ofSetColor(255);
     
-    // depthOfField.begin();
-    // light.enable();
+    if (bDOFEnabled) {
+        depthOfField.begin();
+    }
+    
+    ofEnableLighting();
+    light.enable();
     camera.begin(depthOfField.getDimensions());
     material.begin();
     ofPushStyle();
@@ -211,17 +252,20 @@ void ofApp::draw(){
     model1Mesh.draw();
     model2Mesh.draw();
     
-    ofSetColor(0);
-    model1Mesh.drawWireframe();
-    model2Mesh.drawWireframe();
+//    ofSetColor(0);
+//    model1Mesh.drawWireframe();
+//    model2Mesh.drawWireframe();
     
     ofPopStyle();
     material.end();
     camera.end();
-    // light.disable();
-    // depthOfField.end();
+    light.disable();
+    ofDisableLighting();
     
-    // depthOfField.getFbo().draw(0, 0);
+    if (bDOFEnabled) {
+        depthOfField.end();
+        depthOfField.getFbo().draw(0, 0);
+    }
     
     if (bShowBoundingBox) {
         camera.begin();
@@ -299,14 +343,22 @@ void ofApp::initMeshFaces() {
         model2Faces[i].setWaitPosition(getPointInBoundingBox());
         
         std::vector<ofVec3f>& model1FaceVerts = model1Faces[i].getVertices();
+        std::vector<ofVec3f>& model1FaceNorms = model1Faces[i].getNormals();
         model1Mesh.addVertex(model1FaceVerts[0]);
+        model1Mesh.addNormal(model1FaceNorms[0]);
         model1Mesh.addVertex(model1FaceVerts[1]);
+        model1Mesh.addNormal(model1FaceNorms[1]);
         model1Mesh.addVertex(model1FaceVerts[2]);
+        model1Mesh.addNormal(model1FaceNorms[2]);
         
         std::vector<ofVec3f>& model2FaceVerts = model2Faces[i].getVertices();
+        std::vector<ofVec3f>& model2FaceNorms = model2Faces[i].getNormals();
         model2Mesh.addVertex(model2FaceVerts[0]);
+        model2Mesh.addNormal(model1FaceNorms[0]);
         model2Mesh.addVertex(model2FaceVerts[1]);
+        model2Mesh.addNormal(model1FaceNorms[1]);
         model2Mesh.addVertex(model2FaceVerts[2]);
+        model2Mesh.addNormal(model1FaceNorms[2]);
     }
 }
 
@@ -377,6 +429,20 @@ void ofApp::guiEvent(ofxUIEventArgs &e) {
         cameraYOrbit = e.getSlider()->getScaledValue();
         camera.orbit(cameraXOrbit, cameraYOrbit, camera.getPosition().distance(ofVec3f(0, 0, 0)));
         camera.lookAt(ofVec3f(0, 0, 0));
+    }
+    
+    
+    // DOF
+    if (e.getName() == "DOF FOCAL DISTANCE") {
+        depthOfField.setFocalDistance(e.getSlider()->getScaledValue());
+    }
+    
+    if (e.getName() == "DOF FOCAL RANGE") {
+        depthOfField.setFocalRange(e.getSlider()->getScaledValue());
+    }
+    
+    if (e.getName() == "DOF BLUR AMOUNT") {
+        depthOfField.setBlurAmount(e.getSlider()->getScaledValue());
     }
     
     
@@ -494,7 +560,7 @@ void ofApp::mouseReleased(int x, int y, int button){
 
 //--------------------------------------------------------------
 void ofApp::windowResized(int w, int h){
-    
+    depthOfField.setup(w, h);
 }
 
 //--------------------------------------------------------------

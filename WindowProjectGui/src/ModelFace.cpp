@@ -20,6 +20,7 @@ _isWaiting(true)
 {
     
     ofMesh mesh;
+    mesh.enableNormals();
     mesh.addVertex(face.getVertex(0));
     mesh.addNormal(face.getNormal(0));
     mesh.addIndex(0);
@@ -29,7 +30,7 @@ _isWaiting(true)
     mesh.addVertex(face.getVertex(2));
     mesh.addNormal(face.getNormal(2));
     mesh.addIndex(2);
-    mesh.enableNormals();
+    
     
     ofVec3f centroid = mesh.getCentroid();
     
@@ -56,7 +57,12 @@ _isWaiting(true)
                             ofRandom(-2000, 2000)));
 }
 
-void ModelFace::update(ofVec3f& v1, ofVec3f& v2, ofVec3f& v3) {
+void ModelFace::update(ofVec3f& v1,
+                       ofVec3f& v2,
+                       ofVec3f& v3,
+                       ofVec3f& v1N,
+                       ofVec3f& v2N,
+                       ofVec3f& v3N) {
     
     ofVec3f position;
     
@@ -161,6 +167,10 @@ void ModelFace::update(ofVec3f& v1, ofVec3f& v2, ofVec3f& v3) {
     v3.rotate(pitch,   position, ofVec3f(1, 0, 0));
     v3.rotate(heading, position, ofVec3f(0, 1, 0));
     v3.rotate(roll,    position, ofVec3f(0, 0, 1));
+    
+    v1N = of3dPrimitive::getMesh().getNormal(0);
+    v2N = of3dPrimitive::getMesh().getNormal(1);
+    v3N = of3dPrimitive::getMesh().getNormal(2);
 }
 
 void ModelFace::applyForce(const ofVec3f& force) {
@@ -226,4 +236,8 @@ ofVec3f ModelFace::getCentroid() const {
 
 std::vector<ofVec3f>& ModelFace::getVertices() {
     return of3dPrimitive::getMesh().getVertices();
+}
+
+std::vector<ofVec3f>& ModelFace::getNormals() {
+    return of3dPrimitive::getMesh().getNormals();
 }

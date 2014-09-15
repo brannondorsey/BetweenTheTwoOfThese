@@ -17,7 +17,13 @@ public:
     ModelFace(){};
     ModelFace(const ofMeshFace& face, int i);
     
-    void update(ofVec3f& v1, ofVec3f& v2, ofVec3f& v3);
+    void update(ofVec3f& v1,
+                ofVec3f& v2,
+                ofVec3f& v3,
+                ofVec3f& v1N,
+                ofVec3f& v2N,
+                ofVec3f& v3N);
+    
     void applyForce(const ofVec3f& force);
     void setTarget(const ofVec3f& position, const ofVec3f& rotation);
     void dislodge();
@@ -33,6 +39,7 @@ public:
     
     ofVec3f getCentroid() const;
     std::vector<ofVec3f>& getVertices();
+    std::vector<ofVec3f>& getNormals();
     
 protected:
     
