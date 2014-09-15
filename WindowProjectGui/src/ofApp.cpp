@@ -14,7 +14,7 @@ void ofApp::setup(){
     light.setDirectional();
     light.setAmbientColor(ofFloatColor(0.01));
     light.setDiffuseColor(ofFloatColor(1.0));
-    light.setOrientation( ofVec3f(0, 90, 0) );
+    // light.setOrientation( ofVec3f(0, 90, 0) );
 //    GLfloat lightOnePosition[] = {-40.0, 40, 100.0, 0.0};
 //    GLfloat lightOneColor[] = {0.03, 0.03, 0.03, 1.0};
 //    
@@ -53,7 +53,7 @@ void ofApp::setup(){
     gui->setScrollAreaToScreen();
     gui->setScrollableDirections(false, true);
 
-    gui->setColorBack(ofColor(255, 50));
+    gui->setColorBack(ofColor(50, 200));
     
     std::vector<std::string> names;
     names.push_back("EASY CAM");
@@ -289,8 +289,6 @@ void ofApp::draw(){
         ofCircle(nearestVertex, 4);
         ofSetLineWidth(1);
     }
-    
-    gui->draw();
     
     std::string message = ofToString(ofGetFrameRate()) += " fps\n";
     message += "Hold SHIFT to remove faces\n";
@@ -569,6 +567,7 @@ void ofApp::mouseReleased(int x, int y, int button){
 
 //--------------------------------------------------------------
 void ofApp::windowResized(int w, int h){
+    
     depthOfField.setup(w, h);
 }
 
