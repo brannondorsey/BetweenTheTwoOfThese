@@ -6,8 +6,9 @@ void ofApp::setup(){
     ofSetWindowShape(1200, 500);
     ofSetVerticalSync(true);
     ofEnableAntiAliasing();
-   // ofSetWindowShape(768 * 2, 72 * 2); // real aspect ratio
-    ofBackground(0);
+    // ofSetWindowShape(768 * 2, 72 * 2); // real aspect ratio
+    // ofSetWindowShape(7680 * 2, 720 * 2); // real aspect ratio
+    ofBackground(255);
     
     // lights
     light.setup();
@@ -49,10 +50,15 @@ void ofApp::setup(){
     modelDistance = ofGetWidth() * 1.7;
     
     // some camera stuff, more below
+    camera.setAspectRatio(float(ofGetWidth())/float(ofGetHeight()));
+    camera.setForceAspectRatio(true);
+//    camera.enableOrtho();
+    
     startCameraFOV = camera.getFov();
     startCameraAspectRatio = camera.getAspectRatio();
     startCameraNearClip = camera.getNearClip();
     startCameraFarClip = camera.getFarClip();
+    cout << "The camera aspect ratio is: " << camera.getAspectRatio() << endl;
     
     // gui
     gui = new ofxUIScrollableCanvas();
@@ -69,9 +75,10 @@ void ofApp::setup(){
     gui->addSpacer();
     gui->addLabel("CAMERA");
     gui->addButton("RESET CAMERA", false);
+    gui->addButton("RESET ASPECT TO WINDOW", false);
     gui->addSpacer();
     gui->addSlider("CAMERA FOV", 0.0, 180.0, camera.getFov());
-    // gui->addSlider("CAMERA ASPECT RATIO", 0.0, 15.0, camera.getAspectRatio());
+    gui->addSlider("CAMERA ASPECT RATIO", 0.0, 15.0, camera.getAspectRatio());
     gui->addSlider("CAMERA NEAR CLIP", 0.0, 1000.0, camera.getNearClip());
     gui->addSlider("CAMERA FAR CLIP", 0.0, 5000.0, camera.getFarClip());
     gui->addSpacer();
@@ -145,7 +152,7 @@ void ofApp::setup(){
     camera.setDistance(cameraDistance);
     camera.orbit(cameraXOrbit, cameraYOrbit, camera.getPosition().distance(ofVec3f(0, 0, 0)));
     camera.lookAt(ofVec3f(0, 0, 0));
-    resetCamera();
+    // resetCamera();
     
     // dof
     depthOfField.setup();
@@ -303,15 +310,17 @@ void ofApp::draw(){
         ofSetLineWidth(1);
     }
     
-    std::string message = ofToString(ofGetFrameRate()) += " fps\n";
-    message += "Hold SHIFT to remove faces\n";
-    message += "Press SPACE to pause\n";
-    message += "Press 'r' to reset\n";
-    message += "Press 'f' to toggle fullscreen\n";
-    message += "Press 'h' to toggle GUI\n";
-    
-    ofSetColor(255);
-    ofDrawBitmapString(message,  15, 15);
+    if (gui->isVisible()) {
+        
+        std::string message = ofToString(ofGetFrameRate()) += " fps\n";
+        message += "Hold SHIFT to remove faces\n";
+        message += "Press SPACE to pause\n";
+        message += "Press 'r' to reset\n";
+        message += "Press 'f' to toggle fullscreen\n";
+        message += "Press 'h' to toggle GUI\n";
+        ofSetColor(255);
+        ofDrawBitmapString(message,  15, 15);
+    }
 }
 
 void ofApp::initMeshFaces() {
@@ -333,12 +342,10 @@ void ofApp::initMeshFaces() {
         
         mesh1Normals[i].rotate(90, ofVec3f(0, 1, 0));
         mesh1Vertices[i].rotate(90, centroid, ofVec3f(0, 1, 0));
-//        mesh1Vertices[i].scale(1);
         mesh1Vertices[i].x += xOffset;
         
         mesh2Normals[i].rotate(-90, ofVec3f(0, 1, 0));
         mesh2Vertices[i].rotate(-90, centroid, ofVec3f(0, 1, 0));
-//        mesh2Vertices[i].scale(1);
         mesh2Vertices[i].x -= xOffset;
     }
     
@@ -386,15 +393,8 @@ void ofApp::initMeshFaces() {
 
 void ofApp::resetCamera() {
     
-    cout << "reset camera" << endl;
-    cout << "fov: " << startCameraFOV << endl;
-    cout << "aspect ratio: " << startCameraAspectRatio << endl;
-    cout << "near clip: " << startCameraNearClip << endl;
-    cout << "far clip: " << startCameraFarClip << endl;
-    cout << endl;
-    
     camera.setFov(startCameraFOV);
-    // camera.setAspectRatio(startCameraAspectRatio);
+    camera.setAspectRatio(startCameraAspectRatio);
     camera.setNearClip(startCameraNearClip);
     camera.setFarClip(startCameraFarClip);
     
@@ -442,6 +442,14 @@ void ofApp::guiEvent(ofxUIEventArgs &e) {
     // CAMERA
     if (e.getName() == "RESET CAMERA") {
         resetCamera();
+    }
+    
+    if (e.getName() == "RESET ASPECT TO WINDOW") {
+        
+        camera.setAspectRatio(float(ofGetWidth())/float(ofGetHeight()));
+        ofxUISlider * slider = (ofxUISlider *) gui->getWidget("CAMERA ASPECT RATIO");
+        slider->setValue(camera.getAspectRatio());
+        startCameraAspectRatio = camera.getAspectRatio();
     }
     
     if (e.getName() == "CAMERA FOV") {
