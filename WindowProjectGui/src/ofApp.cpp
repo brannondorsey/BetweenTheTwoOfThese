@@ -8,7 +8,7 @@ void ofApp::setup(){
     ofEnableAntiAliasing();
     // ofSetWindowShape(768 * 2, 72 * 2); // real aspect ratio
     // ofSetWindowShape(7680 * 2, 720 * 2); // real aspect ratio
-    ofBackground(255);
+    ofBackground(0);
     
     // lights
     light.setup();

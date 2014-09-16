@@ -1,12 +1,12 @@
 <Widget>
     <Kind>4</Kind>
     <Name>CAMERA FOV</Name>
-    <Value>98.423652649</Value>
+    <Value>60.000000000</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>CAMERA ASPECT RATIO</Name>
-    <Value>1.600000024</Value>
+    <Value>2.400000095</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -21,7 +21,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>CAMERA DISTANCE</Name>
-    <Value>983.743835449</Value>
+    <Value>1771.428588867</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -31,7 +31,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>CAMERA Y ORBIT</Name>
-    <Value>-13.743843079</Value>
+    <Value>-3.990145206</Value>
 </Widget>
 <Widget>
     <Kind>2</Kind>
@@ -46,38 +46,38 @@
 <Widget>
     <Kind>4</Kind>
     <Name>DOF FOCAL DISTANCE</Name>
-    <Value>1330.049194336</Value>
+    <Value>1133.005004883</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>DOF FOCAL RANGE</Name>
-    <Value>443.349761963</Value>
+    <Value>344.827606201</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>DOF BLUR AMOUNT</Name>
-    <Value>0.399014771</Value>
+    <Value>0.354679823</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>MODEL DISTANCE</Name>
-    <Value>985.221618652</Value>
+    <Value>2216.748779297</Value>
 </Widget>
 <Widget>
     <Kind>42</Kind>
     <Name>MODEL Y</Name>
-    <Value>6</Value>
+    <Value>0</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>MATERIAL SHINYNESS</Name>
-    <Value>1674.876831055</Value>
+    <Value>0.000000000</Value>
 </Widget>
 <Widget>
     <Kind>6</Kind>
     <Name>SPEED</Name>
-    <HighValue>4.521183491</HighValue>
-    <LowValue>3.013792992</LowValue>
+    <HighValue>2.276846170</HighValue>
+    <LowValue>1.137931108</LowValue>
 </Widget>
 <Widget>
     <Kind>6</Kind>
@@ -93,7 +93,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>BOX WIDTH</Name>
-    <Value>985.000000000</Value>
+    <Value>2216.000000000</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -103,7 +103,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>BOX DEPTH</Name>
-    <Value>1379.965576172</Value>
+    <Value>1557.261108398</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -113,10 +113,10 @@
 <Widget>
     <Kind>4</Kind>
     <Name>BOX Y</Name>
-    <Value>100.000053406</Value>
+    <Value>45.221706390</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>BOX Z</Name>
-    <Value>-497.438293457</Value>
+    <Value>-115.566513062</Value>
 </Widget>
