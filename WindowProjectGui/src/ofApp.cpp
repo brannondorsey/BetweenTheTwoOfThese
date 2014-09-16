@@ -98,6 +98,7 @@ void ofApp::setup(){
     gui->addSpacer();
     gui->addLabel("MODEL");
     gui->addSlider("MODEL DISTANCE", 0, maxModelDistance, modelDistance);
+    gui->addIntSlider("MODEL Y", -100.0, 100.0, 0.0);
     
     gui->addSpacer();
     gui->addLabel("MATERIAL");
@@ -161,6 +162,7 @@ void ofApp::setup(){
     isPaused = false;
     bShowBoundingBox = false;
     bBoundingBoxChanged = false;
+    modelY = 0;
 
     initMeshFaces();
 }
@@ -343,10 +345,12 @@ void ofApp::initMeshFaces() {
         mesh1Normals[i].rotate(90, ofVec3f(0, 1, 0));
         mesh1Vertices[i].rotate(90, centroid, ofVec3f(0, 1, 0));
         mesh1Vertices[i].x += xOffset;
+        mesh1Vertices[i].y += modelY;
         
         mesh2Normals[i].rotate(-90, ofVec3f(0, 1, 0));
         mesh2Vertices[i].rotate(-90, centroid, ofVec3f(0, 1, 0));
         mesh2Vertices[i].x -= xOffset;
+        mesh2Vertices[i].y += modelY;
     }
     
     model1Faces.clear();
@@ -436,6 +440,13 @@ void ofApp::guiEvent(ofxUIEventArgs &e) {
         ofxUISlider* boxWidthSlider = (ofxUISlider *) gui->getWidget("BOX WIDTH");
         boxWidthSlider->setValue(modelDistance);
         boundingBox.setWidth(modelDistance - 200);
+        initMeshFaces();
+    }
+    
+    if (e.getName() == "MODEL Y") {
+        
+        ofxUIIntSlider* slider = (ofxUIIntSlider *) e.getSlider();
+        modelY = slider->getValue();
         initMeshFaces();
     }
     

@@ -36,7 +36,7 @@
 <Widget>
     <Kind>2</Kind>
     <Name>ENABLE DOF</Name>
-    <Value>1</Value>
+    <Value>0</Value>
 </Widget>
 <Widget>
     <Kind>2</Kind>
@@ -62,6 +62,11 @@
     <Kind>4</Kind>
     <Name>MODEL DISTANCE</Name>
     <Value>985.221618652</Value>
+</Widget>
+<Widget>
+    <Kind>42</Kind>
+    <Name>MODEL Y</Name>
+    <Value>6</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>

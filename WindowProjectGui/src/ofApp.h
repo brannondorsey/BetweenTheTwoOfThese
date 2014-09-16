@@ -38,6 +38,7 @@ public:
     float cameraDistance;
     float cameraXOrbit;
     float cameraYOrbit;
+    float modelY;
     bool isPaused;
     bool bShowBoundingBox;
     bool bBoundingBoxChanged;
