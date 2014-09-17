@@ -1,3 +1,5 @@
 ofxAssimpModelLoader
 ofxUI
 ofxXmlSettings
+ofxKinect
+ofxCv

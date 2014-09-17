@@ -15,31 +15,6 @@ void ofApp::setup(){
     light.setDirectional();
     light.setAmbientColor(ofFloatColor(0.01));
     light.setDiffuseColor(ofFloatColor(1.0));
-    // light.setOrientation( ofVec3f(0, 90, 0) );
-//    GLfloat lightOnePosition[] = {-40.0, 40, 100.0, 0.0};
-//    GLfloat lightOneColor[] = {0.03, 0.03, 0.03, 1.0};
-//    
-//    GLfloat lightTwoPosition[] = {240.0, 40, 40.0, 0.0};
-//    GLfloat lightTwoColor[] = {0.5, 0.5, 0.5, 1.0};
-//    
-//    GLfloat lightThreePosition[] = {-240.0, 40, 40.0, 0.0};
-//    GLfloat lightThreeColor[] = {0.5, 0.5, 0.5, 1.0};
-//    
-//    /* initialize lighting */
-//    glLightfv (GL_LIGHT0, GL_POSITION, lightOnePosition);
-//    glLightfv (GL_LIGHT0, GL_SPECULAR, lightOneColor);
-//    glEnable (GL_LIGHT0);
-//    glLightfv (GL_LIGHT1, GL_POSITION, lightTwoPosition);
-//    glLightfv (GL_LIGHT1, GL_DIFFUSE, lightTwoColor);
-//    glEnable (GL_LIGHT1);
-//    glLightfv (GL_LIGHT2, GL_POSITION, lightThreePosition);
-//    glLightfv (GL_LIGHT2, GL_DIFFUSE, lightThreeColor);
-//    glEnable (GL_LIGHT2);
-//    glEnable (GL_LIGHTING);
-//    glColorMaterial (GL_FRONT_AND_BACK, GL_SPECULAR);
-//    glColorMaterial (GL_FRONT_AND_BACK, GL_DIFFUSE);
-//    glEnable (GL_COLOR_MATERIAL);
-
     
     // materials
     material.setShininess(120);
@@ -52,7 +27,6 @@ void ofApp::setup(){
     // some camera stuff, more below
     camera.setAspectRatio(float(ofGetWidth())/float(ofGetHeight()));
     camera.setForceAspectRatio(true);
-//    camera.enableOrtho();
     
     startCameraFOV = camera.getFov();
     startCameraAspectRatio = camera.getAspectRatio();
@@ -277,10 +251,6 @@ void ofApp::draw(){
     ofSetColor(255);
     model1Mesh.draw();
     model2Mesh.draw();
-    
-//    ofSetColor(0);
-//    model1Mesh.drawWireframe();
-//    model2Mesh.drawWireframe();
     
     ofPopStyle();
     material.end();
