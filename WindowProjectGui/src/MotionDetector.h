@@ -40,6 +40,7 @@ public:
     bool isEnabled();
     bool isConnected();
     
+    int getInterval();
     int getTiltAngle();
     int getNearClip();
     int getFarClip();
@@ -48,6 +49,7 @@ public:
     float getThreshold();
     
     ofPixels& getPixelsRef();
+    ofImage& getImage();
     
 protected:
     

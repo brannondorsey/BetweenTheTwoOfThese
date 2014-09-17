@@ -12,8 +12,8 @@ _bUseLiveVideo(false),
 _bEnabled(true),
 _interval(100),
 _tiltAngle(0),
-_nearClip(230),
-_farClip(70),
+_nearClip(70),
+_farClip(230),
 _millisAtLastInterval(0),
 _bIntervalEllapsedThisFrame(false),
 _bThresholdCrossed(false),
@@ -33,6 +33,7 @@ void MotionDetector::setup(int deviceId) {
     _video.setLoopState(OF_LOOP_NORMAL);
     
     _displayImage.allocate(_kinect.getWidth(), _kinect.getHeight(), OF_IMAGE_GRAYSCALE);
+    _displayImage.setFromPixels(_video.getPixelsRef());
     
     setUseLiveVideo(false);
     
@@ -46,13 +47,13 @@ void MotionDetector::update() {
     _video.update();
     if (isConnected()) _kinect.update();
     
-    ofPixels pixelsRef = usingLiveVideo() ? _kinect.getDepthPixelsRef() : _video.getPixelsRef();
+    ofPixels pixelsRef = (usingLiveVideo() && isConnected()) ? _kinect.getDepthPixelsRef() : _video.getPixelsRef();
     
     if ((!usingLiveVideo() && _video.isFrameNew()) ||
         (usingLiveVideo() && _kinect.isFrameNew())) {
-        
+
         for(int i = 0; i < pixelsRef.size(); i++) {
-            if(pixelsRef[i] < _nearClip && pixelsRef[i] > _farClip) {
+            if(pixelsRef[i] > _nearClip && pixelsRef[i] < _farClip) {
                 pixelsRef[i] = 255;
             } else {
                 pixelsRef[i] = 0;
@@ -171,6 +172,10 @@ float MotionDetector::getThreshold() {
     return _diffThreshold;
 }
 
+int MotionDetector::getInterval() {
+    return _interval;
+}
+
 int MotionDetector::getTiltAngle() {
     return _tiltAngle;
 }
@@ -188,5 +193,9 @@ float MotionDetector::getFrameDifference() {
 }
 
 ofPixels& MotionDetector::getPixelsRef() {
-    return usingLiveVideo() ? _video.getPixelsRef() : _kinect.getDepthPixelsRef();
+    return usingLiveVideo() ? _kinect.getDepthPixelsRef() : _video.getPixelsRef();
+}
+
+ofImage& MotionDetector::getImage() {
+    return _displayImage;
 }

@@ -32,6 +32,7 @@ public:
     
     int nearestFaceIndex;
     int modelDistance;
+    
     float startCameraFOV;
     float startCameraAspectRatio;
     float startCameraNearClip;
@@ -40,11 +41,14 @@ public:
     float cameraXOrbit;
     float cameraYOrbit;
     float modelY;
+    
     bool isPaused;
     bool bShowBoundingBox;
     bool bBoundingBoxChanged;
     bool bDOFEnabled;
     bool bDrawDOFFocusAssist;
+    bool bMD1UseLiveVideo;
+    bool bMD2UseLiveVideo;
     
     ofVec3f nearestVertex;
     
@@ -63,4 +67,7 @@ public:
     ofxAssimpModelLoader model;
     ofxUIScrollableCanvas *gui;
     ofxDOF depthOfField;
+    
+    MotionDetector mD1;
+    MotionDetector mD2;
 };

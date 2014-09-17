@@ -24,7 +24,7 @@ void ofApp::setup(){
     model.loadModel("model.dae");
     modelDistance = ofGetWidth() * 1.7;
     
-    // some camera stuff, more below
+    // camera
     camera.setAspectRatio(float(ofGetWidth())/float(ofGetHeight()));
     camera.setForceAspectRatio(true);
     
@@ -32,7 +32,11 @@ void ofApp::setup(){
     startCameraAspectRatio = camera.getAspectRatio();
     startCameraNearClip = camera.getNearClip();
     startCameraFarClip = camera.getFarClip();
-    cout << "The camera aspect ratio is: " << camera.getAspectRatio() << endl;
+    
+    // motion detectors (Kinects)
+    mD1.setup();
+    mD1.setUseLiveVideo(false);
+    bMD1UseLiveVideo = true;
     
     // gui
     gui = new ofxUIScrollableCanvas();
@@ -45,6 +49,20 @@ void ofApp::setup(){
     
     gui->addSpacer();
     gui->addButton("RESET", false);
+    
+    ofImage& mD1Image = mD1.getImage();
+    float imageWidth = (gui->getGlobalCanvasWidth() - gui->getPadding()*7.0);
+    float scale = mD1Image.getWidth() / imageWidth;
+    gui->addSpacer();
+    gui->addLabel("KINECT 1");
+    gui->addToggle("KINECT 1 ENABLED", mD1.isEnabled());
+    gui->addToggle("KINECT 1 LIVE VIDEO", &bMD1UseLiveVideo);
+    gui->addImage("KINECT 1 IMAGE", &mD1Image, imageWidth, mD1Image.getHeight()/scale);
+    gui->addSlider("KINECT 1 THRESHOLD", 0.0, 0.2, mD1.getThreshold());
+    gui->addIntSlider("KINECT 1 INTERVAL", 0, 3000, mD1.getInterval());
+    gui->addIntSlider("KINECT 1 NEAR CLIP", 0, 255, mD1.getNearClip());
+    gui->addIntSlider("KINECT 1 FAR CLIP", 0, 255, mD1.getNearClip());
+    gui->addIntSlider("KINECT 1 TILT", -30, 30, mD1.getTiltAngle());
     
     gui->addSpacer();
     gui->addLabel("CAMERA");
@@ -127,7 +145,6 @@ void ofApp::setup(){
     camera.setDistance(cameraDistance);
     camera.orbit(cameraXOrbit, cameraYOrbit, camera.getPosition().distance(ofVec3f(0, 0, 0)));
     camera.lookAt(ofVec3f(0, 0, 0));
-    // resetCamera();
     
     // dof
     depthOfField.setup();
@@ -139,10 +156,16 @@ void ofApp::setup(){
     modelY = 0;
 
     initMeshFaces();
+    
+    cout << "mD1 is enabled: " << mD1.isEnabled() << endl;
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
+    
+    mD1.update();
+    ofxUIImage* imageWidget = (ofxUIImage*) gui->getWidget("KINECT 1 LIVE VIDEO");
+    imageWidget->setImage(&mD1.getImage());
     
     if (!isPaused) {
         
@@ -558,6 +581,42 @@ void ofApp::guiEvent(ofxUIEventArgs &e) {
         for (int i = 0; i < model1Faces.size(); i++) {
             model1Faces[i].setRotationSpeed(min, max);
         }
+    }
+    
+    // MOTION DETECTORS
+    
+    if (e.getName() == "KINECT 1 ENABLED") {
+        mD1.setEnabled(e.getButton()->getValue());
+    }
+    
+    if (e.getName() == "KINECT 1 THRESHOLD") {
+        mD1.setDifferenceThreshold(e.getSlider()->getScaledValue());
+    }
+    
+    if (e.getName() == "KINECT 1 INTERVAL") {
+        
+        ofxUIIntSlider* slider = (ofxUIIntSlider*) e.getSlider();
+        mD1.setInterval(slider->getScaledValue());
+    }
+    
+    if (e.getName() == "KINECT 1 NEAR CLIP") {
+        
+        ofxUIIntSlider* slider = (ofxUIIntSlider*) e.getSlider();
+        mD1.setNearClip(slider->getScaledValue());
+        cout << "Near clip set to: " << mD1.getNearClip() << endl;
+    }
+    
+    if (e.getName() == "KINECT 1 FAR CLIP") {
+        
+        ofxUIIntSlider* slider = (ofxUIIntSlider*) e.getSlider();
+        mD1.setFarClip(slider->getScaledValue());
+        cout << "Far clip set to: " << mD1.getFarClip() << endl;
+    }
+    
+    if (e.getName() == "KINECT 1 TILT") {
+        
+        ofxUIIntSlider* slider = (ofxUIIntSlider*) e.getSlider();
+        mD1.setTiltAngle(slider->getScaledValue());
     }
 }
 
