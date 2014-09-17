@@ -47,24 +47,23 @@ void MotionDetector::update() {
     _video.update();
     if (isConnected()) _kinect.update();
     
-    ofPixels pixelsRef = (usingLiveVideo() && isConnected()) ? _kinect.getDepthPixelsRef() : _video.getPixelsRef();
+    ofPixels& pixelsRef = (usingLiveVideo() && isConnected()) ? _kinect.getDepthPixelsRef() : _video.getPixelsRef();
     
     if ((!usingLiveVideo() && _video.isFrameNew()) ||
         (usingLiveVideo() && _kinect.isFrameNew())) {
 
-        for(int i = 0; i < pixelsRef.size(); i++) {
-            if(pixelsRef[i] > _nearClip && pixelsRef[i] < _farClip) {
-                pixelsRef[i] = 255;
-            } else {
-                pixelsRef[i] = 0;
-            }
-        }
+//        for(int i = 0; i < pixelsRef.size(); i++) {
+//            if(pixelsRef[i] > _nearClip && pixelsRef[i] < _farClip) {
+//                pixelsRef[i] = 255;
+//            } else {
+//                pixelsRef[i] = 0;
+//            }
+//        }
         
         _displayImage.setFromPixels(pixelsRef);
         
         // take the absolute difference of prev and cam and save it inside diff
         ofxCv::absdiff(_previous, pixelsRef, _diff);
-		_diff.update();
 		
 		// like ofSetPixels, but more concise and cross-toolkit
         ofxCv::copy(pixelsRef, _previous);

@@ -3,8 +3,9 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
 
-    ofSetWindowShape(1200, 500);
+    ofSetFrameRate(60);
     ofSetVerticalSync(true);
+    ofSetWindowShape(1200, 500);
     ofEnableAntiAliasing();
     // ofSetWindowShape(768 * 2, 72 * 2); // real aspect ratio
     // ofSetWindowShape(7680 * 2, 720 * 2); // real aspect ratio
@@ -58,7 +59,10 @@ void ofApp::setup(){
     gui->addToggle("KINECT 1 ENABLED", mD1.isEnabled());
     gui->addToggle("KINECT 1 LIVE VIDEO", &bMD1UseLiveVideo);
     gui->addImage("KINECT 1 IMAGE", &mD1Image, imageWidth, mD1Image.getHeight()/scale);
-    gui->addSlider("KINECT 1 THRESHOLD", 0.0, 0.2, mD1.getThreshold());
+    gui->addSlider("KINECT 1 FRAME DIFF", 0.0, 1.0, mD1.getFrameDifference()); // read only
+    gui->addLabelButton("KINECT 1 MOTION DETECTED", false); // read only
+    gui->addSpacer();
+    gui->addSlider("KINECT 1 THRESHOLD", 0.0, 0.1, mD1.getThreshold());
     gui->addIntSlider("KINECT 1 INTERVAL", 0, 3000, mD1.getInterval());
     gui->addIntSlider("KINECT 1 NEAR CLIP", 0, 255, mD1.getNearClip());
     gui->addIntSlider("KINECT 1 FAR CLIP", 0, 255, mD1.getNearClip());
@@ -163,9 +167,14 @@ void ofApp::setup(){
 //--------------------------------------------------------------
 void ofApp::update(){
     
+    ofxUIButton* mD1MotionDetectedbutton = (ofxUIButton* ) gui->getWidget("KINECT 1 MOTION DETECTED");
+    mD1MotionDetectedbutton->setValue(false);
+    
     mD1.update();
     ofxUIImage* imageWidget = (ofxUIImage*) gui->getWidget("KINECT 1 LIVE VIDEO");
     imageWidget->setImage(&mD1.getImage());
+    ofxUISlider* frameDifferenceSlider = (ofxUISlider*) gui->getWidget("KINECT 1 FRAME DIFF");
+    frameDifferenceSlider->setValue(mD1.getFrameDifference());
     
     if (!isPaused) {
         
@@ -217,15 +226,36 @@ void ofApp::update(){
             }
         }
         
-        if(ofGetKeyPressed(OF_KEY_SHIFT)) {
+        if(mD1.motionDetected()) {
             
-            ModelFace& modelFace = modelFaces[nearestFaceIndex];
-            ModelFace& otherModelFace = otherModelFaces[nearestFaceIndex];
+//            ModelFace& modelFace = modelFaces[nearestFaceIndex];
+//            ModelFace& otherModelFace = otherModelFaces[nearestFaceIndex];
+            
+            int randomIndex = (int) ofRandom(0, model1Faces.size());
+            ModelFace& modelFace = modelFaces[randomIndex];
+            ModelFace& otherModelFace = otherModelFaces[randomIndex];
             
             modelFace.dislodge();
             otherModelFace.onPartnerDislodged();
             modelFace.setWaiting(!otherModelFace.isDislodged());
+            
+            mD1MotionDetectedbutton->setValue(true);
         }
+        
+//        if(ofGetKeyPressed(OF_KEY_SHIFT)) {
+//            
+//            //            ModelFace& modelFace = modelFaces[nearestFaceIndex];
+//            //            ModelFace& otherModelFace = otherModelFaces[nearestFaceIndex];
+//            
+//            int randomIndex = (int) ofRandom(0, model1Faces.size());
+//            cout << "random index: " << randomIndex;
+//            ModelFace& modelFace = modelFaces[randomIndex];
+//            ModelFace& otherModelFace = otherModelFaces[randomIndex];
+//            
+//            modelFace.dislodge();
+//            otherModelFace.onPartnerDislodged();
+//            modelFace.setWaiting(!otherModelFace.isDislodged());
+//        }
     }
     
     if (bBoundingBoxChanged) {

@@ -10,13 +10,18 @@
 </Widget>
 <Widget>
     <Kind>4</Kind>
-    <Name>KINECT 1 THRESHOLD</Name>
+    <Name>KINECT 1 FRAME DIFF</Name>
     <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>KINECT 1 THRESHOLD</Name>
+    <Value>0.009359606</Value>
 </Widget>
 <Widget>
     <Kind>42</Kind>
     <Name>KINECT 1 INTERVAL</Name>
-    <Value>100</Value>
+    <Value>990</Value>
 </Widget>
 <Widget>
     <Kind>42</Kind>
