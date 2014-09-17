@@ -4,6 +4,7 @@
 #include "ofxAssimpModelLoader.h"
 #include "ofxUI.h"
 #include "ofxDOF.h"
+#include "MotionDetector.h"
 #include "ModelFace.h"
 
 class ofApp : public ofBaseApp{

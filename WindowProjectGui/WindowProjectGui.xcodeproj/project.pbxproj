@@ -56,6 +56,7 @@
 		F826FAB919C96046000BB049 /* Utilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F826FAAB19C96046000BB049 /* Utilities.cpp */; };
 		F826FABA19C96046000BB049 /* Wrappers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F826FAAC19C96046000BB049 /* Wrappers.cpp */; };
 		F826FABB19C96046000BB049 /* opencv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F826FAAD19C96046000BB049 /* opencv.a */; };
+		F826FABE19C962BB000BB049 /* MotionDetector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F826FABC19C962BB000BB049 /* MotionDetector.cpp */; };
 		F850CCB019C21487008DFC9F /* ofxUI2DGraph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F850CC5319C21487008DFC9F /* ofxUI2DGraph.cpp */; };
 		F850CCB119C21487008DFC9F /* ofxUI2DPad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F850CC5519C21487008DFC9F /* ofxUI2DPad.cpp */; };
 		F850CCB219C21487008DFC9F /* ofxUIBaseDraws.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F850CC5719C21487008DFC9F /* ofxUIBaseDraws.cpp */; };
@@ -261,6 +262,8 @@
 		F826FAAB19C96046000BB049 /* Utilities.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Utilities.cpp; sourceTree = "<group>"; };
 		F826FAAC19C96046000BB049 /* Wrappers.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Wrappers.cpp; sourceTree = "<group>"; };
 		F826FAAD19C96046000BB049 /* opencv.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = opencv.a; path = ../../../addons/ofxOpenCv/libs/opencv/lib/osx/opencv.a; sourceTree = "<group>"; };
+		F826FABC19C962BB000BB049 /* MotionDetector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MotionDetector.cpp; sourceTree = "<group>"; };
+		F826FABD19C962BB000BB049 /* MotionDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MotionDetector.h; sourceTree = "<group>"; };
 		F82EF0C060CBDAC33AB84F27 /* aiMaterial.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = aiMaterial.h; path = ../../../addons/ofxAssimpModelLoader/libs/assimp/include/aiMaterial.h; sourceTree = SOURCE_ROOT; };
 		F850CC5219C21487008DFC9F /* ofxUI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxUI.h; sourceTree = "<group>"; };
 		F850CC5319C21487008DFC9F /* ofxUI2DGraph.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxUI2DGraph.cpp; sourceTree = "<group>"; };
@@ -527,6 +530,8 @@
 				E4B69E1F0A3A1BDC003C02F2 /* ofApp.h */,
 				F880879619C0E3DB00651426 /* ModelFace.cpp */,
 				F880879719C0E3DB00651426 /* ModelFace.h */,
+				F826FABC19C962BB000BB049 /* MotionDetector.cpp */,
+				F826FABD19C962BB000BB049 /* MotionDetector.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -1086,6 +1091,7 @@
 				F826FAB819C96046000BB049 /* Tracker.cpp in Sources */,
 				F850CCB419C21487008DFC9F /* ofxUIButton.cpp in Sources */,
 				F850CCCF19C21487008DFC9F /* ofxUISortableList.cpp in Sources */,
+				F826FABE19C962BB000BB049 /* MotionDetector.cpp in Sources */,
 				F850CCB219C21487008DFC9F /* ofxUIBaseDraws.cpp in Sources */,
 				F826FAB219C96046000BB049 /* Distance.cpp in Sources */,
 				F850CCDA19C21487008DFC9F /* ofxUIWidget.cpp in Sources */,
