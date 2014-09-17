@@ -41,6 +41,8 @@ public:
     float cameraXOrbit;
     float cameraYOrbit;
     float modelY;
+    float meshFaces1MinY;
+    float meshFaces1MaxY;
     
     bool isPaused;
     bool bShowBoundingBox;

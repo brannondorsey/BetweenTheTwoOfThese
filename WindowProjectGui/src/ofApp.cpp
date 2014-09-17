@@ -161,7 +161,6 @@ void ofApp::setup(){
 
     initMeshFaces();
     
-    cout << "mD1 is enabled: " << mD1.isEnabled() << endl;
 }
 
 //--------------------------------------------------------------
@@ -202,42 +201,68 @@ void ofApp::update(){
             vertCounter += 3;
         }
         
-        float nearestDistance = 0;
-        int nearestIndex = 0;
-        ofVec2f mouse(mouseX, mouseY);
-        
-        float model1Dist = camera.worldToScreen(ofVec3f(modelDistance/2, 0, 0)).distance(mouse);
-        float model2Dist = camera.worldToScreen(ofVec3f(-(modelDistance/2), 0, 0)).distance(mouse);
-        
-        std::vector<ModelFace>& modelFaces = (model1Dist < model2Dist) ? model1Faces : model2Faces;
-        std::vector<ModelFace>& otherModelFaces = (model1Dist > model2Dist) ? model1Faces : model2Faces;
-        
-        for (int i = 0; i < model1Faces.size(); i++) {
-            
-            ModelFace& modelFace = modelFaces[i];
-            
-            ofVec3f cur = camera.worldToScreen(modelFace.getCentroid());
-            float distance = cur.distance(mouse);
-            
-            if (i == 0 || (distance < nearestDistance && !modelFace.isDislodged())) {
-                nearestDistance = distance;
-                nearestVertex = cur;
-                nearestFaceIndex = i;
-            }
-        }
+//        float nearestDistance = 0;
+//        int nearestIndex = 0;
+//        ofVec2f mouse(mouseX, mouseY);
+//        
+//        float model1Dist = camera.worldToScreen(ofVec3f(modelDistance/2, 0, 0)).distance(mouse);
+//        float model2Dist = camera.worldToScreen(ofVec3f(-(modelDistance/2), 0, 0)).distance(mouse);
+//        
+//        std::vector<ModelFace>& modelFaces = (model1Dist < model2Dist) ? model1Faces : model2Faces;
+//        std::vector<ModelFace>& otherModelFaces = (model1Dist > model2Dist) ? model1Faces : model2Faces;
+//        
+//        for (int i = 0; i < model1Faces.size(); i++) {
+//            
+//            ModelFace& modelFace = modelFaces[i];
+//            
+//            ofVec3f cur = camera.worldToScreen(modelFace.getCentroid());
+//            float distance = cur.distance(mouse);
+//            
+//            if (i == 0 || (distance < nearestDistance && !modelFace.isDislodged())) {
+//                nearestDistance = distance;
+//                nearestVertex = cur;
+//                nearestFaceIndex = i;
+//            }
+//        }
         
         if(mD1.motionDetected()) {
             
-//            ModelFace& modelFace = modelFaces[nearestFaceIndex];
-//            ModelFace& otherModelFace = otherModelFaces[nearestFaceIndex];
+            // find an index that hasn't been dislodged
+            // to start with
+            int faceIndex = -1;
+            for (int i = 0; i < model1Faces.size(); i++) {
+                if (!model1Faces[i].isDislodged()) {
+                    faceIndex = i;
+                    break;
+                }
+            }
             
-            int randomIndex = (int) ofRandom(0, model1Faces.size());
-            ModelFace& modelFace = modelFaces[randomIndex];
-            ModelFace& otherModelFace = otherModelFaces[randomIndex];
-            
-            modelFace.dislodge();
-            otherModelFace.onPartnerDislodged();
-            modelFace.setWaiting(!otherModelFace.isDislodged());
+            if (faceIndex != -1) {
+                
+                float highestY = model1Faces[faceIndex].getPosition().y;
+                
+                for (int i = 0; i < model1Faces.size(); i++) {
+                    
+                    ModelFace& model1Face = model1Faces[i];
+                    
+                    if (!model1Face.isDislodged()) {
+                        
+                        float lastHighestY = highestY;
+                        highestY = max(model1Face.getPosition().y, highestY);
+                        
+                        if (highestY != lastHighestY) {
+                            faceIndex = i;
+                        }
+                    }
+                }
+                
+                ModelFace& modelFace = model1Faces[faceIndex];
+                ModelFace& otherModelFace = model2Faces[faceIndex];
+                
+                modelFace.dislodge();
+                otherModelFace.onPartnerDislodged();
+                modelFace.setWaiting(!otherModelFace.isDislodged());
+            }
             
             mD1MotionDetectedbutton->setValue(true);
         }
@@ -323,18 +348,6 @@ void ofApp::draw(){
         camera.end();
     }
     
-    if (!isPaused) {
-        
-        ofSetColor(ofColor::gray);
-        ofLine(nearestVertex.x, nearestVertex.y, mouseX, mouseY);
-        
-        ofNoFill();
-        ofSetColor(ofColor::yellow);
-        ofSetLineWidth(2);
-        ofCircle(nearestVertex, 4);
-        ofSetLineWidth(1);
-    }
-    
     if (gui->isVisible()) {
         
         std::string message = ofToString(ofGetFrameRate()) += " fps\n";
@@ -363,6 +376,9 @@ void ofApp::initMeshFaces() {
     
     float xOffset = modelDistance/2;
     
+    meshFaces1MinY = mesh1Vertices[0].y;
+    meshFaces1MaxY = mesh1Vertices[0].y;
+    
     for (int i = 0; i < mesh1Vertices.size(); i++) {
         
         mesh1Normals[i].rotate(90, ofVec3f(0, 1, 0));
@@ -370,11 +386,18 @@ void ofApp::initMeshFaces() {
         mesh1Vertices[i].x += xOffset;
         mesh1Vertices[i].y += modelY;
         
+        meshFaces1MinY = min(mesh1Vertices[i].y, meshFaces1MinY);
+        meshFaces1MaxY = max(mesh1Vertices[i].y, meshFaces1MaxY);
+        
         mesh2Normals[i].rotate(-90, ofVec3f(0, 1, 0));
         mesh2Vertices[i].rotate(-90, centroid, ofVec3f(0, 1, 0));
         mesh2Vertices[i].x -= xOffset;
         mesh2Vertices[i].y += modelY;
     }
+
+//    cout << "The lowest mesh 1 Vertex is: " << meshFaces1MinY << endl;
+//    cout << "The highest mesh 1 Vertex is: " << meshFaces1MaxY << endl;
+//    cout << endl;
     
     model1Faces.clear();
     model2Faces.clear();
@@ -633,14 +656,12 @@ void ofApp::guiEvent(ofxUIEventArgs &e) {
         
         ofxUIIntSlider* slider = (ofxUIIntSlider*) e.getSlider();
         mD1.setNearClip(slider->getScaledValue());
-        cout << "Near clip set to: " << mD1.getNearClip() << endl;
     }
     
     if (e.getName() == "KINECT 1 FAR CLIP") {
         
         ofxUIIntSlider* slider = (ofxUIIntSlider*) e.getSlider();
         mD1.setFarClip(slider->getScaledValue());
-        cout << "Far clip set to: " << mD1.getFarClip() << endl;
     }
     
     if (e.getName() == "KINECT 1 TILT") {
