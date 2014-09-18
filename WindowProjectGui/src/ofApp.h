@@ -26,6 +26,11 @@ public:
     void gotMessage(ofMessage msg);
     void guiEvent(ofxUIEventArgs &e);
     
+    bool dislodge(MotionDetector& mD,
+                  std::vector<ModelFace>& modelFaces,
+                  std::vector<ModelFace>& otherModelFaces,
+                  bool bModel1);
+    
     void initMeshFaces();
     void resetCamera();
     ofVec3f getPointInBoundingBox();
@@ -51,11 +56,14 @@ public:
     bool bDrawDOFFocusAssist;
     bool bMD1UseLiveVideo;
     bool bMD2UseLiveVideo;
+    bool bModel1FacesReturning;
     
     ofVec3f nearestVertex;
     
     std::vector<ModelFace> model1Faces;
     std::vector<ModelFace> model2Faces;
+    std::vector<int> model2FacesDislodgedIds;
+    std::vector<int> model1FacesDislodgedIds;
     
     ofMesh model1Mesh;
     ofMesh model2Mesh;

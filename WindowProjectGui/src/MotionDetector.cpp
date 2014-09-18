@@ -59,7 +59,6 @@ void MotionDetector::update() {
 //                pixelsRef[i] = 0;
 //            }
 //        }
-        
         _displayImage.setFromPixels(pixelsRef);
         
         // take the absolute difference of prev and cam and save it inside diff

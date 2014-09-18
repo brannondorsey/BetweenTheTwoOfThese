@@ -157,6 +157,7 @@ void ofApp::setup(){
     isPaused = false;
     bShowBoundingBox = false;
     bBoundingBoxChanged = false;
+    bModel1FacesReturning = false;
     modelY = 0;
 
     initMeshFaces();
@@ -201,86 +202,48 @@ void ofApp::update(){
             vertCounter += 3;
         }
         
-//        float nearestDistance = 0;
-//        int nearestIndex = 0;
-//        ofVec2f mouse(mouseX, mouseY);
-//        
-//        float model1Dist = camera.worldToScreen(ofVec3f(modelDistance/2, 0, 0)).distance(mouse);
-//        float model2Dist = camera.worldToScreen(ofVec3f(-(modelDistance/2), 0, 0)).distance(mouse);
-//        
-//        std::vector<ModelFace>& modelFaces = (model1Dist < model2Dist) ? model1Faces : model2Faces;
-//        std::vector<ModelFace>& otherModelFaces = (model1Dist > model2Dist) ? model1Faces : model2Faces;
-//        
-//        for (int i = 0; i < model1Faces.size(); i++) {
-//            
-//            ModelFace& modelFace = modelFaces[i];
-//            
-//            ofVec3f cur = camera.worldToScreen(modelFace.getCentroid());
-//            float distance = cur.distance(mouse);
-//            
-//            if (i == 0 || (distance < nearestDistance && !modelFace.isDislodged())) {
-//                nearestDistance = distance;
-//                nearestVertex = cur;
-//                nearestFaceIndex = i;
-//            }
-//        }
+//        bool result = dislodge(mD1, model1Faces, model2Faces, true);
+//        mD1MotionDetectedbutton->setValue(result);
         
-        if(mD1.motionDetected()) {
+        
+        if (ofGetKeyPressed('x')) dislodge(mD1, model1Faces, model2Faces, false);
+        else dislodge(mD1, model2Faces, model1Faces, true);
+        
+        
+        float nearestDistance = 0;
+        int nearestIndex = 0;
+        ofVec2f mouse(mouseX, mouseY);
+        
+        float model1Dist = camera.worldToScreen(ofVec3f(modelDistance/2, 0, 0)).distance(mouse);
+        float model2Dist = camera.worldToScreen(ofVec3f(-(modelDistance/2), 0, 0)).distance(mouse);
+        
+        std::vector<ModelFace>& modelFaces = (model1Dist < model2Dist) ? model1Faces : model2Faces;
+        std::vector<ModelFace>& otherModelFaces = (model1Dist > model2Dist) ? model1Faces : model2Faces;
+        
+        for (int i = 0; i < model1Faces.size(); i++) {
             
-            // find an index that hasn't been dislodged
-            // to start with
-            int faceIndex = -1;
-            for (int i = 0; i < model1Faces.size(); i++) {
-                if (!model1Faces[i].isDislodged()) {
-                    faceIndex = i;
-                    break;
-                }
+            ModelFace& modelFace = modelFaces[i];
+            
+            ofVec3f cur = camera.worldToScreen(modelFace.getCentroid());
+            float distance = cur.distance(mouse);
+            
+            if (i == 0 || (distance < nearestDistance && !modelFace.isDislodged())) {
+                nearestDistance = distance;
+                nearestVertex = cur;
+                nearestFaceIndex = i;
             }
-            
-            if (faceIndex != -1) {
-                
-                float highestY = model1Faces[faceIndex].getPosition().y;
-                
-                for (int i = 0; i < model1Faces.size(); i++) {
-                    
-                    ModelFace& model1Face = model1Faces[i];
-                    
-                    if (!model1Face.isDislodged()) {
-                        
-                        float lastHighestY = highestY;
-                        highestY = max(model1Face.getPosition().y, highestY);
-                        
-                        if (highestY != lastHighestY) {
-                            faceIndex = i;
-                        }
-                    }
-                }
-                
-                ModelFace& modelFace = model1Faces[faceIndex];
-                ModelFace& otherModelFace = model2Faces[faceIndex];
-                
-                modelFace.dislodge();
-                otherModelFace.onPartnerDislodged();
-                modelFace.setWaiting(!otherModelFace.isDislodged());
-            }
-            
-            mD1MotionDetectedbutton->setValue(true);
         }
         
-//        if(ofGetKeyPressed(OF_KEY_SHIFT)) {
-//            
-//            //            ModelFace& modelFace = modelFaces[nearestFaceIndex];
-//            //            ModelFace& otherModelFace = otherModelFaces[nearestFaceIndex];
-//            
-//            int randomIndex = (int) ofRandom(0, model1Faces.size());
-//            cout << "random index: " << randomIndex;
-//            ModelFace& modelFace = modelFaces[randomIndex];
-//            ModelFace& otherModelFace = otherModelFaces[randomIndex];
-//            
-//            modelFace.dislodge();
-//            otherModelFace.onPartnerDislodged();
-//            modelFace.setWaiting(!otherModelFace.isDislodged());
-//        }
+       if(ofGetKeyPressed(OF_KEY_SHIFT)) {
+
+            ModelFace& modelFace = modelFaces[nearestFaceIndex];
+            ModelFace& otherModelFace = otherModelFaces[nearestFaceIndex];
+           
+            int randomIndex = (int) ofRandom(0, model1Faces.size());
+            modelFace.dislodge();
+            otherModelFace.onPartnerDislodged();
+            modelFace.setWaiting(!otherModelFace.isDislodged());
+        }
     }
     
     if (bBoundingBoxChanged) {
@@ -359,6 +322,149 @@ void ofApp::draw(){
         ofSetColor(255);
         ofDrawBitmapString(message,  15, 15);
     }
+}
+
+bool ofApp::dislodge(MotionDetector& mD,
+                     std::vector<ModelFace>& modelFaces,
+                     std::vector<ModelFace>& otherModelFaces,
+                     bool bModel1) {
+    
+//    if (true) {
+    if (mD.motionDetected()) {
+        
+        // find an index that hasn't been dislodged
+        // to start with
+        int faceIndex = -1;
+        bool usingModel1Face = true;
+        
+        for (int i = 0; i < modelFaces.size(); i++) {
+            
+            if (bModel1) {
+                
+                if (!modelFaces[i].isDislodged() && modelFaces[i].getPosition().x > 0) {
+                    
+                    faceIndex = i;
+                    break;
+                }
+                
+                if (!otherModelFaces[i].isDislodged() && otherModelFaces[i].getPosition().x > 0) {
+                    
+                    faceIndex = i;
+                    usingModel1Face = false;
+                    break;
+                }
+
+            } else {
+                
+                if (!modelFaces[i].isDislodged() && modelFaces[i].getPosition().x < 0) {
+                    
+                    faceIndex = i;
+                    break;
+                }
+                
+                if (!otherModelFaces[i].isDislodged() && otherModelFaces[i].getPosition().x < 0) {
+                    
+                    faceIndex = i;
+                    usingModel1Face = false;
+                    break;
+                }
+                
+            }
+            
+        }
+        
+        // loop through all
+    
+        if (faceIndex != -1) {
+            
+            // initial highest y can be from either mesh
+            float highestY = usingModel1Face ? model1Faces[faceIndex].getPosition().y : model2Faces[faceIndex].getPosition().y;
+            
+            for (int i = 0; i < modelFaces.size(); i++) {
+                
+                if (bModel1) {
+                    
+                    if (!modelFaces[i].isDislodged() && modelFaces[i].getPosition().x > 0) {
+                        int maxY = max(modelFaces[i].getPosition().y, highestY);
+                        if (maxY > highestY) {
+                            highestY = maxY;
+                            faceIndex = i;
+                            usingModel1Face = true;
+                        }
+                    }
+                    
+                    if (!otherModelFaces[i].isDislodged() && otherModelFaces[i].getPosition().x > 0) {
+                        int maxY = max(otherModelFaces[i].getPosition().y, highestY);
+                        if (maxY > highestY) {
+                            highestY = maxY;
+                            faceIndex = i;
+                            usingModel1Face = false;
+                        }
+                    }
+                    
+                } else {
+                 
+                    if (!modelFaces[i].isDislodged() && modelFaces[i].getPosition().x < 0) {
+                        int maxY = max(modelFaces[i].getPosition().y, highestY);
+                        if (maxY > highestY) {
+                            highestY = maxY;
+                            faceIndex = i;
+                            usingModel1Face = true;
+                        }
+                    }
+                    
+                    if (!otherModelFaces[i].isDislodged() && otherModelFaces[i].getPosition().x < 0) {
+                        int maxY = max(otherModelFaces[i].getPosition().y, highestY);
+                        if (maxY > highestY) {
+                            highestY = maxY;
+                            faceIndex = i;
+                            usingModel1Face = false;
+                        }
+                    }
+                }
+                
+//            float highestY = usingModel1Face ? model1Faces[faceIndex].getPosition().y : model2Faces[faceIndex].getPosition().y;
+//            
+//            for (int i = 0; i < model1Faces.size(); i++) {
+//                
+//                ModelFace& modelFace = usingModel1Face ? model1Faces[i] : model2Faces[i];
+//                ModelFace& otherModelFace = usingModel1Face ? model2Faces[i] : model1Faces[i];
+//                
+//                if (usingModel1Face && !modelFace.isDislodged()) {
+//                    
+//                    float lastHighestY = highestY;
+//                    highestY = max(modelFace.getPosition().y, highestY);
+//
+//                    if (highestY != lastHighestY) {
+//                        usingModel1Face = true;
+//                        faceIndex = i;
+//                    }
+//                }
+//                
+//                if (!usingModel1Face && !otherModelFace.isDislodged()) {
+//                    
+//                    float lastHighestY = highestY;
+//                    highestY = max(otherModelFace.getPosition().y, highestY);
+//                    
+//                    if (highestY != lastHighestY) {
+//                        usingModel1Face = false;
+//                        faceIndex = i;
+//                    }
+//                }
+            }
+            
+            ModelFace& face = usingModel1Face ? modelFaces[faceIndex] : otherModelFaces[faceIndex];
+            ModelFace& correspondingFace = usingModel1Face ? otherModelFaces[faceIndex] : modelFaces[faceIndex];
+        
+            face.dislodge();
+            correspondingFace.onPartnerDislodged();
+            face.setWaiting(!correspondingFace.isDislodged());
+        }
+        
+        return true;
+    }
+    
+    return false;
 }
 
 void ofApp::initMeshFaces() {

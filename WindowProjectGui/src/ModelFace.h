@@ -36,6 +36,7 @@ public:
     void setRotationSpeed(float speed);
     
     bool isDislodged() const;
+    bool isReturning() const;
     
     ofVec3f getCentroid() const;
     std::vector<ofVec3f>& getVertices();

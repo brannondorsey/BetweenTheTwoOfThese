@@ -46,7 +46,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>CAMERA ASPECT RATIO</Name>
-    <Value>2.400000095</Value>
+    <Value>1.600000024</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -61,12 +61,12 @@
 <Widget>
     <Kind>4</Kind>
     <Name>CAMERA DISTANCE</Name>
-    <Value>1348.768432617</Value>
+    <Value>561.083740234</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>CAMERA X ORBIT</Name>
-    <Value>173.793106079</Value>
+    <Value>113.497535706</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -76,7 +76,7 @@
 <Widget>
     <Kind>2</Kind>
     <Name>ENABLE DOF</Name>
-    <Value>0</Value>
+    <Value>1</Value>
 </Widget>
 <Widget>
     <Kind>2</Kind>
@@ -86,12 +86,12 @@
 <Widget>
     <Kind>4</Kind>
     <Name>DOF FOCAL DISTANCE</Name>
-    <Value>1280.788208008</Value>
+    <Value>886.699462891</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>DOF FOCAL RANGE</Name>
-    <Value>295.566497803</Value>
+    <Value>374.384216309</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -116,8 +116,8 @@
 <Widget>
     <Kind>6</Kind>
     <Name>SPEED</Name>
-    <HighValue>1.472905517</HighValue>
-    <LowValue>0.333990246</LowValue>
+    <HighValue>5.827584743</HighValue>
+    <LowValue>4.688670158</LowValue>
 </Widget>
 <Widget>
     <Kind>6</Kind>

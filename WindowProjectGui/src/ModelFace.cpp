@@ -240,6 +240,11 @@ bool ModelFace::isDislodged() const {
     return _isDislodged;
 }
 
+bool ModelFace::isReturning() const {
+
+    return _isReturning;
+}
+
 ofVec3f ModelFace::getCentroid() const {
     
     return ofNode::getPosition();
