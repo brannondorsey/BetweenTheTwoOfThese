@@ -55,6 +55,57 @@ void ofApp::setup(){
     gui->addSpacer();
     gui->addButton("RESET", false);
     
+    gui->addSpacer();
+    gui->addLabel("CAMERA");
+    gui->addButton("RESET CAMERA", false);
+    gui->addButton("RESET ASPECT TO WINDOW", false);
+    gui->addSpacer();
+    gui->addSlider("CAMERA FOV", 0.0, 180.0, camera.getFov());
+    gui->addSlider("CAMERA ASPECT RATIO", 0.0, 15.0, camera.getAspectRatio());
+    gui->addSlider("CAMERA NEAR CLIP", 0.0, 1000.0, camera.getNearClip());
+    gui->addSlider("CAMERA FAR CLIP", 0.0, 5000.0, camera.getFarClip());
+    gui->addSpacer();
+    gui->addSlider("CAMERA DISTANCE", 100, 4000, 1800);
+    gui->addSlider("CAMERA X ORBIT", 0, 360, 0.0);
+    gui->addSlider("CAMERA Y ORBIT", -90, 90, 0.0);
+    
+    gui->addSpacer();
+    gui->addLabel("DOF");
+    gui->addToggle("ENABLE DOF", &bDOFEnabled);
+    gui->addToggle("DOF FOCUS ASSISTANCE", &bDrawDOFFocusAssist);
+    gui->addSpacer();
+    gui->addSlider("DOF FOCAL DISTANCE", 0, 10000, cameraDistance);
+    gui->addSlider("DOF FOCAL RANGE", 0, 2000, 50);
+    gui->addSlider("DOF BLUR AMOUNT", 0, 3, 1);
+    
+    gui->addSpacer();
+    gui->addLabel("MODELS");
+    gui->addSlider("MODEL DISTANCE", 0, maxModelDistance, modelDistance);
+    gui->addIntSlider("MODELS Y", -100.0, 100.0, 0.0);
+    
+    gui->addSpacer();
+    gui->addLabel("MATERIAL");
+    gui->addSlider("MATERIAL SHINYNESS", 0, maxModelDistance, modelDistance);
+    
+    gui->addSpacer();
+    gui->addLabel("PARTICLES");
+    gui->addRangeSlider("SPEED", 0.2, 7, 1.5, 2.5);
+    gui->addRangeSlider("ROTATION SPEED", 0.0, 3.0, 0.5, 1.5);
+    
+    gui->addSpacer();
+    gui->addLabel("BOUNDING BOX");
+    gui->addToggle("DRAW BOX", &bShowBoundingBox);
+    gui->addSpacer();
+    gui->addSlider("BOX WIDTH", 1.0, maxModelDistance, modelDistance - 200.0);
+    gui->addSlider("BOX HEIGHT", 1.0, 1000.0, 300);
+    gui->addSlider("BOX DEPTH", 1.0, 4000.0, 200.0);
+    gui->addSpacer();
+    gui->addSlider("BOX X", - modelDistance/2, modelDistance/2, 0.0);
+    gui->addSlider("BOX Y", - modelDistance/2, modelDistance/2, 100.0);
+    gui->addSlider("BOX Z", - modelDistance/2, modelDistance/2, -155.0);
+    gui->addSpacer();
+    gui->addButton("CENTER BOX", false);
+    
     ofImage& mD1Image = mD1.getImage();
     float imageWidth = (gui->getGlobalCanvasWidth() - gui->getPadding()*7.0);
     float scale = mD1Image.getWidth() / imageWidth;
@@ -88,57 +139,6 @@ void ofApp::setup(){
     gui->addIntSlider("KINECT 2 NEAR CLIP", 0, 255, mD2.getNearClip());
     gui->addIntSlider("KINECT 2 FAR CLIP", 0, 255, mD2.getNearClip());
     gui->addIntSlider("KINECT 2 TILT", -30, 30, mD2.getTiltAngle());
-    
-    gui->addSpacer();
-    gui->addLabel("CAMERA");
-    gui->addButton("RESET CAMERA", false);
-    gui->addButton("RESET ASPECT TO WINDOW", false);
-    gui->addSpacer();
-    gui->addSlider("CAMERA FOV", 0.0, 180.0, camera.getFov());
-    gui->addSlider("CAMERA ASPECT RATIO", 0.0, 15.0, camera.getAspectRatio());
-    gui->addSlider("CAMERA NEAR CLIP", 0.0, 1000.0, camera.getNearClip());
-    gui->addSlider("CAMERA FAR CLIP", 0.0, 5000.0, camera.getFarClip());
-    gui->addSpacer();
-    gui->addSlider("CAMERA DISTANCE", 100, 4000, 1800);
-    gui->addSlider("CAMERA X ORBIT", 0, 360, 0.0);
-    gui->addSlider("CAMERA Y ORBIT", -90, 90, 0.0);
-    
-    gui->addSpacer();
-    gui->addLabel("DOF");
-    gui->addToggle("ENABLE DOF", &bDOFEnabled);
-    gui->addToggle("DOF FOCUS ASSISTANCE", &bDrawDOFFocusAssist);
-    gui->addSpacer();
-    gui->addSlider("DOF FOCAL DISTANCE", 0, 10000, cameraDistance);
-    gui->addSlider("DOF FOCAL RANGE", 0, 2000, 50);
-    gui->addSlider("DOF BLUR AMOUNT", 0, 3, 1);
-    
-    gui->addSpacer();
-    gui->addLabel("MODEL");
-    gui->addSlider("MODEL DISTANCE", 0, maxModelDistance, modelDistance);
-    gui->addIntSlider("MODEL Y", -100.0, 100.0, 0.0);
-    
-    gui->addSpacer();
-    gui->addLabel("MATERIAL");
-    gui->addSlider("MATERIAL SHINYNESS", 0, maxModelDistance, modelDistance);
-    
-    gui->addSpacer();
-    gui->addLabel("PARTICLES");
-    gui->addRangeSlider("SPEED", 0.2, 7, 1.5, 2.5);
-    gui->addRangeSlider("ROTATION SPEED", 0.0, 3.0, 0.5, 1.5);
-    
-    gui->addSpacer();
-    gui->addLabel("BOUNDING BOX");
-    gui->addToggle("DRAW BOX", &bShowBoundingBox);
-    gui->addSpacer();
-    gui->addSlider("BOX WIDTH", 1.0, maxModelDistance, modelDistance - 200.0);
-    gui->addSlider("BOX HEIGHT", 1.0, 1000.0, 300);
-    gui->addSlider("BOX DEPTH", 1.0, 4000.0, 200.0);
-    gui->addSpacer();
-    gui->addSlider("BOX X", - modelDistance/2, modelDistance/2, 0.0);
-    gui->addSlider("BOX Y", - modelDistance/2, modelDistance/2, 100.0);
-    gui->addSlider("BOX Z", - modelDistance/2, modelDistance/2, -155.0);
-    gui->addSpacer();
-    gui->addButton("CENTER BOX", false);
     
     gui->autoSizeToFitWidgets();
     gui->setPosition(ofGetWidth() - gui->getRect()->getWidth(), 0);
@@ -238,41 +238,6 @@ void ofApp::update(){
         
         result = dislodge(mD2, model2Faces, model1Faces, false);
         mD2MotionDetectedbutton->setValue(result);
-    
-//        float nearestDistance = 0;
-//        int nearestIndex = 0;
-//        ofVec2f mouse(mouseX, mouseY);
-//        
-//        float model1Dist = camera.worldToScreen(ofVec3f(modelDistance/2, 0, 0)).distance(mouse);
-//        float model2Dist = camera.worldToScreen(ofVec3f(-(modelDistance/2), 0, 0)).distance(mouse);
-//        
-//        std::vector<ModelFace>& modelFaces = (model1Dist < model2Dist) ? model1Faces : model2Faces;
-//        std::vector<ModelFace>& otherModelFaces = (model1Dist > model2Dist) ? model1Faces : model2Faces;
-//        
-//        for (int i = 0; i < model1Faces.size(); i++) {
-//            
-//            ModelFace& modelFace = modelFaces[i];
-//            
-//            ofVec3f cur = camera.worldToScreen(modelFace.getCentroid());
-//            float distance = cur.distance(mouse);
-//            
-//            if (i == 0 || (distance < nearestDistance && !modelFace.isDislodged())) {
-//                nearestDistance = distance;
-//                nearestVertex = cur;
-//                nearestFaceIndex = i;
-//            }
-//        }
-//        
-//       if(ofGetKeyPressed(OF_KEY_SHIFT)) {
-//
-//            ModelFace& modelFace = modelFaces[nearestFaceIndex];
-//            ModelFace& otherModelFace = otherModelFaces[nearestFaceIndex];
-//           
-//            int randomIndex = (int) ofRandom(0, model1Faces.size());
-//            modelFace.dislodge();
-//            otherModelFace.onPartnerDislodged();
-//            modelFace.setWaiting(!otherModelFace.isDislodged());
-//        }
     }
     
     if (bBoundingBoxChanged) {
@@ -546,7 +511,7 @@ void ofApp::guiEvent(ofxUIEventArgs &e) {
         initMeshFaces();
     }
     
-    if (e.getName() == "MODEL Y") {
+    if (e.getName() == "MODELS Y") {
         
         ofxUIIntSlider* slider = (ofxUIIntSlider *) e.getSlider();
         modelY = slider->getValue();
