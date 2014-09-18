@@ -16,12 +16,12 @@
 <Widget>
     <Kind>4</Kind>
     <Name>KINECT 1 THRESHOLD</Name>
-    <Value>0.009359606</Value>
+    <Value>0.006896552</Value>
 </Widget>
 <Widget>
     <Kind>42</Kind>
     <Name>KINECT 1 INTERVAL</Name>
-    <Value>0</Value>
+    <Value>103</Value>
 </Widget>
 <Widget>
     <Kind>42</Kind>
@@ -36,6 +36,46 @@
 <Widget>
     <Kind>42</Kind>
     <Name>KINECT 1 TILT</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>KINECT 2 ENABLED</Name>
+    <Value>1</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>KINECT 2 LIVE VIDEO</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>KINECT 2 FRAME DIFF</Name>
+    <Value>0.010531135</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>KINECT 2 THRESHOLD</Name>
+    <Value>0.006403941</Value>
+</Widget>
+<Widget>
+    <Kind>42</Kind>
+    <Name>KINECT 2 INTERVAL</Name>
+    <Value>100</Value>
+</Widget>
+<Widget>
+    <Kind>42</Kind>
+    <Name>KINECT 2 NEAR CLIP</Name>
+    <Value>70</Value>
+</Widget>
+<Widget>
+    <Kind>42</Kind>
+    <Name>KINECT 2 FAR CLIP</Name>
+    <Value>70</Value>
+</Widget>
+<Widget>
+    <Kind>42</Kind>
+    <Name>KINECT 2 TILT</Name>
     <Value>0</Value>
 </Widget>
 <Widget>
@@ -61,12 +101,12 @@
 <Widget>
     <Kind>4</Kind>
     <Name>CAMERA DISTANCE</Name>
-    <Value>561.083740234</Value>
+    <Value>2001.970458984</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>CAMERA X ORBIT</Name>
-    <Value>113.497535706</Value>
+    <Value>179.113311768</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -76,7 +116,7 @@
 <Widget>
     <Kind>2</Kind>
     <Name>ENABLE DOF</Name>
-    <Value>1</Value>
+    <Value>0</Value>
 </Widget>
 <Widget>
     <Kind>2</Kind>

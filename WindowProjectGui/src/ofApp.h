@@ -46,8 +46,6 @@ public:
     float cameraXOrbit;
     float cameraYOrbit;
     float modelY;
-    float meshFaces1MinY;
-    float meshFaces1MaxY;
     
     bool isPaused;
     bool bShowBoundingBox;
@@ -62,8 +60,6 @@ public:
     
     std::vector<ModelFace> model1Faces;
     std::vector<ModelFace> model2Faces;
-    std::vector<int> model2FacesDislodgedIds;
-    std::vector<int> model1FacesDislodgedIds;
     
     ofMesh model1Mesh;
     ofMesh model2Mesh;

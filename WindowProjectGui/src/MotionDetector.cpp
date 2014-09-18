@@ -30,6 +30,7 @@ void MotionDetector::setup(int deviceId) {
     _kinect.open(deviceId);
     
     _video.loadMovie(ofToDataPath("kinect_recording.mov"));
+    _video.setPosition(ofRandom(1));
     _video.setLoopState(OF_LOOP_NORMAL);
     
     _displayImage.allocate(_kinect.getWidth(), _kinect.getHeight(), OF_IMAGE_GRAYSCALE);
