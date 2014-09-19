@@ -7,8 +7,7 @@ void ofApp::setup(){
     ofSetVerticalSync(true);
     ofSetWindowShape(1200, 500);
     ofEnableAntiAliasing();
-    // ofSetWindowShape(768 * 2, 72 * 2); // real aspect ratio
-    // ofSetWindowShape(7680 * 2, 720 * 2); // real aspect ratio
+    // ofSetWindowShape(1280 * 6, 720); // real aspect ratio
     ofBackground(0);
     
     // lights
@@ -65,7 +64,7 @@ void ofApp::setup(){
     gui->addSlider("CAMERA NEAR CLIP", 0.0, 1000.0, camera.getNearClip());
     gui->addSlider("CAMERA FAR CLIP", 0.0, 5000.0, camera.getFarClip());
     gui->addSpacer();
-    gui->addSlider("CAMERA DISTANCE", 100, 4000, 1800);
+    gui->addSlider("CAMERA DISTANCE", 100, 6000, 1800);
     gui->addSlider("CAMERA X ORBIT", 0, 360, 0.0);
     gui->addSlider("CAMERA Y ORBIT", -90, 90, 0.0);
     
@@ -74,14 +73,14 @@ void ofApp::setup(){
     gui->addToggle("ENABLE DOF", &bDOFEnabled);
     gui->addToggle("DOF FOCUS ASSISTANCE", &bDrawDOFFocusAssist);
     gui->addSpacer();
-    gui->addSlider("DOF FOCAL DISTANCE", 0, 10000, cameraDistance);
-    gui->addSlider("DOF FOCAL RANGE", 0, 2000, 50);
+    gui->addSlider("DOF FOCAL DISTANCE", 0, 1000, cameraDistance);
+    gui->addSlider("DOF FOCAL RANGE", 0, 200, 50);
     gui->addSlider("DOF BLUR AMOUNT", 0, 3, 1);
     
     gui->addSpacer();
     gui->addLabel("MODELS");
     gui->addSlider("MODEL DISTANCE", 0, maxModelDistance, modelDistance);
-    gui->addIntSlider("MODELS Y", -100.0, 100.0, 0.0);
+    gui->addIntSlider("MODELS Y", -150.0, 150.0, 0.0);
     
     gui->addSpacer();
     gui->addLabel("MATERIAL");
@@ -101,7 +100,7 @@ void ofApp::setup(){
     gui->addSlider("BOX DEPTH", 1.0, 4000.0, 200.0);
     gui->addSpacer();
     gui->addSlider("BOX X", - modelDistance/2, modelDistance/2, 0.0);
-    gui->addSlider("BOX Y", - modelDistance/2, modelDistance/2, 100.0);
+    gui->addSlider("BOX Y", - 800, 800, 100.0);
     gui->addSlider("BOX Z", - modelDistance/2, modelDistance/2, -155.0);
     gui->addSpacer();
     gui->addButton("CENTER BOX", false);
@@ -178,7 +177,6 @@ void ofApp::setup(){
     isPaused = false;
     bShowBoundingBox = false;
     bBoundingBoxChanged = false;
-    bModel1FacesReturning = false;
     modelY = 0;
 
     initMeshFaces();
@@ -233,10 +231,10 @@ void ofApp::update(){
             vertCounter += 3;
         }
         
-        bool result = dislodge(mD1, model1Faces, model2Faces, true);
+        bool result = dislodge(mD1, model1Faces, model2Faces, true, true);
         mD1MotionDetectedbutton->setValue(result);
         
-        result = dislodge(mD2, model2Faces, model1Faces, false);
+        result = dislodge(mD2, model2Faces, model1Faces, false, false);
         mD2MotionDetectedbutton->setValue(result);
     }
     
@@ -321,6 +319,7 @@ void ofApp::draw(){
 bool ofApp::dislodge(MotionDetector& mD,
                      std::vector<ModelFace>& modelFaces,
                      std::vector<ModelFace>& otherModelFaces,
+                     bool bRemoveFromTop,
                      bool bModel1) {
     
     if (mD.motionDetected()) {
@@ -352,16 +351,17 @@ bool ofApp::dislodge(MotionDetector& mD,
         if (faceIndex != -1) {
             
             // initial highest y can be from either mesh
-            float highestY = usingModel1Face ? model1Faces[faceIndex].getPosition().y : model2Faces[faceIndex].getPosition().y;
+            float y = usingModel1Face ? model1Faces[faceIndex].getPosition().y : model2Faces[faceIndex].getPosition().y;
             
             // look for
             for (int i = 0; i < modelFaces.size(); i++) {
             
                 if ((bModel1 && (!modelFaces[i].isDislodged() && modelFaces[i].getPosition().x > 0)) ||
                     (!bModel1 && (!modelFaces[i].isDislodged() && modelFaces[i].getPosition().x < 0))) {
-                    int maxY = max(modelFaces[i].getPosition().y, highestY);
-                    if (maxY > highestY) {
-                        highestY = maxY;
+                    int curY = bRemoveFromTop ? max(modelFaces[i].getPosition().y, y) : min(modelFaces[i].getPosition().y, y);
+                    if ((bRemoveFromTop && curY > y) ||
+                        (!bRemoveFromTop && curY < y)) {
+                        y = curY;
                         faceIndex = i;
                         usingModel1Face = true;
                     }
@@ -369,9 +369,10 @@ bool ofApp::dislodge(MotionDetector& mD,
                 
                 if ((bModel1 && (!otherModelFaces[i].isDislodged() && otherModelFaces[i].getPosition().x > 0)) ||
                     (!bModel1 && (!otherModelFaces[i].isDislodged() && otherModelFaces[i].getPosition().x < 0))) {
-                    int maxY = max(otherModelFaces[i].getPosition().y, highestY);
-                    if (maxY > highestY) {
-                        highestY = maxY;
+                    int curY = bRemoveFromTop ? max(modelFaces[i].getPosition().y, y) : min(modelFaces[i].getPosition().y, y);
+                    if ((bRemoveFromTop && curY > y) ||
+                        (!bRemoveFromTop && curY < y)) {
+                        y = curY;
                         faceIndex = i;
                         usingModel1Face = false;
                     }
@@ -639,7 +640,7 @@ void ofApp::guiEvent(ofxUIEventArgs &e) {
         
         float min = slider->getValueLow();
         float max = slider->getValueHigh();
-        
+        cout << "speed set" << endl;
         for (int i = 0; i < model1Faces.size(); i++) {
             model1Faces[i].setSpeed(min, max);
             model2Faces[i].setSpeed(min, max);

@@ -29,6 +29,7 @@ public:
     bool dislodge(MotionDetector& mD,
                   std::vector<ModelFace>& modelFaces,
                   std::vector<ModelFace>& otherModelFaces,
+                  bool bRemoveFromTop,
                   bool bModel1);
     
     void initMeshFaces();
@@ -54,7 +55,6 @@ public:
     bool bDrawDOFFocusAssist;
     bool bMD1UseLiveVideo;
     bool bMD2UseLiveVideo;
-    bool bModel1FacesReturning;
     
     ofVec3f nearestVertex;
     
