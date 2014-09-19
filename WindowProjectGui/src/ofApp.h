@@ -32,6 +32,8 @@ public:
                   bool bRemoveFromTop,
                   bool bModel1);
     
+    bool noFacesDislodged();
+    
     void initMeshFaces();
     void resetCamera();
     ofVec3f getPointInBoundingBox();
@@ -55,6 +57,8 @@ public:
     bool bDrawDOFFocusAssist;
     bool bMD1UseLiveVideo;
     bool bMD2UseLiveVideo;
+    bool bAllFacesDislodged1;
+    bool bAllFacesDislodged2;
     
     ofVec3f nearestVertex;
     

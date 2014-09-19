@@ -88,7 +88,7 @@ void ofApp::setup(){
     
     gui->addSpacer();
     gui->addLabel("PARTICLES");
-    gui->addRangeSlider("SPEED", 0.2, 7, 1.5, 2.5);
+    gui->addRangeSlider("SPEED", 0.0, 7, 1.5, 2.5);
     gui->addRangeSlider("ROTATION SPEED", 0.0, 3.0, 0.5, 1.5);
     
     gui->addSpacer();
@@ -177,6 +177,8 @@ void ofApp::setup(){
     isPaused = false;
     bShowBoundingBox = false;
     bBoundingBoxChanged = false;
+    bAllFacesDislodged1 = false;
+    bAllFacesDislodged2 = false;
     modelY = 0;
 
     initMeshFaces();
@@ -231,11 +233,21 @@ void ofApp::update(){
             vertCounter += 3;
         }
         
-        bool result = dislodge(mD1, model1Faces, model2Faces, true, true);
-        mD1MotionDetectedbutton->setValue(result);
+        // if not all faces had been detached
+        if (!bAllFacesDislodged1 && !bAllFacesDislodged2) {
+            
+            bool result = dislodge(mD1, model1Faces, model2Faces, true, true);
+            mD1MotionDetectedbutton->setValue(result);
+            
+            result = dislodge(mD2, model2Faces, model1Faces, false, false);
+            mD2MotionDetectedbutton->setValue(result);
+
+        } // check if they are still detatched
+        else if (noFacesDislodged()){
+            bAllFacesDislodged1 = false;
+            bAllFacesDislodged2 = false;
+        }
         
-        result = dislodge(mD2, model2Faces, model1Faces, false, false);
-        mD2MotionDetectedbutton->setValue(result);
     }
     
     if (bBoundingBoxChanged) {
@@ -322,7 +334,8 @@ bool ofApp::dislodge(MotionDetector& mD,
                      bool bRemoveFromTop,
                      bool bModel1) {
     
-    if (mD.motionDetected()) {
+    if ((bModel1 && bAllFacesDislodged1) || (!bModel1 && bAllFacesDislodged2)) return false;
+    else if (mD.motionDetected()) {
         
         int faceIndex = -1;
         bool usingModel1Face = true; // not the first mesh necessarily, just the first one passed into this function
@@ -386,12 +399,25 @@ bool ofApp::dislodge(MotionDetector& mD,
             face.dislodge();
             correspondingFace.onPartnerDislodged();
             face.setWaiting(!correspondingFace.isDislodged());
-        }
+            
+            return true;
         
-        return true;
+        } else {
+            if (bModel1) bAllFacesDislodged1 = true;
+            else bAllFacesDislodged2 = true;
+        }
     }
     
     return false;
+}
+
+bool ofApp::noFacesDislodged() {
+    
+    for (int i = 0; i < model1Faces.size(); i++) {
+        if (model1Faces[i].isDislodged() || model2Faces[i].isDislodged()) return false;
+    }
+    
+    return true;
 }
 
 void ofApp::initMeshFaces() {
@@ -461,6 +487,18 @@ void ofApp::initMeshFaces() {
         model2Mesh.addNormal(model2FaceNorms[1]);
         model2Mesh.addVertex(model2FaceVerts[2]);
         model2Mesh.addNormal(model2FaceNorms[2]);
+    }
+    
+    for (int i = 0; i < model1Faces.size(); i++) {
+        
+        model1Faces[i].dislodge();
+        model2Faces[i].onPartnerDislodged();
+        model1Faces[i].setWaiting(!model2Faces[i].isDislodged());
+        
+        model2Faces[i].dislodge();
+        model1Faces[i].onPartnerDislodged();
+        model2Faces[i].setWaiting(!model1Faces[i].isDislodged());
+
     }
 }
 
