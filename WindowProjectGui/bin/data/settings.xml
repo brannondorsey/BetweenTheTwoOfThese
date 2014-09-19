@@ -61,12 +61,12 @@
 <Widget>
     <Kind>4</Kind>
     <Name>MODEL DISTANCE</Name>
-    <Value>7389.162597656</Value>
+    <Value>6748.768554688</Value>
 </Widget>
 <Widget>
     <Kind>42</Kind>
     <Name>MODELS Y</Name>
-    <Value>-69</Value>
+    <Value>-5</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -77,7 +77,7 @@
     <Kind>6</Kind>
     <Name>SPEED</Name>
     <HighValue>7.000000000</HighValue>
-    <LowValue>6.862068653</LowValue>
+    <LowValue>6.137931347</LowValue>
 </Widget>
 <Widget>
     <Kind>6</Kind>
@@ -93,7 +93,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>BOX WIDTH</Name>
-    <Value>7389.000000000</Value>
+    <Value>6748.000000000</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -133,7 +133,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>KINECT 1 FRAME DIFF</Name>
-    <Value>0.000009446</Value>
+    <Value>0.000000000</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -173,7 +173,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>KINECT 2 FRAME DIFF</Name>
-    <Value>0.000285488</Value>
+    <Value>0.020782577</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>

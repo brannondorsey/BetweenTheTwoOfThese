@@ -234,8 +234,16 @@ void ofApp::update(){
         }
         
         // if not all faces had been detached
-        if (!bAllFacesDislodged1 && !bAllFacesDislodged2) {
+        if (bAllFacesDislodged1 && bAllFacesDislodged2) {
             
+            if(noFacesDislodged()){
+                bAllFacesDislodged1 = false;
+                bAllFacesDislodged2 = false;
+            }
+            
+        } else {
+            
+            // order matters with these two dislodge calls
             bool result = dislodge(mD1, model1Faces, model2Faces, true, true);
             mD1MotionDetectedbutton->setValue(result);
             
@@ -243,11 +251,6 @@ void ofApp::update(){
             mD2MotionDetectedbutton->setValue(result);
 
         } // check if they are still detatched
-        else if (noFacesDislodged()){
-            bAllFacesDislodged1 = false;
-            bAllFacesDislodged2 = false;
-        }
-        
     }
     
     if (bBoundingBoxChanged) {
@@ -382,7 +385,7 @@ bool ofApp::dislodge(MotionDetector& mD,
                 
                 if ((bModel1 && (!otherModelFaces[i].isDislodged() && otherModelFaces[i].getPosition().x > 0)) ||
                     (!bModel1 && (!otherModelFaces[i].isDislodged() && otherModelFaces[i].getPosition().x < 0))) {
-                    int curY = bRemoveFromTop ? max(modelFaces[i].getPosition().y, y) : min(modelFaces[i].getPosition().y, y);
+                    int curY = bRemoveFromTop ? max(otherModelFaces[i].getPosition().y, y) : min(otherModelFaces[i].getPosition().y, y);
                     if ((bRemoveFromTop && curY > y) ||
                         (!bRemoveFromTop && curY < y)) {
                         y = curY;
@@ -488,18 +491,7 @@ void ofApp::initMeshFaces() {
         model2Mesh.addVertex(model2FaceVerts[2]);
         model2Mesh.addNormal(model2FaceNorms[2]);
     }
-    
-    for (int i = 0; i < model1Faces.size(); i++) {
-        
-        model1Faces[i].dislodge();
-        model2Faces[i].onPartnerDislodged();
-        model1Faces[i].setWaiting(!model2Faces[i].isDislodged());
-        
-        model2Faces[i].dislodge();
-        model1Faces[i].onPartnerDislodged();
-        model2Faces[i].setWaiting(!model1Faces[i].isDislodged());
 
-    }
 }
 
 void ofApp::resetCamera() {
@@ -678,7 +670,7 @@ void ofApp::guiEvent(ofxUIEventArgs &e) {
         
         float min = slider->getValueLow();
         float max = slider->getValueHigh();
-        cout << "speed set" << endl;
+
         for (int i = 0; i < model1Faces.size(); i++) {
             model1Faces[i].setSpeed(min, max);
             model2Faces[i].setSpeed(min, max);
@@ -775,6 +767,18 @@ void ofApp::keyPressed(int key){
         initMeshFaces();
     } else if (key == 'h') {
         gui->toggleVisible();
+    } else if (key == 'x') {
+        for (int i = 0; i < model1Faces.size(); i++) {
+            
+            model1Faces[i].dislodge();
+            model2Faces[i].onPartnerDislodged();
+            model1Faces[i].setWaiting(!model2Faces[i].isDislodged());
+            
+            model2Faces[i].dislodge();
+            model1Faces[i].onPartnerDislodged();
+            model2Faces[i].setWaiting(!model1Faces[i].isDislodged());
+            
+        }
     }
 }
 
