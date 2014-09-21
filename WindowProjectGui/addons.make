@@ -3,3 +3,4 @@ ofxUI
 ofxXmlSettings
 ofxKinect
 ofxCv
+ofxDOF
