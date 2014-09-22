@@ -697,8 +697,8 @@ void ofApp::guiEvent(ofxUIEventArgs &e) {
         float max = slider->getValueHigh();
 
         for (int i = 0; i < model1Faces.size(); i++) {
-            model1Faces[i].setSpeed(max);
-            model2Faces[i].setSpeed(max);
+            model1Faces[i].setSpeed(min, max);
+            model2Faces[i].setSpeed(min, max);
         }
     }
     
