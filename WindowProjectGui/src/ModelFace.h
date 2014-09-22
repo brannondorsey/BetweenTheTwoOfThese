@@ -27,8 +27,7 @@ public:
     void applyForce(const ofVec3f& force);
     void setTarget(const ofVec3f& position, const ofVec3f& rotation);
     void dislodge();
-    void onPartnerDislodged(const ModelFace& partner);
-    void setWaiting(bool wait);
+    void settle(); // opposite of dislodge
     void setWaitPosition(const ofVec3f& position);
     void setSpeed(float min, float max);
     void setSpeed(float speed);

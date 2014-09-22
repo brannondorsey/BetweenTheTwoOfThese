@@ -32,7 +32,7 @@ public:
                   bool bRemoveFromTop,
                   bool bModel1);
     
-    bool noFacesDislodged();
+    bool allFacesSettled();
     
     void initMeshFaces();
     void resetCamera();
@@ -59,6 +59,7 @@ public:
     bool bMD2UseLiveVideo;
     bool bAllFacesDislodged1;
     bool bAllFacesDislodged2;
+    bool bFacesWaiting;
     
     ofVec3f nearestVertex;
     

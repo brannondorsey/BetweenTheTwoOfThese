@@ -202,21 +202,15 @@ void ModelFace::dislodge() {
     _isDislodged = true;
     _currentTargetPosition = _isReturning ? _startPosition : _targetPosition;
     _currentTargetRotation = _isReturning ? _startRotation : _targetRotation;
+    _isWaiting = true;
+    _currentTargetPosition = _waitPosition;
 }
 
-void ModelFace::onPartnerDislodged(const ModelFace& partner) {
+void ModelFace::settle() {
     
     _isWaiting = false;
-    _isReturning = partner.isReturning();
     _currentTargetPosition = _isReturning ? _startPosition : _targetPosition;
     _currentTargetRotation = _isReturning ? _startRotation : _targetRotation;
-}
-
-void ModelFace::setWaiting(bool wait) {
-    
-    _isWaiting = wait;
-    if (_isWaiting) _currentTargetPosition = _waitPosition;
-    else _currentTargetPosition = _isReturning ? _startPosition : _targetPosition;
 }
 
 void ModelFace::setWaitPosition(const ofVec3f& position) {

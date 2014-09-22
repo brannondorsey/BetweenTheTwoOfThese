@@ -178,6 +178,7 @@ void ofApp::setup(){
     bBoundingBoxChanged = false;
     bAllFacesDislodged1 = false;
     bAllFacesDislodged2 = false;
+    bFacesWaiting = true;
     modelY = 0;
 
     initMeshFaces();
@@ -234,12 +235,36 @@ void ofApp::update(){
         
         // if not all faces had been detached
         if (bAllFacesDislodged1 && bAllFacesDislodged2) {
-            cout << "all faces dislodged" << endl;
             
-            if(noFacesDislodged()){
-                cout << "all faces have landed" << endl;
+            if (bFacesWaiting) {
+                
+                for (int i = 0; i < model1Faces.size(); i++) {
+                    model1Faces[i].settle();
+                    model2Faces[i].settle();
+                }
+                
+                bFacesWaiting = false;
+            }
+            
+            if(allFacesSettled()){
+                
                 bAllFacesDislodged1 = false;
                 bAllFacesDislodged2 = false;
+                
+                for (int i = 0; i < model1Faces.size(); i++) {
+                    
+                    ModelFace& model1Face = model1Faces[i];
+                    ModelFace& model2Face = model2Faces[i];
+                    
+                    if (!model1Face.isDislodged()) {
+                        model1Face.setWaitPosition(getPointInBoundingBox());
+                    }
+                    
+                    if (!model2Face.isDislodged()) {
+                        model2Face.setWaitPosition(getPointInBoundingBox());
+                    }
+                }
+
             }
             
         } else {
@@ -250,6 +275,8 @@ void ofApp::update(){
             
             result = dislodge(mD2, model2Faces, model1Faces, false, false);
             mD2MotionDetectedbutton->setValue(result);
+            
+            bFacesWaiting = true;
 
         }
     }
@@ -398,12 +425,7 @@ bool ofApp::dislodge(MotionDetector& mD,
             }
             
             ModelFace& face = usingModel1Face ? modelFaces[faceIndex] : otherModelFaces[faceIndex];
-            ModelFace& correspondingFace = usingModel1Face ? otherModelFaces[faceIndex] : modelFaces[faceIndex];
-        
             face.dislodge();
-            correspondingFace.onPartnerDislodged(face);
-            bool shouldWait = (!correspondingFace.isDislodged() && face.isReturning() == correspondingFace.isReturning());
-            face.setWaiting(shouldWait);
             
             return true;
         
@@ -417,7 +439,7 @@ bool ofApp::dislodge(MotionDetector& mD,
     return false;
 }
 
-bool ofApp::noFacesDislodged() {
+bool ofApp::allFacesSettled() {
     
     for (int i = 0; i < model1Faces.size(); i++) {
         if (model1Faces[i].isDislodged() || model2Faces[i].isDislodged()) return false;
@@ -774,13 +796,10 @@ void ofApp::keyPressed(int key){
         for (int i = 0; i < model1Faces.size(); i++) {
             
             model1Faces[i].dislodge();
-            model2Faces[i].onPartnerDislodged(model1Faces[i]);
-            model1Faces[i].setWaiting(!model2Faces[i].isDislodged());
+            model2Faces[i].settle();
             
             model2Faces[i].dislodge();
-            model1Faces[i].onPartnerDislodged(model2Faces[i]);
-            model2Faces[i].setWaiting(!model1Faces[i].isDislodged());
-            
+            model1Faces[i].settle();
         }
     }
 }

@@ -46,7 +46,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>DOF FOCAL DISTANCE</Name>
-    <Value>433.497558594</Value>
+    <Value>206.896560669</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -66,7 +66,7 @@
 <Widget>
     <Kind>42</Kind>
     <Name>MODELS Y</Name>
-    <Value>-14</Value>
+    <Value>-9</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -76,7 +76,7 @@
 <Widget>
     <Kind>6</Kind>
     <Name>SPEED</Name>
-    <HighValue>6.310344696</HighValue>
+    <HighValue>0.965517163</HighValue>
     <LowValue>0.000000000</LowValue>
 </Widget>
 <Widget>
@@ -133,7 +133,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>KINECT 1 FRAME DIFF</Name>
-    <Value>0.000000000</Value>
+    <Value>0.004368285</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -173,7 +173,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>KINECT 2 FRAME DIFF</Name>
-    <Value>0.024339117</Value>
+    <Value>0.000000000</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
