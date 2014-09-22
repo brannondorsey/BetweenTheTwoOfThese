@@ -124,7 +124,6 @@ void ofApp::setup(){
     
     ofImage& mD2Image = mD2.getImage();
     scale = mD2Image.getWidth() / imageWidth;
-    cout << "Image 2 width: " << mD2Image.getWidth() << endl;
     gui->addSpacer();
     gui->addLabel("KINECT 2");
     gui->addToggle("KINECT 2 ENABLED", mD2.isEnabled());
@@ -235,8 +234,10 @@ void ofApp::update(){
         
         // if not all faces had been detached
         if (bAllFacesDislodged1 && bAllFacesDislodged2) {
+            cout << "all faces dislodged" << endl;
             
             if(noFacesDislodged()){
+                cout << "all faces have landed" << endl;
                 bAllFacesDislodged1 = false;
                 bAllFacesDislodged2 = false;
             }
@@ -250,7 +251,7 @@ void ofApp::update(){
             result = dislodge(mD2, model2Faces, model1Faces, false, false);
             mD2MotionDetectedbutton->setValue(result);
 
-        } // check if they are still detatched
+        }
     }
     
     if (bBoundingBoxChanged) {
@@ -296,8 +297,9 @@ void ofApp::draw(){
     material.begin();
     ofPushStyle();
     
-    ofSetColor(255);
+    ofSetColor(255, 0, 0);
     model1Mesh.draw();
+    ofSetColor(0, 0, 255);
     model2Mesh.draw();
     
     ofPopStyle();
@@ -346,15 +348,15 @@ bool ofApp::dislodge(MotionDetector& mD,
         // find an index that hasn't been dislodged to start with
         for (int i = 0; i < modelFaces.size(); i++) {
         
-            if ((bModel1 && (!modelFaces[i].isDislodged() && modelFaces[i].getPosition().x > 0)) ||
-                (!bModel1 && (!modelFaces[i].isDislodged() && modelFaces[i].getPosition().x < 0))) {
+            if ((bModel1 && (!modelFaces[i].isDislodged() && modelFaces[i].getPosition().x >= 0)) ||
+                (!bModel1 && (!modelFaces[i].isDislodged() && modelFaces[i].getPosition().x <= 0))) {
                 
                 faceIndex = i;
                 break;
             }
             
-            if ((bModel1 && (!otherModelFaces[i].isDislodged() && otherModelFaces[i].getPosition().x > 0)) ||
-                (!bModel1 && (!otherModelFaces[i].isDislodged() && otherModelFaces[i].getPosition().x < 0))) {
+            if ((bModel1 && (!otherModelFaces[i].isDislodged() && otherModelFaces[i].getPosition().x >= 0)) ||
+                (!bModel1 && (!otherModelFaces[i].isDislodged() && otherModelFaces[i].getPosition().x <= 0))) {
                 
                 faceIndex = i;
                 usingModel1Face = false;
@@ -367,14 +369,13 @@ bool ofApp::dislodge(MotionDetector& mD,
         if (faceIndex != -1) {
             
             // initial highest y can be from either mesh
-            float y = usingModel1Face ? model1Faces[faceIndex].getPosition().y : model2Faces[faceIndex].getPosition().y;
+            float y = usingModel1Face ? modelFaces[faceIndex].getPosition().y : otherModelFaces[faceIndex].getPosition().y;
             
-            // look for
             for (int i = 0; i < modelFaces.size(); i++) {
             
-                if ((bModel1 && (!modelFaces[i].isDislodged() && modelFaces[i].getPosition().x > 0)) ||
-                    (!bModel1 && (!modelFaces[i].isDislodged() && modelFaces[i].getPosition().x < 0))) {
-                    int curY = bRemoveFromTop ? max(modelFaces[i].getPosition().y, y) : min(modelFaces[i].getPosition().y, y);
+                if ((bModel1 && (!modelFaces[i].isDislodged() && modelFaces[i].getPosition().x >= 0)) ||
+                    (!bModel1 && (!modelFaces[i].isDislodged() && modelFaces[i].getPosition().x <= 0))) {
+                    float curY = bRemoveFromTop ? max(modelFaces[i].getPosition().y, y) : min(modelFaces[i].getPosition().y, y);
                     if ((bRemoveFromTop && curY > y) ||
                         (!bRemoveFromTop && curY < y)) {
                         y = curY;
@@ -385,7 +386,7 @@ bool ofApp::dislodge(MotionDetector& mD,
                 
                 if ((bModel1 && (!otherModelFaces[i].isDislodged() && otherModelFaces[i].getPosition().x > 0)) ||
                     (!bModel1 && (!otherModelFaces[i].isDislodged() && otherModelFaces[i].getPosition().x < 0))) {
-                    int curY = bRemoveFromTop ? max(otherModelFaces[i].getPosition().y, y) : min(otherModelFaces[i].getPosition().y, y);
+                    float curY = bRemoveFromTop ? max(otherModelFaces[i].getPosition().y, y) : min(otherModelFaces[i].getPosition().y, y);
                     if ((bRemoveFromTop && curY > y) ||
                         (!bRemoveFromTop && curY < y)) {
                         y = curY;
@@ -400,14 +401,16 @@ bool ofApp::dislodge(MotionDetector& mD,
             ModelFace& correspondingFace = usingModel1Face ? otherModelFaces[faceIndex] : modelFaces[faceIndex];
         
             face.dislodge();
-            correspondingFace.onPartnerDislodged();
-            face.setWaiting(!correspondingFace.isDislodged());
+            correspondingFace.onPartnerDislodged(face);
+            bool shouldWait = (!correspondingFace.isDislodged() && face.isReturning() == correspondingFace.isReturning());
+            face.setWaiting(shouldWait);
             
             return true;
         
         } else {
             if (bModel1) bAllFacesDislodged1 = true;
             else bAllFacesDislodged2 = true;
+            return false;
         }
     }
     
@@ -672,8 +675,8 @@ void ofApp::guiEvent(ofxUIEventArgs &e) {
         float max = slider->getValueHigh();
 
         for (int i = 0; i < model1Faces.size(); i++) {
-            model1Faces[i].setSpeed(min, max);
-            model2Faces[i].setSpeed(min, max);
+            model1Faces[i].setSpeed(max);
+            model2Faces[i].setSpeed(max);
         }
     }
     
@@ -771,11 +774,11 @@ void ofApp::keyPressed(int key){
         for (int i = 0; i < model1Faces.size(); i++) {
             
             model1Faces[i].dislodge();
-            model2Faces[i].onPartnerDislodged();
+            model2Faces[i].onPartnerDislodged(model1Faces[i]);
             model1Faces[i].setWaiting(!model2Faces[i].isDislodged());
             
             model2Faces[i].dislodge();
-            model1Faces[i].onPartnerDislodged();
+            model1Faces[i].onPartnerDislodged(model2Faces[i]);
             model2Faces[i].setWaiting(!model1Faces[i].isDislodged());
             
         }

@@ -53,6 +53,7 @@ void MotionDetector::update() {
     if ((!usingLiveVideo() && _video.isFrameNew()) ||
         (usingLiveVideo() && _kinect.isFrameNew())) {
 
+        // Far and near clipping is disabled for now because it is so slow
 //        for(int i = 0; i < pixelsRef.size(); i++) {
 //            if(pixelsRef[i] > _nearClip && pixelsRef[i] < _farClip) {
 //                pixelsRef[i] = 255;

@@ -50,7 +50,7 @@ _isWaiting(true)
     _rotationDir.normalize();
 
     setRotationSpeed(0.1, 0.5);
-    setSpeed(2, 3);
+    setSpeed(3);
     setWaitPosition(ofVec3f(ofRandom(-500, 500),
                             ofRandom(-300, 300),
                             ofRandom(-2000, 2000)));
@@ -74,7 +74,7 @@ void ModelFace::update(ofVec3f& v1,
         float d = desired.length();
         desired.normalize();
         
-        float minSpeed = _isWaiting ? 0 : 2;
+        float minSpeed = _isWaiting ? 0 : _maxSpeed/2.0;
         float m = ofMap(d, 0, _thresholdDistance, minSpeed, _maxSpeed, true);
         desired *= m;
         
@@ -94,14 +94,14 @@ void ModelFace::update(ofVec3f& v1,
             !_isWaiting) {
             
             if (!_thresholdCrossed) {
-                _rotationAtThreshold = ofNode::getOrientationEuler();;
+                _rotationAtThreshold = ofNode::getOrientationEuler();
                 _positionAtThreshold = ofNode::getPosition();
                 _thresholdCrossed = true;
             }
             
             float rotX, rotY, rotZ;
             
-            if (d < 2) {
+            if (d < _maxSpeed) {
                 
                 rotX = _currentTargetRotation.x;
                 rotY = _currentTargetRotation.y;
@@ -204,15 +204,19 @@ void ModelFace::dislodge() {
     _currentTargetRotation = _isReturning ? _startRotation : _targetRotation;
 }
 
-void ModelFace::onPartnerDislodged() {
+void ModelFace::onPartnerDislodged(const ModelFace& partner) {
+    
     _isWaiting = false;
+    _isReturning = partner.isReturning();
     _currentTargetPosition = _isReturning ? _startPosition : _targetPosition;
     _currentTargetRotation = _isReturning ? _startRotation : _targetRotation;
 }
 
 void ModelFace::setWaiting(bool wait) {
+    
     _isWaiting = wait;
     if (_isWaiting) _currentTargetPosition = _waitPosition;
+    else _currentTargetPosition = _isReturning ? _startPosition : _targetPosition;
 }
 
 void ModelFace::setWaitPosition(const ofVec3f& position) {
