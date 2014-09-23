@@ -207,6 +207,20 @@
 		F8CFDDAD19D1107E00E48B44 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7E077E415D3B63C0020DFD4 /* CoreVideo.framework */; };
 		F8CFDDAE19D1107E00E48B44 /* usb-1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F826FA7019C96033000BB049 /* usb-1.0.a */; };
 		F8CFDDB119D1107E00E48B44 /* GLUT.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
+		F8CFDDC119D1133900E48B44 /* ofxMPEClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8CFDDBB19D1133900E48B44 /* ofxMPEClient.cpp */; };
+		F8CFDDC219D1133900E48B44 /* ofxMPEEvents.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8CFDDBD19D1133900E48B44 /* ofxMPEEvents.cpp */; };
+		F8CFDDC319D1133900E48B44 /* ofxMPEServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8CFDDBF19D1133900E48B44 /* ofxMPEServer.cpp */; };
+		F8CFDDC419D1133900E48B44 /* ofxMPEClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8CFDDBB19D1133900E48B44 /* ofxMPEClient.cpp */; };
+		F8CFDDC519D1133900E48B44 /* ofxMPEEvents.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8CFDDBD19D1133900E48B44 /* ofxMPEEvents.cpp */; };
+		F8CFDDC619D1133900E48B44 /* ofxMPEServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8CFDDBF19D1133900E48B44 /* ofxMPEServer.cpp */; };
+		F8CFDDD419D1136900E48B44 /* ofxTCPClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8CFDDCC19D1136900E48B44 /* ofxTCPClient.cpp */; };
+		F8CFDDD519D1136900E48B44 /* ofxTCPManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8CFDDCE19D1136900E48B44 /* ofxTCPManager.cpp */; };
+		F8CFDDD619D1136900E48B44 /* ofxTCPServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8CFDDD019D1136900E48B44 /* ofxTCPServer.cpp */; };
+		F8CFDDD719D1136900E48B44 /* ofxUDPManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8CFDDD219D1136900E48B44 /* ofxUDPManager.cpp */; };
+		F8CFDDD819D1136900E48B44 /* ofxTCPClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8CFDDCC19D1136900E48B44 /* ofxTCPClient.cpp */; };
+		F8CFDDD919D1136900E48B44 /* ofxTCPManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8CFDDCE19D1136900E48B44 /* ofxTCPManager.cpp */; };
+		F8CFDDDA19D1136900E48B44 /* ofxTCPServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8CFDDD019D1136900E48B44 /* ofxTCPServer.cpp */; };
+		F8CFDDDB19D1136900E48B44 /* ofxUDPManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8CFDDD219D1136900E48B44 /* ofxUDPManager.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -302,7 +316,7 @@
 		E45BE9770E8CC7DD009D7055 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
 		E45BE9790E8CC7DD009D7055 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
 		E45BE97A0E8CC7DD009D7055 /* QuickTime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickTime.framework; path = /System/Library/Frameworks/QuickTime.framework; sourceTree = "<absolute>"; };
-		E4B69B5B0A3A1756003C02F2 /* WindowProjectGuiDebug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WindowProjectGuiDebug.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E4B69B5B0A3A1756003C02F2 /* WindowProjectGui0Debug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WindowProjectGui0Debug.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4B69E1D0A3A1BDC003C02F2 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = src/main.cpp; sourceTree = SOURCE_ROOT; };
 		E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofApp.cpp; path = src/ofApp.cpp; sourceTree = SOURCE_ROOT; };
 		E4B69E1F0A3A1BDC003C02F2 /* ofApp.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ofApp.h; path = src/ofApp.h; sourceTree = SOURCE_ROOT; };
@@ -486,7 +500,26 @@
 		F852388B19C2BB1100F6C8E7 /* ofxDOF.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxDOF.h; sourceTree = "<group>"; };
 		F880879619C0E3DB00651426 /* ModelFace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ModelFace.cpp; sourceTree = "<group>"; };
 		F880879719C0E3DB00651426 /* ModelFace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelFace.h; sourceTree = "<group>"; };
-		F8CFDDB519D1107E00E48B44 /* WindowProjectGui copy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "WindowProjectGui copy.app"; path = "/Users/bdorse/Documents/of_v0.8.3_osx_release/apps/WindowProject/WindowProjectGui/bin/WindowProjectGui copy.app"; sourceTree = "<absolute>"; };
+		F8CFDDB719D1124000E48B44 /* data */ = {isa = PBXFileReference; lastKnownFileType = folder; name = data; path = bin/data; sourceTree = "<group>"; };
+		F8CFDDBA19D1133900E48B44 /* ofxMostPixelsEver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxMostPixelsEver.h; sourceTree = "<group>"; };
+		F8CFDDBB19D1133900E48B44 /* ofxMPEClient.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxMPEClient.cpp; sourceTree = "<group>"; };
+		F8CFDDBC19D1133900E48B44 /* ofxMPEClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxMPEClient.h; sourceTree = "<group>"; };
+		F8CFDDBD19D1133900E48B44 /* ofxMPEEvents.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxMPEEvents.cpp; sourceTree = "<group>"; };
+		F8CFDDBE19D1133900E48B44 /* ofxMPEEvents.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxMPEEvents.h; sourceTree = "<group>"; };
+		F8CFDDBF19D1133900E48B44 /* ofxMPEServer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxMPEServer.cpp; sourceTree = "<group>"; };
+		F8CFDDC019D1133900E48B44 /* ofxMPEServer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxMPEServer.h; sourceTree = "<group>"; };
+		F8CFDDC719D1133900E48B44 /* WindowProjectGui copy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WindowProjectGui copy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F8CFDDCA19D1136900E48B44 /* ofxNetwork.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxNetwork.h; sourceTree = "<group>"; };
+		F8CFDDCB19D1136900E48B44 /* ofxNetworkUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxNetworkUtils.h; sourceTree = "<group>"; };
+		F8CFDDCC19D1136900E48B44 /* ofxTCPClient.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxTCPClient.cpp; sourceTree = "<group>"; };
+		F8CFDDCD19D1136900E48B44 /* ofxTCPClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxTCPClient.h; sourceTree = "<group>"; };
+		F8CFDDCE19D1136900E48B44 /* ofxTCPManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxTCPManager.cpp; sourceTree = "<group>"; };
+		F8CFDDCF19D1136900E48B44 /* ofxTCPManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxTCPManager.h; sourceTree = "<group>"; };
+		F8CFDDD019D1136900E48B44 /* ofxTCPServer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxTCPServer.cpp; sourceTree = "<group>"; };
+		F8CFDDD119D1136900E48B44 /* ofxTCPServer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxTCPServer.h; sourceTree = "<group>"; };
+		F8CFDDD219D1136900E48B44 /* ofxUDPManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxUDPManager.cpp; sourceTree = "<group>"; };
+		F8CFDDD319D1136900E48B44 /* ofxUDPManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxUDPManager.h; sourceTree = "<group>"; };
+		F8FD4B3119D1BE1B00EE49E4 /* mpe_server_settings.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = mpe_server_settings.xml; path = ../MPETestServer/bin/data/mpe_server_settings.xml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -588,6 +621,8 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				F8CFDDC819D1136900E48B44 /* ofxNetwork */,
+				F8CFDDB819D1133900E48B44 /* ofxMostPixelsEver */,
 				F826FA8419C96046000BB049 /* ofxCv */,
 				F826FA0519C96032000BB049 /* ofxKinect */,
 				F852388819C2BB1100F6C8E7 /* ofxDOF */,
@@ -657,11 +692,14 @@
 			children = (
 				E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */,
 				E4EB6923138AFD0F00A09F29 /* Project.xcconfig */,
+				F8FD4B3119D1BE1B00EE49E4 /* mpe_server_settings.xml */,
+				F8CFDDB719D1124000E48B44 /* data */,
 				E4B69E1C0A3A1BDC003C02F2 /* src */,
 				E4EEC9E9138DF44700A80321 /* openFrameworks */,
 				BB4B014C10F69532006C3DED /* addons */,
 				E45BE5980E8CC70C009D7055 /* frameworks */,
-				E4B69B5B0A3A1756003C02F2 /* WindowProjectGuiDebug.app */,
+				E4B69B5B0A3A1756003C02F2 /* WindowProjectGui0Debug.app */,
+				F8CFDDC719D1133900E48B44 /* WindowProjectGui copy.app */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1130,6 +1168,55 @@
 			path = ../../../addons/ofxDOF/src;
 			sourceTree = "<group>";
 		};
+		F8CFDDB819D1133900E48B44 /* ofxMostPixelsEver */ = {
+			isa = PBXGroup;
+			children = (
+				F8CFDDB919D1133900E48B44 /* src */,
+			);
+			name = ofxMostPixelsEver;
+			sourceTree = "<group>";
+		};
+		F8CFDDB919D1133900E48B44 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				F8CFDDBA19D1133900E48B44 /* ofxMostPixelsEver.h */,
+				F8CFDDBB19D1133900E48B44 /* ofxMPEClient.cpp */,
+				F8CFDDBC19D1133900E48B44 /* ofxMPEClient.h */,
+				F8CFDDBD19D1133900E48B44 /* ofxMPEEvents.cpp */,
+				F8CFDDBE19D1133900E48B44 /* ofxMPEEvents.h */,
+				F8CFDDBF19D1133900E48B44 /* ofxMPEServer.cpp */,
+				F8CFDDC019D1133900E48B44 /* ofxMPEServer.h */,
+			);
+			name = src;
+			path = ../../../addons/ofxMostPixelsEver/src;
+			sourceTree = "<group>";
+		};
+		F8CFDDC819D1136900E48B44 /* ofxNetwork */ = {
+			isa = PBXGroup;
+			children = (
+				F8CFDDC919D1136900E48B44 /* src */,
+			);
+			name = ofxNetwork;
+			sourceTree = "<group>";
+		};
+		F8CFDDC919D1136900E48B44 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				F8CFDDCA19D1136900E48B44 /* ofxNetwork.h */,
+				F8CFDDCB19D1136900E48B44 /* ofxNetworkUtils.h */,
+				F8CFDDCC19D1136900E48B44 /* ofxTCPClient.cpp */,
+				F8CFDDCD19D1136900E48B44 /* ofxTCPClient.h */,
+				F8CFDDCE19D1136900E48B44 /* ofxTCPManager.cpp */,
+				F8CFDDCF19D1136900E48B44 /* ofxTCPManager.h */,
+				F8CFDDD019D1136900E48B44 /* ofxTCPServer.cpp */,
+				F8CFDDD119D1136900E48B44 /* ofxTCPServer.h */,
+				F8CFDDD219D1136900E48B44 /* ofxUDPManager.cpp */,
+				F8CFDDD319D1136900E48B44 /* ofxUDPManager.h */,
+			);
+			name = src;
+			path = ../../../addons/ofxNetwork/src;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1149,7 +1236,7 @@
 			);
 			name = WindowProjectGui0;
 			productName = myOFApp;
-			productReference = E4B69B5B0A3A1756003C02F2 /* WindowProjectGuiDebug.app */;
+			productReference = E4B69B5B0A3A1756003C02F2 /* WindowProjectGui0Debug.app */;
 			productType = "com.apple.product-type.application";
 		};
 		F8CFDD4719D1107E00E48B44 /* WindowProjectGui1 */ = {
@@ -1168,7 +1255,7 @@
 			);
 			name = WindowProjectGui1;
 			productName = myOFApp;
-			productReference = F8CFDDB519D1107E00E48B44 /* WindowProjectGui copy.app */;
+			productReference = F8CFDDC719D1133900E48B44 /* WindowProjectGui copy.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1253,10 +1340,13 @@
 				F826FAB619C96046000BB049 /* ObjectFinder.cpp in Sources */,
 				F850CCC719C21487008DFC9F /* ofxUIMultiImageToggle.cpp in Sources */,
 				F826FA8019C96033000BB049 /* registration.c in Sources */,
+				F8CFDDC319D1133900E48B44 /* ofxMPEServer.cpp in Sources */,
 				F850CCDB19C21487008DFC9F /* ofxUIWidgetWithLabel.cpp in Sources */,
 				F850CCBD19C21487008DFC9F /* ofxUIImageButton.cpp in Sources */,
+				F8CFDDD419D1136900E48B44 /* ofxTCPClient.cpp in Sources */,
 				F850CCCA19C21487008DFC9F /* ofxUIRangeSlider.cpp in Sources */,
 				F850CCB119C21487008DFC9F /* ofxUI2DPad.cpp in Sources */,
+				F8CFDDC119D1133900E48B44 /* ofxMPEClient.cpp in Sources */,
 				F850CCD719C21487008DFC9F /* ofxUIToggleMatrix.cpp in Sources */,
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
 				F850CCB319C21487008DFC9F /* ofxUIBiLabelSlider.cpp in Sources */,
@@ -1266,6 +1356,7 @@
 				F850CCD419C21487008DFC9F /* ofxUITextArea.cpp in Sources */,
 				F826FAB819C96046000BB049 /* Tracker.cpp in Sources */,
 				F850CCB419C21487008DFC9F /* ofxUIButton.cpp in Sources */,
+				F8CFDDD719D1136900E48B44 /* ofxUDPManager.cpp in Sources */,
 				F850CCCF19C21487008DFC9F /* ofxUISortableList.cpp in Sources */,
 				F826FABE19C962BB000BB049 /* MotionDetector.cpp in Sources */,
 				F850CCB219C21487008DFC9F /* ofxUIBaseDraws.cpp in Sources */,
@@ -1280,6 +1371,7 @@
 				F826FAB119C96046000BB049 /* ContourFinder.cpp in Sources */,
 				F826FA7A19C96033000BB049 /* audio.c in Sources */,
 				F826FA8219C96033000BB049 /* usb_libusb10.c in Sources */,
+				F8CFDDC219D1133900E48B44 /* ofxMPEEvents.cpp in Sources */,
 				F850CCC519C21487008DFC9F /* ofxUIMovingGraph.cpp in Sources */,
 				F826FA7B19C96033000BB049 /* cameras.c in Sources */,
 				F880879819C0E3DB00651426 /* ModelFace.cpp in Sources */,
@@ -1293,6 +1385,7 @@
 				F850CCB619C21487008DFC9F /* ofxUICircleSlider.cpp in Sources */,
 				F850CCC319C21487008DFC9F /* ofxUILabelToggle.cpp in Sources */,
 				F826FA7D19C96033000BB049 /* flags.c in Sources */,
+				F8CFDDD519D1136900E48B44 /* ofxTCPManager.cpp in Sources */,
 				F826FAB319C96046000BB049 /* Flow.cpp in Sources */,
 				F826FAB719C96046000BB049 /* RunningBackground.cpp in Sources */,
 				F850CCD819C21487008DFC9F /* ofxUIValuePlotter.cpp in Sources */,
@@ -1304,6 +1397,7 @@
 				F826FAB919C96046000BB049 /* Utilities.cpp in Sources */,
 				F850CCE819C217B8008DFC9F /* tinyxmlerror.cpp in Sources */,
 				F850CCC619C21487008DFC9F /* ofxUIMultiImageButton.cpp in Sources */,
+				F8CFDDD619D1136900E48B44 /* ofxTCPServer.cpp in Sources */,
 				F850CCC019C21487008DFC9F /* ofxUIImageToggle.cpp in Sources */,
 				F850CCCB19C21487008DFC9F /* ofxUIRectangle.cpp in Sources */,
 				F850CCC219C21487008DFC9F /* ofxUILabelButton.cpp in Sources */,
@@ -1341,10 +1435,13 @@
 				F8CFDD4B19D1107E00E48B44 /* ObjectFinder.cpp in Sources */,
 				F8CFDD4C19D1107E00E48B44 /* ofxUIMultiImageToggle.cpp in Sources */,
 				F8CFDD4D19D1107E00E48B44 /* registration.c in Sources */,
+				F8CFDDC619D1133900E48B44 /* ofxMPEServer.cpp in Sources */,
 				F8CFDD4E19D1107E00E48B44 /* ofxUIWidgetWithLabel.cpp in Sources */,
 				F8CFDD4F19D1107E00E48B44 /* ofxUIImageButton.cpp in Sources */,
+				F8CFDDD819D1136900E48B44 /* ofxTCPClient.cpp in Sources */,
 				F8CFDD5019D1107E00E48B44 /* ofxUIRangeSlider.cpp in Sources */,
 				F8CFDD5119D1107E00E48B44 /* ofxUI2DPad.cpp in Sources */,
+				F8CFDDC419D1133900E48B44 /* ofxMPEClient.cpp in Sources */,
 				F8CFDD5219D1107E00E48B44 /* ofxUIToggleMatrix.cpp in Sources */,
 				F8CFDD5319D1107E00E48B44 /* main.cpp in Sources */,
 				F8CFDD5419D1107E00E48B44 /* ofxUIBiLabelSlider.cpp in Sources */,
@@ -1354,6 +1451,7 @@
 				F8CFDD5819D1107E00E48B44 /* ofxUITextArea.cpp in Sources */,
 				F8CFDD5919D1107E00E48B44 /* Tracker.cpp in Sources */,
 				F8CFDD5A19D1107E00E48B44 /* ofxUIButton.cpp in Sources */,
+				F8CFDDDB19D1136900E48B44 /* ofxUDPManager.cpp in Sources */,
 				F8CFDD5B19D1107E00E48B44 /* ofxUISortableList.cpp in Sources */,
 				F8CFDD5C19D1107E00E48B44 /* MotionDetector.cpp in Sources */,
 				F8CFDD5D19D1107E00E48B44 /* ofxUIBaseDraws.cpp in Sources */,
@@ -1368,6 +1466,7 @@
 				F8CFDD6619D1107E00E48B44 /* ContourFinder.cpp in Sources */,
 				F8CFDD6719D1107E00E48B44 /* audio.c in Sources */,
 				F8CFDD6819D1107E00E48B44 /* usb_libusb10.c in Sources */,
+				F8CFDDC519D1133900E48B44 /* ofxMPEEvents.cpp in Sources */,
 				F8CFDD6919D1107E00E48B44 /* ofxUIMovingGraph.cpp in Sources */,
 				F8CFDD6A19D1107E00E48B44 /* cameras.c in Sources */,
 				F8CFDD6B19D1107E00E48B44 /* ModelFace.cpp in Sources */,
@@ -1381,6 +1480,7 @@
 				F8CFDD7319D1107E00E48B44 /* ofxUICircleSlider.cpp in Sources */,
 				F8CFDD7419D1107E00E48B44 /* ofxUILabelToggle.cpp in Sources */,
 				F8CFDD7519D1107E00E48B44 /* flags.c in Sources */,
+				F8CFDDD919D1136900E48B44 /* ofxTCPManager.cpp in Sources */,
 				F8CFDD7619D1107E00E48B44 /* Flow.cpp in Sources */,
 				F8CFDD7719D1107E00E48B44 /* RunningBackground.cpp in Sources */,
 				F8CFDD7819D1107E00E48B44 /* ofxUIValuePlotter.cpp in Sources */,
@@ -1392,6 +1492,7 @@
 				F8CFDD7E19D1107E00E48B44 /* Utilities.cpp in Sources */,
 				F8CFDD7F19D1107E00E48B44 /* tinyxmlerror.cpp in Sources */,
 				F8CFDD8019D1107E00E48B44 /* ofxUIMultiImageButton.cpp in Sources */,
+				F8CFDDDA19D1136900E48B44 /* ofxTCPServer.cpp in Sources */,
 				F8CFDD8119D1107E00E48B44 /* ofxUIImageToggle.cpp in Sources */,
 				F8CFDD8219D1107E00E48B44 /* ofxUIRectangle.cpp in Sources */,
 				F8CFDD8319D1107E00E48B44 /* ofxUILabelButton.cpp in Sources */,

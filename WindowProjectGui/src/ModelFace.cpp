@@ -18,7 +18,6 @@ _thresholdCrossed(false),
 _isReturning(false),
 _isWaiting(true)
 {
-    
     ofMesh mesh;
     mesh.enableNormals();
     mesh.addVertex(face.getVertex(0));

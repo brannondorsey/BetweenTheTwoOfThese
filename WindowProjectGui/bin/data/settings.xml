@@ -21,7 +21,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>CAMERA DISTANCE</Name>
-    <Value>1901.970458984</Value>
+    <Value>2715.763427734</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -61,7 +61,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>MODEL DISTANCE</Name>
-    <Value>3793.103515625</Value>
+    <Value>5270.936035156</Value>
 </Widget>
 <Widget>
     <Kind>42</Kind>
@@ -91,7 +91,7 @@
 <Widget>
     <Kind>6</Kind>
     <Name>SPEED</Name>
-    <HighValue>5.724138260</HighValue>
+    <HighValue>6.137930870</HighValue>
     <LowValue>0.000000000</LowValue>
 </Widget>
 <Widget>
@@ -108,7 +108,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>BOX WIDTH</Name>
-    <Value>3793.000000000</Value>
+    <Value>5270.000000000</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -123,12 +123,12 @@
 <Widget>
     <Kind>4</Kind>
     <Name>BOX X</Name>
-    <Value>-55.270923615</Value>
+    <Value>1020.000000000</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>BOX Y</Name>
-    <Value>45.221900940</Value>
+    <Value>-106.403923035</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -148,7 +148,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>KINECT 1 FRAME DIFF</Name>
-    <Value>0.000000000</Value>
+    <Value>0.043128025</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -168,12 +168,12 @@
 <Widget>
     <Kind>42</Kind>
     <Name>KINECT 1 FAR CLIP</Name>
-    <Value>229</Value>
+    <Value>255</Value>
 </Widget>
 <Widget>
     <Kind>42</Kind>
     <Name>KINECT 1 TILT</Name>
-    <Value>0</Value>
+    <Value>30</Value>
 </Widget>
 <Widget>
     <Kind>2</Kind>
@@ -188,7 +188,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>KINECT 2 FRAME DIFF</Name>
-    <Value>0.002732562</Value>
+    <Value>0.042640332</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>

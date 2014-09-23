@@ -4,8 +4,11 @@
 #include "ofxAssimpModelLoader.h"
 #include "ofxUI.h"
 #include "ofxDOF.h"
+#include "ofxMostPixelsEver.h"
 #include "MotionDetector.h"
 #include "ModelFace.h"
+
+#define RANDOM_SEED 1800
 
 enum destructionMode{
     MODEL_DESTRUCT_TOP = 0,
@@ -18,7 +21,9 @@ class ofApp : public ofBaseApp{
 public:
     void setup();
     void update();
+    void customUpdate(); // for mpe
     void draw();
+    void customDraw(); // for mpe
     void exit();
     
     void keyPressed(int key);
@@ -31,6 +36,9 @@ public:
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
     void guiEvent(ofxUIEventArgs &e);
+    void mpeFrameEvent(ofxMPEEventArgs& event);
+	void mpeMessageEvent(ofxMPEEventArgs& event);
+	void mpeResetEvent(ofxMPEEventArgs& event);
     
     bool dislodge(MotionDetector& mD,
                   std::vector<ModelFace>& modelFaces,
@@ -75,6 +83,9 @@ public:
     std::vector<ModelFace> model1Faces;
     std::vector<ModelFace> model2Faces;
     
+    MotionDetector mD1;
+    MotionDetector mD2;
+    
     ofMesh model1Mesh;
     ofMesh model2Mesh;
     
@@ -89,6 +100,6 @@ public:
     ofxDOF depthOfField;
     ofFbo fbo;
     
-    MotionDetector mD1;
-    MotionDetector mD2;
+    ofxMPEClient client;
+    
 };

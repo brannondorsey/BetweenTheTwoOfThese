@@ -5,16 +5,30 @@ void ofApp::setup(){
 
     ofSetFrameRate(60);
     ofSetVerticalSync(true);
-    ofSetWindowShape(1200, 500);
-    ofSeedRandom(1);
     ofEnableAntiAliasing();
     // ofSetWindowShape(1280 * 6, 720); // real aspect ratio
+    ofSetBackgroundAuto(false);
     ofBackground(0);
+    ofSeedRandom(RANDOM_SEED);
+    
+    // MPE Client
+    client.setup("mpe/client_" + ofToString(CLIENT_ID) + "_settings.xml", true); //false means you can use backthread
+    client.start();
+    
+//    cout << "client local width: " << client.getLWidth() << endl;
+//    cout << "client local height: " << client.getLHeight() << endl;
+//    cout << "client master width: " << client.getMWidth() << endl;
+//    cout << "client master height: " << client.getMHeight() << endl;
+//    cout << "client x offset: " << client.getXoffset() << endl;
+
+    ofxMPERegisterEvents(this);
+    
+    ofSetWindowShape(client.getLWidth(), client.getLHeight());
+    ofSetWindowPosition(client.getXoffset(), 0); // comment out for release
     
     // fbo
-//    cout << fbo.maxSamples() << endl;
-    fbo.allocate(ofGetWidth(), ofGetHeight(), GL_RGBA, 4);
-
+    // cout << fbo.maxSamples() << endl;
+    fbo.allocate(client.getMWidth(), client.getMHeight(), GL_RGBA, 4);
     ofClear(0, 255);
     
     // lights
@@ -29,10 +43,10 @@ void ofApp::setup(){
     
     // model
     model.loadModel("model.dae");
-    modelDistance = ofGetWidth() * 1.7;
+    modelDistance = client.getMWidth() * 1.7;
     
     // camera
-    camera.setAspectRatio(float(ofGetWidth())/float(ofGetHeight()));
+    camera.setAspectRatio(float(client.getMWidth())/float(client.getMHeight()));
     camera.setForceAspectRatio(true);
     
     startCameraFOV = camera.getFov();
@@ -159,7 +173,7 @@ void ofApp::setup(){
     gui->addIntSlider("KINECT 2 TILT", -30, 30, mD2.getTiltAngle());
     
     gui->autoSizeToFitWidgets();
-    gui->setPosition(ofGetWidth() - gui->getRect()->getWidth(), 0);
+    gui->setPosition((client.getMWidth() - client.getXoffset()) - gui->getRect()->getWidth(), 0);
     gui->setup();
     ofAddListener(gui->newGUIEvent, this, &ofApp::guiEvent);
     gui->loadSettings("settings.xml");
@@ -211,6 +225,15 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
+    // leave this empty...
+}
+
+//--------------------------------------------------------------
+void ofApp::draw(){
+    // leave this empty...
+}
+
+void ofApp::customUpdate() {
     
     // update Kinect GUI stuff
     ofxUIButton* mD1MotionDetectedbutton = (ofxUIButton* ) gui->getWidget("KINECT 1 MOTION DETECTED");
@@ -288,7 +311,7 @@ void ofApp::update(){
                         model2Face.setWaitPosition(getPointInBoundingBox());
                     }
                 }
-
+                
             }
             
         } else {
@@ -301,14 +324,14 @@ void ofApp::update(){
             mD2MotionDetectedbutton->setValue(result);
             
             bFacesWaiting = true;
-
+            
         }
     }
     
     if (bBoundingBoxChanged) {
         
         for (int i = 0; i < model1Faces.size(); i++) {
-
+            
             ModelFace& model1Face = model1Faces[i];
             ModelFace& model2Face = model2Faces[i];
             
@@ -325,14 +348,7 @@ void ofApp::update(){
     }
 }
 
-void ofApp::exit() {
-    
-    gui->saveSettings("settings.xml");
-    delete gui;
-}
-
-//--------------------------------------------------------------
-void ofApp::draw(){
+void ofApp::customDraw() {
     
     fbo.begin();
     ofClear(0, 255);
@@ -376,7 +392,6 @@ void ofApp::draw(){
     }
     
     if (gui->isVisible()) {
-        
         std::string message = ofToString(ofGetFrameRate()) += " fps\n";
         message += "Hold SHIFT to remove faces\n";
         message += "Press SPACE to pause\n";
@@ -388,7 +403,34 @@ void ofApp::draw(){
     }
     
     fbo.end();
-    fbo.getTextureReference().draw(0, 0);
+}
+
+void ofApp::mpeFrameEvent(ofxMPEEventArgs& event) {
+    
+    ofBackground(0);
+    customUpdate();
+    customDraw();
+    fbo.getTextureReference().drawSubsection(0,
+                                             0,
+                                             client.getLWidth(),
+                                             client.getLHeight(),
+                                             client.getXoffset(),
+                                             client.getYoffset());
+    
+}
+
+void ofApp::mpeMessageEvent(ofxMPEEventArgs& event) {
+    
+}
+
+void ofApp::mpeResetEvent(ofxMPEEventArgs& event) {
+    
+}
+
+void ofApp::exit() {
+    
+    gui->saveSettings("settings.xml");
+    delete gui;
 }
 
 bool ofApp::dislodge(MotionDetector& mD,
@@ -480,6 +522,9 @@ bool ofApp::allFacesSettled() {
 }
 
 void ofApp::initMeshFaces() {
+    
+    // this must go in here for some reason
+    ofSeedRandom(RANDOM_SEED);
     
     ofMesh mesh1 = model.getMesh(0);
     ofMesh mesh2 = mesh1;
@@ -636,7 +681,7 @@ void ofApp::guiEvent(ofxUIEventArgs &e) {
     
     if (e.getName() == "RESET ASPECT TO WINDOW") {
         
-        camera.setAspectRatio(float(ofGetWidth())/float(ofGetHeight()));
+        camera.setAspectRatio(float(client.getMWidth())/float(client.getMHeight()));
         ofxUISlider * slider = (ofxUISlider *) gui->getWidget("CAMERA ASPECT RATIO");
         slider->setValue(camera.getAspectRatio());
         startCameraAspectRatio = camera.getAspectRatio();
