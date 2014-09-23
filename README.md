@@ -6,6 +6,10 @@ Projection installation project in downtown Atlanta. Uses a custom [openFramewor
 
 ## Installation Notes
 
+### oF
+
+This project was built with openFrameworks v0.8.3. Because of a bug in ofxNetwork, it must use the version of this addon from v0.8.0.
+
 ### Fullscreen Windowing Across Multiple Displays
 
 main.cpp:
