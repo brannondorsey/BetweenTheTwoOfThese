@@ -7,6 +7,12 @@
 #include "MotionDetector.h"
 #include "ModelFace.h"
 
+enum destructionMode{
+    MODEL_DESTRUCT_TOP = 0,
+    MODEL_DESTRUCT_BOTTOM,
+    MODEL_DESTRUCT_OPPOSITE
+};
+
 class ofApp : public ofBaseApp{
     
 public:
@@ -40,6 +46,7 @@ public:
     
     int nearestFaceIndex;
     int modelDistance;
+    int destructMode;
     
     float startCameraFOV;
     float startCameraAspectRatio;
@@ -59,6 +66,8 @@ public:
     bool bMD2UseLiveVideo;
     bool bAllFacesDislodged1;
     bool bAllFacesDislodged2;
+    bool bDestroyTop1;
+    bool bDestroyTop2;
     bool bFacesWaiting;
     
     ofVec3f nearestVertex;

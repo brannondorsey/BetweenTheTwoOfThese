@@ -42,6 +42,13 @@ void ofApp::setup(){
     mD2.setUseLiveVideo(false);
     bMD2UseLiveVideo = mD2.usingLiveVideo();
     
+    // misc before gui
+    
+    // these must be defined here because gui
+    // radio button can't have a value on start
+    bDestroyTop1 = true;
+    bDestroyTop2 = false;
+    
     // gui
     gui = new ofxUIScrollableCanvas();
     gui->setScrollAreaToScreen();
@@ -73,14 +80,20 @@ void ofApp::setup(){
     gui->addToggle("ENABLE DOF", &bDOFEnabled);
     gui->addToggle("DOF FOCUS ASSISTANCE", &bDrawDOFFocusAssist);
     gui->addSpacer();
-    gui->addSlider("DOF FOCAL DISTANCE", 0, 1000, cameraDistance);
+    gui->addSlider("DOF FOCAL DISTANCE", 0, 6000, cameraDistance);
     gui->addSlider("DOF FOCAL RANGE", 0, 200, 50);
     gui->addSlider("DOF BLUR AMOUNT", 0, 3, 1);
+    
+    std::vector<std::string> names;
+    names.push_back("TOP");
+    names.push_back("BOTTOM");
+    names.push_back("OPPOSITE");
     
     gui->addSpacer();
     gui->addLabel("MODELS");
     gui->addSlider("MODEL DISTANCE", 0, maxModelDistance, modelDistance);
     gui->addIntSlider("MODELS Y", -150.0, 150.0, 0.0);
+    gui->addRadio("MODEL DESTRUCT MODE", names);
     
     gui->addSpacer();
     gui->addLabel("MATERIAL");
@@ -270,10 +283,10 @@ void ofApp::update(){
         } else {
             
             // order matters with these two dislodge calls
-            bool result = dislodge(mD1, model1Faces, model2Faces, true, true);
+            bool result = dislodge(mD1, model1Faces, model2Faces, bDestroyTop1, true);
             mD1MotionDetectedbutton->setValue(result);
             
-            result = dislodge(mD2, model2Faces, model1Faces, false, false);
+            result = dislodge(mD2, model2Faces, model1Faces, bDestroyTop2, false);
             mD2MotionDetectedbutton->setValue(result);
             
             bFacesWaiting = true;
@@ -572,6 +585,30 @@ void ofApp::guiEvent(ofxUIEventArgs &e) {
         ofxUIIntSlider* slider = (ofxUIIntSlider *) e.getSlider();
         modelY = slider->getValue();
         initMeshFaces();
+    }
+    
+    if (e.getName() == "MODEL DESTRUCT MODE") {
+        ofxUIRadio* radio = (ofxUIRadio*) e.widget;
+        destructMode = (int) radio->getValue();
+        
+        cout << "destruct mode: " << destructMode << endl;
+        switch (destructMode) {
+                
+            case MODEL_DESTRUCT_TOP:
+                bDestroyTop1 = true;
+                bDestroyTop2 = true;
+                break;
+                
+            case MODEL_DESTRUCT_BOTTOM:
+                bDestroyTop1 = false;
+                bDestroyTop2 = false;
+                break;
+                
+            case MODEL_DESTRUCT_OPPOSITE:
+                bDestroyTop1 = true;
+                bDestroyTop2 = false;
+                break;
+        }
     }
     
     // CAMERA

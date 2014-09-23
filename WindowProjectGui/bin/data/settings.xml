@@ -6,7 +6,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>CAMERA ASPECT RATIO</Name>
-    <Value>1.777777791</Value>
+    <Value>2.400000095</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -21,12 +21,12 @@
 <Widget>
     <Kind>4</Kind>
     <Name>CAMERA DISTANCE</Name>
-    <Value>2541.379394531</Value>
+    <Value>1901.970458984</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>CAMERA X ORBIT</Name>
-    <Value>172.019714355</Value>
+    <Value>179.113311768</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -41,22 +41,22 @@
 <Widget>
     <Kind>2</Kind>
     <Name>DOF FOCUS ASSISTANCE</Name>
-    <Value>0</Value>
+    <Value>1</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>DOF FOCAL DISTANCE</Name>
-    <Value>206.896560669</Value>
+    <Value>975.369506836</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>DOF FOCAL RANGE</Name>
-    <Value>53.201969147</Value>
+    <Value>141.871917725</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>DOF BLUR AMOUNT</Name>
-    <Value>0.428571463</Value>
+    <Value>0.354679823</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -67,6 +67,21 @@
     <Kind>42</Kind>
     <Name>MODELS Y</Name>
     <Value>-9</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>TOP</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>BOTTOM</Name>
+    <Value>1</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>OPPOSITE</Name>
+    <Value>0</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -133,7 +148,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>KINECT 1 FRAME DIFF</Name>
-    <Value>0.004368285</Value>
+    <Value>0.000000000</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -173,7 +188,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>KINECT 2 FRAME DIFF</Name>
-    <Value>0.000000000</Value>
+    <Value>0.000000536</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
