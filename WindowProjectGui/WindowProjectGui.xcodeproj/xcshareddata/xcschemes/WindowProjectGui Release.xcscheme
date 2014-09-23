@@ -16,7 +16,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E4B69B5A0A3A1756003C02F2"
                BuildableName = "WindowProjectGui.app"
-               BlueprintName = "WindowProjectGui"
+               BlueprintName = "WindowProjectGui0"
                ReferencedContainer = "container:WindowProjectGui.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -34,7 +34,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E4B69B5A0A3A1756003C02F2"
             BuildableName = "WindowProjectGui.app"
-            BlueprintName = "WindowProjectGui"
+            BlueprintName = "WindowProjectGui0"
             ReferencedContainer = "container:WindowProjectGui.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -53,7 +53,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E4B69B5A0A3A1756003C02F2"
             BuildableName = "WindowProjectGui.app"
-            BlueprintName = "WindowProjectGui"
+            BlueprintName = "WindowProjectGui0"
             ReferencedContainer = "container:WindowProjectGui.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -71,7 +71,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E4B69B5A0A3A1756003C02F2"
             BuildableName = "WindowProjectGui.app"
-            BlueprintName = "WindowProjectGui"
+            BlueprintName = "WindowProjectGui0"
             ReferencedContainer = "container:WindowProjectGui.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

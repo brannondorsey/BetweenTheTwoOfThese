@@ -36,7 +36,7 @@
 <Widget>
     <Kind>2</Kind>
     <Name>ENABLE DOF</Name>
-    <Value>1</Value>
+    <Value>0</Value>
 </Widget>
 <Widget>
     <Kind>2</Kind>
@@ -188,7 +188,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>KINECT 2 FRAME DIFF</Name>
-    <Value>0.000000000</Value>
+    <Value>0.002732562</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
