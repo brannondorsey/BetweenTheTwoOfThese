@@ -1,7 +1,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>CAMERA FOV</Name>
-    <Value>64.729064941</Value>
+    <Value>60.000000000</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -36,12 +36,12 @@
 <Widget>
     <Kind>2</Kind>
     <Name>ENABLE DOF</Name>
-    <Value>0</Value>
+    <Value>1</Value>
 </Widget>
 <Widget>
     <Kind>2</Kind>
     <Name>DOF FOCUS ASSISTANCE</Name>
-    <Value>1</Value>
+    <Value>0</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -71,12 +71,12 @@
 <Widget>
     <Kind>2</Kind>
     <Name>TOP</Name>
-    <Value>0</Value>
+    <Value>1</Value>
 </Widget>
 <Widget>
     <Kind>2</Kind>
     <Name>BOTTOM</Name>
-    <Value>1</Value>
+    <Value>0</Value>
 </Widget>
 <Widget>
     <Kind>2</Kind>
@@ -91,13 +91,13 @@
 <Widget>
     <Kind>6</Kind>
     <Name>SPEED</Name>
-    <HighValue>0.965517163</HighValue>
+    <HighValue>5.724138260</HighValue>
     <LowValue>0.000000000</LowValue>
 </Widget>
 <Widget>
     <Kind>6</Kind>
     <Name>ROTATION SPEED</Name>
-    <HighValue>0.339901477</HighValue>
+    <HighValue>0.310344845</HighValue>
     <LowValue>0.000000000</LowValue>
 </Widget>
 <Widget>
@@ -188,7 +188,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>KINECT 2 FRAME DIFF</Name>
-    <Value>0.000000536</Value>
+    <Value>0.000000000</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>

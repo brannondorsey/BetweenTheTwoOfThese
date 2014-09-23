@@ -87,6 +87,7 @@ public:
     ofxAssimpModelLoader model;
     ofxUIScrollableCanvas *gui;
     ofxDOF depthOfField;
+    ofFbo fbo;
     
     MotionDetector mD1;
     MotionDetector mD2;
