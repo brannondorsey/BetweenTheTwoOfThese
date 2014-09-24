@@ -10,12 +10,6 @@ void ofApp::setup(){
     // ofSetWindowShape(1280 * 6, 720); // real aspect ratio
     ofBackground(0);
     
-    // fbo
-//    cout << fbo.maxSamples() << endl;
-    fbo.allocate(ofGetWidth(), ofGetHeight(), GL_RGBA, 4);
-
-    ofClear(0, 255);
-    
     // lights
     light.setup();
     light.setDirectional();
@@ -333,9 +327,6 @@ void ofApp::exit() {
 //--------------------------------------------------------------
 void ofApp::draw(){
     
-    fbo.begin();
-    ofClear(0, 255);
-    
     ofEnableDepthTest();
     ofSetColor(255);
     
@@ -385,9 +376,6 @@ void ofApp::draw(){
         ofSetColor(255);
         ofDrawBitmapString(message,  15, 15);
     }
-    
-    fbo.end();
-    fbo.getTextureReference().draw(0, 0);
 }
 
 bool ofApp::dislodge(MotionDetector& mD,

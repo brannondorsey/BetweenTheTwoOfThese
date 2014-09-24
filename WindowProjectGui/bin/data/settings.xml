@@ -46,12 +46,12 @@
 <Widget>
     <Kind>4</Kind>
     <Name>DOF FOCAL DISTANCE</Name>
-    <Value>975.369506836</Value>
+    <Value>1211.822631836</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>DOF FOCAL RANGE</Name>
-    <Value>141.871917725</Value>
+    <Value>200.000000000</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -91,7 +91,7 @@
 <Widget>
     <Kind>6</Kind>
     <Name>SPEED</Name>
-    <HighValue>5.724138260</HighValue>
+    <HighValue>1.172413826</HighValue>
     <LowValue>0.000000000</LowValue>
 </Widget>
 <Widget>
@@ -188,7 +188,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>KINECT 2 FRAME DIFF</Name>
-    <Value>0.000000000</Value>
+    <Value>0.000006344</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
