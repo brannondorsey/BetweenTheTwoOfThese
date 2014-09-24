@@ -11,14 +11,18 @@ void ofApp::setup(){
     ofBackground(0);
     
     // lights
-    light.setup();
-    light.setDirectional();
-    light.setAmbientColor(ofFloatColor(0.01));
-    light.setDiffuseColor(ofFloatColor(1.0));
+    dLight.setup();
+    dLight.setDirectional();
+    dLight.setAmbientColor(ofFloatColor(0.0));
+    dLight.setDiffuseColor(ofFloatColor(0.0));
+    dLight.setSpecularColor(ofFloatColor(0.0));
     
     // materials
     material.setShininess(120);
-    material.setSpecularColor(ofColor(255));
+    material.setEmissiveColor(ofFloatColor(0.0));
+    material.setAmbientColor(ofFloatColor(1.0));
+    material.setDiffuseColor(ofFloatColor(1.0));
+    material.setSpecularColor(ofFloatColor(1.0));
     
     // model
     model.loadModel("model.dae");
@@ -49,6 +53,14 @@ void ofApp::setup(){
     bDestroyTop1 = true;
     bDestroyTop2 = false;
     
+    isPaused = false;
+    bShowBoundingBox = false;
+    bBoundingBoxChanged = false;
+    bAllFacesDislodged1 = false;
+    bAllFacesDislodged2 = false;
+    bFacesWaiting = true;
+    modelY = 0;
+    
     // gui
     gui = new ofxUIScrollableCanvas();
     gui->setScrollAreaToScreen();
@@ -72,8 +84,8 @@ void ofApp::setup(){
     gui->addSlider("CAMERA FAR CLIP", 0.0, 5000.0, camera.getFarClip());
     gui->addSpacer();
     gui->addSlider("CAMERA DISTANCE", 100, 6000, 1800);
-    gui->addSlider("CAMERA X ORBIT", 0, 360, 0.0);
-    gui->addSlider("CAMERA Y ORBIT", -90, 90, 0.0);
+    gui->addIntSlider("CAMERA X ORBIT", 0, 360, 0);
+    gui->addIntSlider("CAMERA Y ORBIT", -90, 90, 0);
     
     gui->addSpacer();
     gui->addLabel("DOF");
@@ -89,15 +101,33 @@ void ofApp::setup(){
     names.push_back("BOTTOM");
     names.push_back("OPPOSITE");
     
+    gui->addLabel("DIRECTIONAL LIGHT");
+    gui->addIntSlider("D LIGHT X ROTATION", -180, 180, 0);
+    gui->addIntSlider("D LIGHT Z ROTATION", -180, 180, 0);
+    gui->addSlider("D LIGHT AMBIENT R", 0.0, 1.0, 0.0);
+    gui->addSlider("D LIGHT AMBIENT G", 0.0, 1.0, 0.0);
+    gui->addSlider("D LIGHT AMBIENT B", 0.0, 1.0, 0.0);
+    
+    gui->addSlider("D LIGHT DIFFUSE R", 0.0, 1.0, 0.0);
+    gui->addSlider("D LIGHT DIFFUSE G", 0.0, 1.0, 0.0);
+    gui->addSlider("D LIGHT DIFFUSE B", 0.0, 1.0, 0.0);
+    
+    gui->addSlider("D LIGHT SPECULAR R", 0.0, 1.0, 0.0);
+    gui->addSlider("D LIGHT SPECULAR G", 0.0, 1.0, 0.0);
+    gui->addSlider("D LIGHT SPECULAR B", 0.0, 1.0, 0.0);
+    
+    gui->addSpacer();
+    gui->addLabel("MATERIAL");
+    gui->addSlider("MATERIAL SHINYNESS", 0, 180, 100);
+    gui->addSlider("MATERIAL EMISSIVE R", 0.0, 1.0, 0.0);
+    gui->addSlider("MATERIAL EMISSIVE G", 0.0, 1.0, 0.0);
+    gui->addSlider("MATERIAL EMISSIVE B", 0.0, 1.0, 0.0);
+    
     gui->addSpacer();
     gui->addLabel("MODELS");
     gui->addSlider("MODEL DISTANCE", 0, maxModelDistance, modelDistance);
     gui->addIntSlider("MODELS Y", -150.0, 150.0, 0.0);
     gui->addRadio("MODEL DESTRUCT MODE", names);
-    
-    gui->addSpacer();
-    gui->addLabel("MATERIAL");
-    gui->addSlider("MATERIAL SHINYNESS", 0, maxModelDistance, modelDistance);
     
     gui->addSpacer();
     gui->addLabel("PARTICLES");
@@ -172,8 +202,8 @@ void ofApp::setup(){
     
     boundingBox.setResolution(1);
     
-    cameraXOrbit = ((ofxUISlider *) gui->getWidget("CAMERA X ORBIT"))->getScaledValue();
-    cameraYOrbit = ((ofxUISlider *) gui->getWidget("CAMERA Y ORBIT"))->getScaledValue();
+    cameraXOrbit = ((ofxUIIntSlider *) gui->getWidget("CAMERA X ORBIT"))->getScaledValue();
+    cameraYOrbit = ((ofxUIIntSlider *) gui->getWidget("CAMERA Y ORBIT"))->getScaledValue();
     cameraDistance = ((ofxUISlider *) gui->getWidget("CAMERA DISTANCE"))->getScaledValue();
     
     // camera
@@ -182,24 +212,19 @@ void ofApp::setup(){
     camera.orbit(cameraXOrbit, cameraYOrbit, camera.getPosition().distance(ofVec3f(0, 0, 0)));
     camera.lookAt(ofVec3f(0, 0, 0));
     
+    // lights
+    ofxUIIntSlider* dLightXRotSlider = (ofxUIIntSlider*) gui->getWidget("D LIGHT X ROTATION");
+    ofxUIIntSlider* dLightZRotSlider = (ofxUIIntSlider*) gui->getWidget("D LIGHT Z ROTATION");
+    dLight.setOrientation(ofVec3f(dLightXRotSlider->getScaledValue(), 0, dLightZRotSlider->getScaledValue()));
+    
     // dof
     depthOfField.setup();
-    
-    // misc
-    isPaused = false;
-    bShowBoundingBox = false;
-    bBoundingBoxChanged = false;
-    bAllFacesDislodged1 = false;
-    bAllFacesDislodged2 = false;
-    bFacesWaiting = true;
-    modelY = 0;
 
     initMeshFaces();
     
     // these have to be retriggered after initMeshFaces();
     gui->getWidget("SPEED")->triggerSelf();
     gui->getWidget("ROTATION SPEED")->triggerSelf();
-    
 }
 
 //--------------------------------------------------------------
@@ -337,18 +362,17 @@ void ofApp::draw(){
     ofEnableLighting();
     
     camera.begin();
-    light.enable();
+    dLight.enable();
     material.begin();
     ofPushStyle();
     
-    ofSetColor(255, 0, 0);
+    ofSetColor(255);
     model1Mesh.draw();
-    ofSetColor(0, 0, 255);
     model2Mesh.draw();
     
     ofPopStyle();
     material.end();
-    light.disable();
+    dLight.disable();
     camera.end();
     
     ofDisableLighting();
@@ -575,6 +599,120 @@ void ofApp::guiEvent(ofxUIEventArgs &e) {
         initMeshFaces();
     }
     
+    if (e.getName() == "D LIGHT X ROTATION") {
+        
+        ofxUIIntSlider* dLightXRotSlider = (ofxUIIntSlider*) gui->getWidget("D LIGHT X ROTATION");
+        ofxUIIntSlider* dLightZRotSlider = (ofxUIIntSlider*) gui->getWidget("D LIGHT Z ROTATION");
+        dLight.setOrientation(ofVec3f(dLightXRotSlider->getScaledValue(), 0, dLightZRotSlider->getScaledValue()));
+    }
+    
+    if (e.getName() == "D LIGHT Z ROTATION") {
+        
+        ofxUIIntSlider* dLightXRotSlider = (ofxUIIntSlider*) gui->getWidget("D LIGHT X ROTATION");
+        ofxUIIntSlider* dLightZRotSlider = (ofxUIIntSlider*) gui->getWidget("D LIGHT Z ROTATION");
+        dLight.setOrientation(ofVec3f(dLightXRotSlider->getScaledValue(), 0, dLightZRotSlider->getScaledValue()));
+    }
+    
+    if (e.getName() == "D LIGHT AMBIENT R") {
+        
+        ofxUISlider* slider = (ofxUISlider*) e.widget;
+        ofFloatColor color = dLight.getAmbientColor();
+        color.r = (float) slider->getScaledValue();
+        dLight.setAmbientColor(color);
+    }
+    
+    if (e.getName() == "D LIGHT AMBIENT G") {
+        
+        ofxUISlider* slider = (ofxUISlider*) e.widget;
+        ofFloatColor color = dLight.getAmbientColor();
+        color.g = (float) slider->getScaledValue();
+        dLight.setAmbientColor(color);
+    }
+    
+    if (e.getName() == "D LIGHT AMBIENT B") {
+        
+        ofxUISlider* slider = (ofxUISlider*) e.widget;
+        ofFloatColor color = dLight.getAmbientColor();
+        color.b = (float) slider->getScaledValue();
+        dLight.setAmbientColor(color);
+    }
+    
+    if (e.getName() == "D LIGHT DIFFUSE R") {
+        
+        ofxUISlider* slider = (ofxUISlider*) e.widget;
+        ofFloatColor color = dLight.getDiffuseColor();
+        color.r = (float) slider->getScaledValue();
+        dLight.setDiffuseColor(color);
+    }
+    
+    if (e.getName() == "D LIGHT DIFFUSE G") {
+        
+        ofxUISlider* slider = (ofxUISlider*) e.widget;
+        ofFloatColor color = dLight.getDiffuseColor();
+        color.g = (float) slider->getScaledValue();
+        dLight.setDiffuseColor(color);
+    }
+    
+    if (e.getName() == "D LIGHT DIFFUSE B") {
+        
+        ofxUISlider* slider = (ofxUISlider*) e.widget;
+        ofFloatColor color = dLight.getDiffuseColor();
+        color.b = (float) slider->getScaledValue();
+        dLight.setDiffuseColor(color);
+    }
+    
+    if (e.getName() == "D LIGHT SPECULAR R") {
+        
+        ofxUISlider* slider = (ofxUISlider*) e.widget;
+        ofFloatColor color = dLight.getSpecularColor();
+        color.r = (float) slider->getScaledValue();
+        dLight.setSpecularColor(color);
+    }
+    
+    if (e.getName() == "D LIGHT SPECULAR G") {
+        
+        ofxUISlider* slider = (ofxUISlider*) e.widget;
+        ofFloatColor color = dLight.getSpecularColor();
+        color.g = (float) slider->getScaledValue();
+        dLight.setSpecularColor(color);
+    }
+    
+    if (e.getName() == "D LIGHT SPECULAR B") {
+        
+        ofxUISlider* slider = (ofxUISlider*) e.widget;
+        ofFloatColor color = dLight.getSpecularColor();
+        color.b = (float) slider->getScaledValue();
+        dLight.setSpecularColor(color);
+    }
+    
+    // MATERIAL
+    if (e.getName() == "MATERIAL SHINYNESS") {
+        material.setShininess(e.getSlider()->getScaledValue());
+    }
+    
+    if (e.getName() == "MATERIAL EMISSIVE R") {
+        
+        ofxUISlider* slider = (ofxUISlider*) e.widget;
+        ofFloatColor color = material.getEmissiveColor();
+        color.r = slider->getScaledValue();
+        material.setEmissiveColor(color);
+    }
+    
+    if (e.getName() == "MATERIAL EMISSIVE G") {
+        
+        ofxUISlider* slider = (ofxUISlider*) e.widget;
+        ofFloatColor color = material.getEmissiveColor();
+        color.g = slider->getScaledValue();
+        material.setEmissiveColor(color);    }
+    
+    if (e.getName() == "MATERIAL EMISSIVE B") {
+        
+        ofxUISlider* slider = (ofxUISlider*) e.widget;
+        ofFloatColor color = material.getEmissiveColor();
+        color.b = slider->getScaledValue();
+        material.setEmissiveColor(color);
+    }
+    
     // MODEL POSITIONS
     if (e.getName() == "MODEL DISTANCE") {
         
@@ -596,7 +734,6 @@ void ofApp::guiEvent(ofxUIEventArgs &e) {
         ofxUIRadio* radio = (ofxUIRadio*) e.widget;
         destructMode = (int) radio->getValue();
         
-        cout << "destruct mode: " << destructMode << endl;
         switch (destructMode) {
                 
             case MODEL_DESTRUCT_TOP:
@@ -657,14 +794,16 @@ void ofApp::guiEvent(ofxUIEventArgs &e) {
     
     if (e.getName() == "CAMERA X ORBIT") {
         
-        cameraXOrbit = e.getSlider()->getScaledValue();
+        ofxUIIntSlider* slider = (ofxUIIntSlider*) e.widget;
+        cameraXOrbit = slider->getScaledValue();
         camera.orbit(cameraXOrbit, cameraYOrbit, camera.getPosition().distance(ofVec3f(0, 0, 0)));
         camera.lookAt(ofVec3f(0, 0, 0));
     }
     
     if (e.getName() == "CAMERA Y ORBIT") {
         
-        cameraYOrbit = e.getSlider()->getScaledValue();
+        ofxUIIntSlider* slider = (ofxUIIntSlider*) e.widget;
+        cameraYOrbit = slider->getScaledValue();
         camera.orbit(cameraXOrbit, cameraYOrbit, camera.getPosition().distance(ofVec3f(0, 0, 0)));
         camera.lookAt(ofVec3f(0, 0, 0));
     }

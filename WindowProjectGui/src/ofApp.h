@@ -82,7 +82,7 @@ public:
     
     ofEasyCam camera;
     ofMaterial material;
-    ofLight light;
+    ofLight dLight;
     
     ofxAssimpModelLoader model;
     ofxUIScrollableCanvas *gui;
