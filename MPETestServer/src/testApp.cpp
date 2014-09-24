@@ -2,7 +2,7 @@
 
 //--------------------------------------------------------------
 void testApp::setup(){
-	ofSetFrameRate(30);
+	ofSetFrameRate(60);
     ofSetWindowShape(250, 50);
 	server.setup("mpe_server_settings.xml");
 }

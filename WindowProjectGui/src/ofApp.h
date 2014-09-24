@@ -1,5 +1,7 @@
 #pragma once
 
+#define RANDOM_SEED 1800
+
 #include "ofMain.h"
 #include "ofxAssimpModelLoader.h"
 #include "ofxUI.h"
@@ -7,8 +9,6 @@
 #include "ofxMostPixelsEver.h"
 #include "MotionDetector.h"
 #include "ModelFace.h"
-
-#define RANDOM_SEED 1800
 
 enum destructionMode{
     MODEL_DESTRUCT_TOP = 0,
@@ -64,6 +64,7 @@ public:
     float cameraXOrbit;
     float cameraYOrbit;
     float modelY;
+    float lastFrameTime;
     
     bool isPaused;
     bool bShowBoundingBox;
@@ -89,8 +90,9 @@ public:
     ofMesh model1Mesh;
     ofMesh model2Mesh;
     
+    ofRectangle viewport;
     ofBoxPrimitive boundingBox;
-    
+    ofFbo fbo;
     ofEasyCam camera;
     ofMaterial material;
     ofLight light;
@@ -98,7 +100,6 @@ public:
     ofxAssimpModelLoader model;
     ofxUIScrollableCanvas *gui;
     ofxDOF depthOfField;
-    ofFbo fbo;
     
     ofxMPEClient client;
     

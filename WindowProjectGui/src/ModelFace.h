@@ -22,7 +22,8 @@ public:
                 ofVec3f& v3,
                 ofVec3f& v1N,
                 ofVec3f& v2N,
-                ofVec3f& v3N);
+                ofVec3f& v3N,
+                float deltaTime);
     
     void applyForce(const ofVec3f& force);
     void setTarget(const ofVec3f& position, const ofVec3f& rotation);

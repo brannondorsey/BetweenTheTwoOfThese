@@ -6,7 +6,7 @@ void ofApp::setup(){
     ofSetFrameRate(60);
     ofSetVerticalSync(true);
     ofEnableAntiAliasing();
-    // ofSetWindowShape(1280 * 6, 720); // real aspect ratio
+//    ofSetWindowShape(1280 * 6, 720); // real aspect ratio
     ofSetBackgroundAuto(false);
     ofBackground(0);
     ofSeedRandom(RANDOM_SEED);
@@ -55,6 +55,7 @@ void ofApp::setup(){
     startCameraFarClip = camera.getFarClip();
     
     // motion detectors (Kinects)
+    srandom(RANDOM_SEED);
     mD1.setup();
     mD1.setUseLiveVideo(false);
     bMD1UseLiveVideo = mD1.usingLiveVideo();
@@ -207,6 +208,7 @@ void ofApp::setup(){
     depthOfField.setup();
     
     // misc
+    viewport = ofRectangle(-client.getXoffset(), -client.getYoffset(), client.getMWidth(), client.getLHeight());
     isPaused = false;
     bShowBoundingBox = false;
     bBoundingBoxChanged = false;
@@ -257,6 +259,7 @@ void ofApp::customUpdate() {
     if (!isPaused) {
         
         int vertCounter = 0;
+        float deltaTime = ofGetElapsedTimef() - lastFrameTime;
         for (int i = 0; i < model1Faces.size(); i++) {
             
             std::vector<ofVec3f>& model1MeshVerts = model1Mesh.getVertices();
@@ -266,7 +269,8 @@ void ofApp::customUpdate() {
                                   model1MeshVerts[vertCounter + 2],
                                   model1MeshNorms[vertCounter],
                                   model1MeshNorms[vertCounter + 1],
-                                  model1MeshNorms[vertCounter + 2]);
+                                  model1MeshNorms[vertCounter + 2],
+                                  deltaTime);
             
             std::vector<ofVec3f>& model2MeshVerts = model2Mesh.getVertices();
             std::vector<ofVec3f>& model2MeshNorms = model2Mesh.getNormals();
@@ -275,7 +279,8 @@ void ofApp::customUpdate() {
                                   model2MeshVerts[vertCounter + 2],
                                   model2MeshNorms[vertCounter],
                                   model2MeshNorms[vertCounter + 1],
-                                  model2MeshNorms[vertCounter + 2]);
+                                  model2MeshNorms[vertCounter + 2],
+                                  deltaTime);
             
             vertCounter += 3;
         }
@@ -316,12 +321,17 @@ void ofApp::customUpdate() {
             
         } else {
             
-            // order matters with these two dislodge calls
-            bool result = dislodge(mD1, model1Faces, model2Faces, bDestroyTop1, true);
-            mD1MotionDetectedbutton->setValue(result);
-            
-            result = dislodge(mD2, model2Faces, model1Faces, bDestroyTop2, false);
-            mD2MotionDetectedbutton->setValue(result);
+            if (CLIENT_ID == 1) {
+                
+                if (mD1.motionDetected()) {
+                    client.broadcast("mD1MotionDetected");
+                    
+                }
+                
+                if (mD2.motionDetected()) {
+                    client.broadcast("mD2MotionDetected");
+                }
+            }
             
             bFacesWaiting = true;
             
@@ -350,7 +360,7 @@ void ofApp::customUpdate() {
 
 void ofApp::customDraw() {
     
-    fbo.begin();
+//    fbo.begin();
     ofClear(0, 255);
     
     ofEnableDepthTest();
@@ -361,15 +371,14 @@ void ofApp::customDraw() {
     }
     
     ofEnableLighting();
-    
-    camera.begin();
+    camera.begin(viewport);
     light.enable();
     material.begin();
     ofPushStyle();
     
-    ofSetColor(255, 0, 0);
+//    ofSetColor(255, 0, 0);
     model1Mesh.draw();
-    ofSetColor(0, 0, 255);
+//    ofSetColor(0, 0, 255);
     model2Mesh.draw();
     
     ofPopStyle();
@@ -386,41 +395,53 @@ void ofApp::customDraw() {
     }
     
     if (bShowBoundingBox) {
-        camera.begin();
+        camera.begin(viewport);
         boundingBox.drawWireframe();
         camera.end();
     }
     
     if (gui->isVisible()) {
-        std::string message = ofToString(ofGetFrameRate()) += " fps\n";
+        std::string message = ofToString(client.getFPS()) += " fps\n";
         message += "Hold SHIFT to remove faces\n";
         message += "Press SPACE to pause\n";
         message += "Press 'r' to reset\n";
         message += "Press 'f' to toggle fullscreen\n";
         message += "Press 'h' to toggle GUI\n";
         ofSetColor(255);
-        ofDrawBitmapString(message,  15, 15);
+        ofDrawBitmapString(message,  15 - client.getXoffset(), 15);
     }
     
-    fbo.end();
+//    fbo.end();
 }
 
 void ofApp::mpeFrameEvent(ofxMPEEventArgs& event) {
     
+    if (event.frame == 1) {
+        lastFrameTime = ofGetElapsedTimef();
+    }
+    
     ofBackground(0);
     customUpdate();
     customDraw();
-    fbo.getTextureReference().drawSubsection(0,
-                                             0,
-                                             client.getLWidth(),
-                                             client.getLHeight(),
-                                             client.getXoffset(),
-                                             client.getYoffset());
+    lastFrameTime = ofGetElapsedTimef();
     
+//    fbo.getTextureReference().drawSubsection(0,
+//                                             0,
+//                                             client.getLWidth(),
+//                                             client.getLHeight(),
+//                                             client.getXoffset(),
+//                                             client.getYoffset());
+//    
 }
 
 void ofApp::mpeMessageEvent(ofxMPEEventArgs& event) {
     
+    if (event.message == "mD1MotionDetected") {
+        dislodge(mD1, model1Faces, model2Faces, bDestroyTop1, true);
+    }
+    else if (event.message == "mD2MotionDetected") {
+        dislodge(mD2, model2Faces, model1Faces, bDestroyTop2, false);
+    }
 }
 
 void ofApp::mpeResetEvent(ofxMPEEventArgs& event) {
@@ -440,7 +461,7 @@ bool ofApp::dislodge(MotionDetector& mD,
                      bool bModel1) {
     
     if ((bModel1 && bAllFacesDislodged1) || (!bModel1 && bAllFacesDislodged2)) return false;
-    else if (mD.motionDetected()) {
+    else {
         
         int faceIndex = -1;
         bool usingModel1Face = true; // not the first mesh necessarily, just the first one passed into this function
@@ -621,10 +642,11 @@ ofVec3f ofApp::getPointInBoundingBox() {
     float bBoxWidth = boundingBox.getWidth();
     float bBoxHeight = boundingBox.getHeight();
     float bBoxDepth = boundingBox.getDepth();
-    
-    return ofVec3f(ofRandom(bBoxPosition.x - bBoxWidth/2, bBoxPosition.x + bBoxWidth/2),
-                   ofRandom(bBoxPosition.y - bBoxHeight/2, bBoxPosition.y + bBoxHeight/2),
-                   ofRandom(bBoxPosition.z - bBoxDepth/2, bBoxPosition.z + bBoxDepth/2));
+    ofVec3f point(ofRandom(bBoxPosition.x - bBoxWidth/2, bBoxPosition.x + bBoxWidth/2),
+                  ofRandom(bBoxPosition.y - bBoxHeight/2, bBoxPosition.y + bBoxHeight/2),
+                  ofRandom(bBoxPosition.z - bBoxDepth/2, bBoxPosition.z + bBoxDepth/2));
+    cout << point << endl;
+    return point;
 }
 
 void ofApp::guiEvent(ofxUIEventArgs &e) {

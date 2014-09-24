@@ -31,6 +31,7 @@ void MotionDetector::setup(int deviceId) {
     
     _video.loadMovie(ofToDataPath("kinect_recording.mov"));
     //_video.setPosition(ofRandom(1));
+    _video.setPosition(0.5);
     _video.setLoopState(OF_LOOP_NORMAL);
     
     _displayImage.allocate(_kinect.getWidth(), _kinect.getHeight(), OF_IMAGE_GRAYSCALE);
@@ -42,7 +43,7 @@ void MotionDetector::setup(int deviceId) {
         _video.play();
     }
     
-    cout << "CLIENT " << ofToString(CLIENT_ID) << " MotionDetector::setup() random num: " << ofRandom(1) << endl;
+    cout << "CLIENT " << ofToString(CLIENT_ID) << " MotionDetector::setup() random num: " << random() << endl;
 }
 
 void MotionDetector::update() {

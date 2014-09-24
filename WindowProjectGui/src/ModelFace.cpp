@@ -50,9 +50,13 @@ _isWaiting(true)
 
     setRotationSpeed(0.1, 0.5);
     setSpeed(3);
-    setWaitPosition(ofVec3f(ofRandom(-500, 500),
-                            ofRandom(-300, 300),
-                            ofRandom(-2000, 2000)));
+    
+    ofVec3f waitPos = ofVec3f(ofRandom(-500, 500),
+                              ofRandom(-300, 300),
+                              ofRandom(-2000, 2000));
+    
+    setWaitPosition(waitPos);
+    
 }
 
 void ModelFace::update(ofVec3f& v1,
@@ -60,7 +64,8 @@ void ModelFace::update(ofVec3f& v1,
                        ofVec3f& v3,
                        ofVec3f& v1N,
                        ofVec3f& v2N,
-                       ofVec3f& v3N) {
+                       ofVec3f& v3N,
+                       float deltaTime) {
     
     ofVec3f position;
     
@@ -85,7 +90,7 @@ void ModelFace::update(ofVec3f& v1,
         _velocity.limit(_maxSpeed);
         _acceleration *= 0;
         
-        position += _velocity;
+        position += (_velocity * 10.0) * deltaTime;
         ofNode::setPosition(position);
         
         // rotation
