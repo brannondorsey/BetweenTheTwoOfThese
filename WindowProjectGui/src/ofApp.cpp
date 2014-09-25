@@ -25,7 +25,7 @@ void ofApp::setup(){
     material.setSpecularColor(ofFloatColor(1.0));
     
     // model
-    model.loadModel("model.dae");
+    model.loadModel("head.dae");
     modelDistance = ofGetWidth() * 1.7;
     
     // camera
