@@ -88,6 +88,20 @@ void ofApp::setup(){
     gui->addIntSlider("CAMERA Y ORBIT", -90, 90, 0);
     
     gui->addSpacer();
+    gui->addLabel("BOUNDING BOX");
+    gui->addToggle("DRAW BOX", &bShowBoundingBox);
+    gui->addSpacer();
+    gui->addSlider("BOX WIDTH", 1.0, maxModelDistance, modelDistance - 200.0);
+    gui->addSlider("BOX HEIGHT", 1.0, 1000.0, 300);
+    gui->addSlider("BOX DEPTH", 1.0, 4000.0, 200.0);
+    gui->addSpacer();
+    gui->addSlider("BOX X", - modelDistance/2, modelDistance/2, 0.0);
+    gui->addSlider("BOX Y", - 800, 800, 100.0);
+    gui->addSlider("BOX Z", - modelDistance/2, modelDistance/2, -155.0);
+    gui->addSpacer();
+    gui->addButton("CENTER BOX", false);
+    
+    gui->addSpacer();
     gui->addLabel("DOF");
     gui->addToggle("ENABLE DOF", &bDOFEnabled);
     gui->addToggle("DOF FOCUS ASSISTANCE", &bDrawDOFFocusAssist);
@@ -133,20 +147,6 @@ void ofApp::setup(){
     gui->addLabel("PARTICLES");
     gui->addRangeSlider("SPEED", 0.0, 7, 1.5, 2.5);
     gui->addRangeSlider("ROTATION SPEED", 0.0, 3.0, 0.5, 1.5);
-    
-    gui->addSpacer();
-    gui->addLabel("BOUNDING BOX");
-    gui->addToggle("DRAW BOX", &bShowBoundingBox);
-    gui->addSpacer();
-    gui->addSlider("BOX WIDTH", 1.0, maxModelDistance, modelDistance - 200.0);
-    gui->addSlider("BOX HEIGHT", 1.0, 1000.0, 300);
-    gui->addSlider("BOX DEPTH", 1.0, 4000.0, 200.0);
-    gui->addSpacer();
-    gui->addSlider("BOX X", - modelDistance/2, modelDistance/2, 0.0);
-    gui->addSlider("BOX Y", - 800, 800, 100.0);
-    gui->addSlider("BOX Z", - modelDistance/2, modelDistance/2, -155.0);
-    gui->addSpacer();
-    gui->addButton("CENTER BOX", false);
     
     ofImage& mD1Image = mD1.getImage();
     float imageWidth = (gui->getGlobalCanvasWidth() - gui->getPadding()*7.0);
@@ -864,7 +864,14 @@ void ofApp::guiEvent(ofxUIEventArgs &e) {
     }
     
     if (e.getName() == "CENTER BOX") {
+        
         boundingBox.setPosition(0, 0, 0);
+        ofxUISlider* xSlider = (ofxUISlider*) gui->getWidget("BOX X");
+        ofxUISlider* ySlider = (ofxUISlider*) gui->getWidget("BOX Y");
+        ofxUISlider* zSlider = (ofxUISlider*) gui->getWidget("BOX Z");
+        xSlider->setValue(0);
+        ySlider->setValue(0);
+        zSlider->setValue(0);
         bBoundingBoxChanged = true;
     }
     
