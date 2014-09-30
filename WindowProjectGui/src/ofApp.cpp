@@ -60,10 +60,13 @@ void ofApp::setup(){
     bAllFacesDislodged1 = false;
     bAllFacesDislodged2 = false;
     bFacesWaiting = true;
+    bRotateDLight = false;
     modelY = 0;
     modelDistance = ofGetWidth() * 1.7;
     curModelNum = 1; //tmp
     guiXPosPercent = 1.0; // 0.0 - 1.0 signifying location on screen
+    dLightXRotDir = 1;
+    dLightZRotDir = 1;
     
     // gui
     gui = new ofxUIScrollableCanvas();
@@ -183,8 +186,12 @@ void ofApp::setup(){
     gui2->setColorBack(ofColor(50, 200));
     
     gui2->addLabel("DIRECTIONAL LIGHT");
-    gui2->addIntSlider("D LIGHT X ROTATION", -180, 180, 0);
-    gui2->addIntSlider("D LIGHT Z ROTATION", -180, 180, 0);
+    gui2->addSlider("D LIGHT X ROT", -180.0, 180.0, 0.0);
+    gui2->addSlider("D LIGHT X ROT SPEED", -1.0, 1.0, 0.0);
+    gui2->addRangeSlider("D LGT X RNG", -180, 180, -90.0, 90.0);
+    gui2->addSlider("D LIGHT Z ROT", -180.0, 180.0, 0.0);
+    gui2->addSlider("D LIGHT Z ROT SPEED", -1.0, 1.0, 0.0);
+    gui2->addRangeSlider("D LGT Z RNG", -180, 180, -90.0, 90.0);
     gui2->addSlider("D LIGHT AMBIENT R", 0.0, 1.0, 0.0);
     gui2->addSlider("D LIGHT AMBIENT G", 0.0, 1.0, 0.0);
     gui2->addSlider("D LIGHT AMBIENT B", 0.0, 1.0, 0.0);
@@ -237,8 +244,8 @@ void ofApp::setup(){
     camera.lookAt(ofVec3f(0, 0, 0));
     
     // lights
-    ofxUIIntSlider* dLightXRotSlider = (ofxUIIntSlider*) gui2->getWidget("D LIGHT X ROTATION");
-    ofxUIIntSlider* dLightZRotSlider = (ofxUIIntSlider*) gui2->getWidget("D LIGHT Z ROTATION");
+    ofxUISlider* dLightXRotSlider = (ofxUISlider*) gui2->getWidget("D LIGHT X ROT");
+    ofxUISlider* dLightZRotSlider = (ofxUISlider*) gui2->getWidget("D LIGHT Z ROT");
     dLight.setOrientation(ofVec3f(dLightXRotSlider->getScaledValue(), 0, dLightZRotSlider->getScaledValue()));
     
     // dof
@@ -272,6 +279,46 @@ void ofApp::update(){
     image2Widget->setImage(&mD2.getImage());
     ofxUISlider* frameDifferenceSlider2 = (ofxUISlider*) gui->getWidget("KINECT 2 FRAME DIFF");
     frameDifferenceSlider2->setValue(mD2.getFrameDifference());
+    
+    // update directional light rotations
+    ofxUISlider* dLightXRotSlider = (ofxUISlider*) gui2->getWidget("D LIGHT X ROT");
+    ofxUISlider* dLightZRotSlider = (ofxUISlider*) gui2->getWidget("D LIGHT Z ROT");
+    ofxUIRangeSlider* dLightXRotRangeSlider = (ofxUIRangeSlider*) gui2->getWidget("D LGT X RNG");
+    ofxUIRangeSlider* dLightZRotRangeSlider = (ofxUIRangeSlider*) gui2->getWidget("D LGT Z RNG");
+    
+    // animate the rotation of the x light at a given speed
+    // and between a given range
+    float dLightXRot = dLightXRotSlider->getScaledValue();
+    float dLightXRotMin = dLightXRotRangeSlider->getValueLow();
+    float dLightXRotMax = dLightXRotRangeSlider->getValueHigh();
+    dLightXRot += (floorf(dLightXRotSpeed * 100)/100) * dLightXRotDir; // round to hundredth place
+    if (dLightXRot > dLightXRotMax) {
+        dLightXRot = dLightXRotMax;
+        dLightXRotDir = -dLightXRotDir;
+    }
+    else if (dLightXRot < dLightXRotMin) {
+        dLightXRot = dLightXRotMin;
+        dLightXRotDir = -dLightXRotDir;
+    }
+    dLightXRotSlider->setValue(dLightXRot);
+    
+    // do the same with the Z light rotation
+    float dLightZRot = dLightZRotSlider->getScaledValue();
+    float dLightZRotMin = dLightZRotRangeSlider->getValueLow();
+    float dLightZRotMax = dLightZRotRangeSlider->getValueHigh();
+    dLightZRot += (floorf(dLightZRotSpeed * 100)/100) * dLightZRotDir; // round to hundredth place
+    if (dLightZRot > dLightZRotMax) {
+        dLightZRot = dLightZRotMax;
+        dLightZRotDir = -dLightZRotDir;
+    }
+    else if (dLightZRot < dLightZRotMin) {
+        dLightZRot = dLightZRotMin;
+        dLightZRotDir = -dLightZRotDir;
+    }
+    dLightZRotSlider->setValue(dLightZRot);
+    
+    
+    dLight.setOrientation(ofVec3f(dLightXRot, 0, dLightZRot));
     
     if (!isPaused) {
         
@@ -629,18 +676,28 @@ void ofApp::guiEvent(ofxUIEventArgs &e) {
         initMeshFaces();
     }
     
-    if (e.getName() == "D LIGHT X ROTATION") {
+    if (e.getName() == "D LIGHT X ROT") {
         
-        ofxUIIntSlider* dLightXRotSlider = (ofxUIIntSlider*) gui2->getWidget("D LIGHT X ROTATION");
-        ofxUIIntSlider* dLightZRotSlider = (ofxUIIntSlider*) gui2->getWidget("D LIGHT Z ROTATION");
+        ofxUISlider* dLightXRotSlider = (ofxUISlider*) gui2->getWidget("D LIGHT X ROT");
+        ofxUISlider* dLightZRotSlider = (ofxUISlider*) gui2->getWidget("D LIGHT Z ROT");
         dLight.setOrientation(ofVec3f(dLightXRotSlider->getScaledValue(), 0, dLightZRotSlider->getScaledValue()));
     }
     
-    if (e.getName() == "D LIGHT Z ROTATION") {
+    if (e.getName() == "D LIGHT X ROT SPEED") {
         
-        ofxUIIntSlider* dLightXRotSlider = (ofxUIIntSlider*) gui2->getWidget("D LIGHT X ROTATION");
-        ofxUIIntSlider* dLightZRotSlider = (ofxUIIntSlider*) gui2->getWidget("D LIGHT Z ROTATION");
+        dLightXRotSpeed = e.getSlider()->getScaledValue();
+    }
+    
+    if (e.getName() == "D LIGHT Z ROT") {
+        
+        ofxUISlider* dLightXRotSlider = (ofxUISlider*) gui2->getWidget("D LIGHT X ROT");
+        ofxUISlider* dLightZRotSlider = (ofxUISlider*) gui2->getWidget("D LIGHT Z ROT");
         dLight.setOrientation(ofVec3f(dLightXRotSlider->getScaledValue(), 0, dLightZRotSlider->getScaledValue()));
+    }
+    
+    if (e.getName() == "D LIGHT Z ROT SPEED") {
+        
+        dLightZRotSpeed = e.getSlider()->getScaledValue();
     }
     
     if (e.getName() == "D LIGHT AMBIENT R") {

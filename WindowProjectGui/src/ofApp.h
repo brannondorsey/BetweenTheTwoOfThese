@@ -49,6 +49,8 @@ public:
     int destructMode;
     int numModels;
     int curModelNum;
+    int dLightXRotDir;
+    int dLightZRotDir;
     
     float startCameraFOV;
     float startCameraAspectRatio;
@@ -59,6 +61,12 @@ public:
     float cameraYOrbit;
     float modelY;
     float guiXPosPercent;
+    float dLightXRotSpeed;
+    float dLightXRotMin;
+    float dLightXRotMax;
+    float dLightZRotSpeed;
+    float dLightZRotMin;
+    float dLightZRotMax;
     
     bool isPaused;
     bool bShowBoundingBox;
@@ -72,6 +80,7 @@ public:
     bool bDestroyTop1;
     bool bDestroyTop2;
     bool bFacesWaiting;
+    bool bRotateDLight;
     
     ofVec3f nearestVertex;
     
