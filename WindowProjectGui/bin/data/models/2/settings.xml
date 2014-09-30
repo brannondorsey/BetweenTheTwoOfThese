@@ -1,0 +1,75 @@
+<Widget>
+    <Kind>42</Kind>
+    <Name>D LIGHT X ROTATION</Name>
+    <Value>-6</Value>
+</Widget>
+<Widget>
+    <Kind>42</Kind>
+    <Name>D LIGHT Z ROTATION</Name>
+    <Value>-87</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>D LIGHT AMBIENT R</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>D LIGHT AMBIENT G</Name>
+    <Value>0.256157637</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>D LIGHT AMBIENT B</Name>
+    <Value>0.512315273</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>D LIGHT DIFFUSE R</Name>
+    <Value>0.665024638</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>D LIGHT DIFFUSE G</Name>
+    <Value>0.093596056</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>D LIGHT DIFFUSE B</Name>
+    <Value>0.216748774</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>D LIGHT SPECULAR R</Name>
+    <Value>0.546798050</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>D LIGHT SPECULAR G</Name>
+    <Value>0.556650221</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>D LIGHT SPECULAR B</Name>
+    <Value>0.541871905</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>MATERIAL SHINYNESS</Name>
+    <Value>100.000007629</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>MATERIAL EMISSIVE R</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>MATERIAL EMISSIVE G</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>MATERIAL EMISSIVE B</Name>
+    <Value>0.000000000</Value>
+</Widget>

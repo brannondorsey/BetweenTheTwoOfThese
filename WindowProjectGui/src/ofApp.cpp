@@ -8,7 +8,12 @@ void ofApp::setup(){
     ofSetWindowShape(1200, 500);
     ofEnableAntiAliasing();
     // ofSetWindowShape(1280 * 6, 720); // real aspect ratio
+    // ofSetWindowShape(1440, 135); // real aspect ratio
     ofBackground(0);
+    
+    ofDirectory dir("models");
+    dir.listDir();
+    numModels = dir.size();
     
     // lights
     dLight.setup();
@@ -23,10 +28,6 @@ void ofApp::setup(){
     material.setAmbientColor(ofFloatColor(1.0));
     material.setDiffuseColor(ofFloatColor(1.0));
     material.setSpecularColor(ofFloatColor(1.0));
-    
-    // model
-    model.loadModel("head.dae");
-    modelDistance = ofGetWidth() * 1.7;
     
     // camera
     camera.setAspectRatio(float(ofGetWidth())/float(ofGetHeight()));
@@ -60,6 +61,9 @@ void ofApp::setup(){
     bAllFacesDislodged2 = false;
     bFacesWaiting = true;
     modelY = 0;
+    modelDistance = ofGetWidth() * 1.7;
+    curModelNum = 1; //tmp
+    guiXPosPercent = 1.0; // 0.0 - 1.0 signifying location on screen
     
     // gui
     gui = new ofxUIScrollableCanvas();
@@ -115,30 +119,14 @@ void ofApp::setup(){
     names.push_back("BOTTOM");
     names.push_back("OPPOSITE");
     
-    gui->addLabel("DIRECTIONAL LIGHT");
-    gui->addIntSlider("D LIGHT X ROTATION", -180, 180, 0);
-    gui->addIntSlider("D LIGHT Z ROTATION", -180, 180, 0);
-    gui->addSlider("D LIGHT AMBIENT R", 0.0, 1.0, 0.0);
-    gui->addSlider("D LIGHT AMBIENT G", 0.0, 1.0, 0.0);
-    gui->addSlider("D LIGHT AMBIENT B", 0.0, 1.0, 0.0);
-    
-    gui->addSlider("D LIGHT DIFFUSE R", 0.0, 1.0, 0.0);
-    gui->addSlider("D LIGHT DIFFUSE G", 0.0, 1.0, 0.0);
-    gui->addSlider("D LIGHT DIFFUSE B", 0.0, 1.0, 0.0);
-    
-    gui->addSlider("D LIGHT SPECULAR R", 0.0, 1.0, 0.0);
-    gui->addSlider("D LIGHT SPECULAR G", 0.0, 1.0, 0.0);
-    gui->addSlider("D LIGHT SPECULAR B", 0.0, 1.0, 0.0);
-    
-    gui->addSpacer();
-    gui->addLabel("MATERIAL");
-    gui->addSlider("MATERIAL SHINYNESS", 0, 180, 100);
-    gui->addSlider("MATERIAL EMISSIVE R", 0.0, 1.0, 0.0);
-    gui->addSlider("MATERIAL EMISSIVE G", 0.0, 1.0, 0.0);
-    gui->addSlider("MATERIAL EMISSIVE B", 0.0, 1.0, 0.0);
-    
+    std::vector<std::string> modelNames;
+    for (int i = 1; i <= numModels; i++) {
+        modelNames.push_back(ofToString(i));
+    }
+
     gui->addSpacer();
     gui->addLabel("MODELS");
+    gui->addRadio("MODEL NUMBER", modelNames);
     gui->addSlider("MODEL DISTANCE", 0, maxModelDistance, modelDistance);
     gui->addIntSlider("MODELS Y", -150.0, 150.0, 0.0);
     gui->addRadio("MODEL DESTRUCT MODE", names);
@@ -182,10 +170,46 @@ void ofApp::setup(){
     gui->addIntSlider("KINECT 2 TILT", -30, 30, mD2.getTiltAngle());
     
     gui->autoSizeToFitWidgets();
-    gui->setPosition(ofGetWidth() - gui->getRect()->getWidth(), 0);
+    gui->setPosition((ofGetWidth() * guiXPosPercent) - gui->getRect()->getWidth() * 2, 0);
     gui->setup();
     ofAddListener(gui->newGUIEvent, this, &ofApp::guiEvent);
     gui->loadSettings("settings.xml");
+    
+    // gui 2
+    gui2 = new ofxUIScrollableCanvas();
+    gui2->setScrollAreaToScreen();
+    gui2->setScrollableDirections(false, true);
+    
+    gui2->setColorBack(ofColor(50, 200));
+    
+    gui2->addLabel("DIRECTIONAL LIGHT");
+    gui2->addIntSlider("D LIGHT X ROTATION", -180, 180, 0);
+    gui2->addIntSlider("D LIGHT Z ROTATION", -180, 180, 0);
+    gui2->addSlider("D LIGHT AMBIENT R", 0.0, 1.0, 0.0);
+    gui2->addSlider("D LIGHT AMBIENT G", 0.0, 1.0, 0.0);
+    gui2->addSlider("D LIGHT AMBIENT B", 0.0, 1.0, 0.0);
+    
+    gui2->addSlider("D LIGHT DIFFUSE R", 0.0, 1.0, 0.0);
+    gui2->addSlider("D LIGHT DIFFUSE G", 0.0, 1.0, 0.0);
+    gui2->addSlider("D LIGHT DIFFUSE B", 0.0, 1.0, 0.0);
+    
+    gui2->addSlider("D LIGHT SPECULAR R", 0.0, 1.0, 0.0);
+    gui2->addSlider("D LIGHT SPECULAR G", 0.0, 1.0, 0.0);
+    gui2->addSlider("D LIGHT SPECULAR B", 0.0, 1.0, 0.0);
+    
+    gui2->addSpacer();
+    gui2->addLabel("MATERIAL");
+    gui2->addSlider("MATERIAL SHINYNESS", 0, 180, 100);
+    gui2->addSlider("MATERIAL EMISSIVE R", 0.0, 1.0, 0.0);
+    gui2->addSlider("MATERIAL EMISSIVE G", 0.0, 1.0, 0.0);
+    gui2->addSlider("MATERIAL EMISSIVE B", 0.0, 1.0, 0.0);
+    
+    gui2->autoSizeToFitWidgets();
+    gui2->setPosition((ofGetWidth() * guiXPosPercent) - gui->getRect()->getWidth(), 0);
+    gui2->setup();
+    ofAddListener(gui2->newGUIEvent, this, &ofApp::guiEvent);
+    gui2->loadSettings("models/" + ofToString(curModelNum) + "/settings.xml");
+
 
     // Particle bounding box
     float boxX = ((ofxUISlider *) gui->getWidget("BOX X"))->getScaledValue();
@@ -213,8 +237,8 @@ void ofApp::setup(){
     camera.lookAt(ofVec3f(0, 0, 0));
     
     // lights
-    ofxUIIntSlider* dLightXRotSlider = (ofxUIIntSlider*) gui->getWidget("D LIGHT X ROTATION");
-    ofxUIIntSlider* dLightZRotSlider = (ofxUIIntSlider*) gui->getWidget("D LIGHT Z ROTATION");
+    ofxUIIntSlider* dLightXRotSlider = (ofxUIIntSlider*) gui2->getWidget("D LIGHT X ROTATION");
+    ofxUIIntSlider* dLightZRotSlider = (ofxUIIntSlider*) gui2->getWidget("D LIGHT Z ROTATION");
     dLight.setOrientation(ofVec3f(dLightXRotSlider->getScaledValue(), 0, dLightZRotSlider->getScaledValue()));
     
     // dof
@@ -347,6 +371,9 @@ void ofApp::exit() {
     
     gui->saveSettings("settings.xml");
     delete gui;
+    
+    gui2->saveSettings("models/" + ofToString(curModelNum) + "/settings.xml");
+    delete gui2;
 }
 
 //--------------------------------------------------------------
@@ -492,6 +519,9 @@ bool ofApp::allFacesSettled() {
 
 void ofApp::initMeshFaces() {
     
+    model.clear();
+    ofLogNotice() << ofToString(curModelNum);
+    model.loadModel("models/" + ofToString(curModelNum) + "/model.dae");
     ofMesh mesh1 = model.getMesh(0);
     ofMesh mesh2 = mesh1;
     
@@ -601,15 +631,15 @@ void ofApp::guiEvent(ofxUIEventArgs &e) {
     
     if (e.getName() == "D LIGHT X ROTATION") {
         
-        ofxUIIntSlider* dLightXRotSlider = (ofxUIIntSlider*) gui->getWidget("D LIGHT X ROTATION");
-        ofxUIIntSlider* dLightZRotSlider = (ofxUIIntSlider*) gui->getWidget("D LIGHT Z ROTATION");
+        ofxUIIntSlider* dLightXRotSlider = (ofxUIIntSlider*) gui2->getWidget("D LIGHT X ROTATION");
+        ofxUIIntSlider* dLightZRotSlider = (ofxUIIntSlider*) gui2->getWidget("D LIGHT Z ROTATION");
         dLight.setOrientation(ofVec3f(dLightXRotSlider->getScaledValue(), 0, dLightZRotSlider->getScaledValue()));
     }
     
     if (e.getName() == "D LIGHT Z ROTATION") {
         
-        ofxUIIntSlider* dLightXRotSlider = (ofxUIIntSlider*) gui->getWidget("D LIGHT X ROTATION");
-        ofxUIIntSlider* dLightZRotSlider = (ofxUIIntSlider*) gui->getWidget("D LIGHT Z ROTATION");
+        ofxUIIntSlider* dLightXRotSlider = (ofxUIIntSlider*) gui2->getWidget("D LIGHT X ROTATION");
+        ofxUIIntSlider* dLightZRotSlider = (ofxUIIntSlider*) gui2->getWidget("D LIGHT Z ROTATION");
         dLight.setOrientation(ofVec3f(dLightXRotSlider->getScaledValue(), 0, dLightZRotSlider->getScaledValue()));
     }
     
@@ -714,6 +744,20 @@ void ofApp::guiEvent(ofxUIEventArgs &e) {
     }
     
     // MODEL POSITIONS
+    
+    if (e.getName() == "MODEL NUMBER") {
+        ofxUIRadio* radio = (ofxUIRadio*) e.widget;
+
+        int val = (int) radio->getValue() + 1;
+        if (val > 0) {
+            gui2->saveSettings("models/" + ofToString(curModelNum) + "/settings.xml");
+            curModelNum = val;
+            gui2->loadSettings("models/" + ofToString(curModelNum) + "/settings.xml");
+        }
+        
+        initMeshFaces();
+    }
+
     if (e.getName() == "MODEL DISTANCE") {
         
         modelDistance = (int) e.getSlider()->getValue();
@@ -980,6 +1024,7 @@ void ofApp::keyPressed(int key){
         initMeshFaces();
     } else if (key == 'h') {
         gui->toggleVisible();
+        gui2->toggleVisible();
     } else if (key == 'x') {
         for (int i = 0; i < model1Faces.size(); i++) {
             
@@ -1021,9 +1066,11 @@ void ofApp::mouseReleased(int x, int y, int button){
 void ofApp::windowResized(int w, int h){
     
     depthOfField.setup(w, h);
-    if (gui != NULL) {
-        gui->setPosition(w - gui->getRect()->getWidth(), 0);
+    if (gui != NULL && gui2 != NULL) {
+        gui->setPosition(w - gui->getRect()->getWidth() * 2, 0);
         gui->autoSizeToFitWidgets();
+        gui2->setPosition(w - gui->getRect()->getWidth(), 0);
+        gui2->autoSizeToFitWidgets();
     }
 }
 

@@ -1,7 +1,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>CAMERA FOV</Name>
-    <Value>75.369453430</Value>
+    <Value>60.000000000</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -21,12 +21,12 @@
 <Widget>
     <Kind>4</Kind>
     <Name>CAMERA DISTANCE</Name>
-    <Value>797.536926270</Value>
+    <Value>1175.369506836</Value>
 </Widget>
 <Widget>
     <Kind>42</Kind>
     <Name>CAMERA X ORBIT</Name>
-    <Value>179</Value>
+    <Value>180</Value>
 </Widget>
 <Widget>
     <Kind>42</Kind>
@@ -41,17 +41,17 @@
 <Widget>
     <Kind>4</Kind>
     <Name>BOX WIDTH</Name>
-    <Value>1182.000000000</Value>
+    <Value>2040.000000000</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>BOX HEIGHT</Name>
-    <Value>375.009826660</Value>
+    <Value>300.000000000</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>BOX DEPTH</Name>
-    <Value>1320.866943359</Value>
+    <Value>200.000000000</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -66,7 +66,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>BOX Z</Name>
-    <Value>65.320137024</Value>
+    <Value>0.000000000</Value>
 </Widget>
 <Widget>
     <Kind>2</Kind>
@@ -81,102 +81,37 @@
 <Widget>
     <Kind>4</Kind>
     <Name>DOF FOCAL DISTANCE</Name>
-    <Value>591.132995605</Value>
+    <Value>0.000000000</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>DOF FOCAL RANGE</Name>
-    <Value>42.364532471</Value>
+    <Value>50.000000000</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>DOF BLUR AMOUNT</Name>
-    <Value>0.443349749</Value>
+    <Value>1.000000000</Value>
 </Widget>
 <Widget>
-    <Kind>42</Kind>
-    <Name>D LIGHT X ROTATION</Name>
-    <Value>29</Value>
+    <Kind>2</Kind>
+    <Name>1</Name>
+    <Value>0</Value>
 </Widget>
 <Widget>
-    <Kind>42</Kind>
-    <Name>D LIGHT Z ROTATION</Name>
-    <Value>73</Value>
-</Widget>
-<Widget>
-    <Kind>4</Kind>
-    <Name>D LIGHT AMBIENT R</Name>
-    <Value>0.152709365</Value>
-</Widget>
-<Widget>
-    <Kind>4</Kind>
-    <Name>D LIGHT AMBIENT G</Name>
-    <Value>0.093596056</Value>
-</Widget>
-<Widget>
-    <Kind>4</Kind>
-    <Name>D LIGHT AMBIENT B</Name>
-    <Value>0.044334974</Value>
-</Widget>
-<Widget>
-    <Kind>4</Kind>
-    <Name>D LIGHT DIFFUSE R</Name>
-    <Value>0.591132998</Value>
-</Widget>
-<Widget>
-    <Kind>4</Kind>
-    <Name>D LIGHT DIFFUSE G</Name>
-    <Value>0.581280768</Value>
-</Widget>
-<Widget>
-    <Kind>4</Kind>
-    <Name>D LIGHT DIFFUSE B</Name>
-    <Value>0.753694594</Value>
-</Widget>
-<Widget>
-    <Kind>4</Kind>
-    <Name>D LIGHT SPECULAR R</Name>
-    <Value>0.000000000</Value>
-</Widget>
-<Widget>
-    <Kind>4</Kind>
-    <Name>D LIGHT SPECULAR G</Name>
-    <Value>0.000000000</Value>
-</Widget>
-<Widget>
-    <Kind>4</Kind>
-    <Name>D LIGHT SPECULAR B</Name>
-    <Value>0.000000000</Value>
-</Widget>
-<Widget>
-    <Kind>4</Kind>
-    <Name>MATERIAL SHINYNESS</Name>
-    <Value>0.000000000</Value>
-</Widget>
-<Widget>
-    <Kind>4</Kind>
-    <Name>MATERIAL EMISSIVE R</Name>
-    <Value>0.000000000</Value>
-</Widget>
-<Widget>
-    <Kind>4</Kind>
-    <Name>MATERIAL EMISSIVE G</Name>
-    <Value>0.000000000</Value>
-</Widget>
-<Widget>
-    <Kind>4</Kind>
-    <Name>MATERIAL EMISSIVE B</Name>
-    <Value>0.000000000</Value>
+    <Kind>2</Kind>
+    <Name>2</Name>
+    <Value>1</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>MODEL DISTANCE</Name>
-    <Value>1182.265991211</Value>
+    <Value>2040.000000000</Value>
 </Widget>
 <Widget>
     <Kind>42</Kind>
     <Name>MODELS Y</Name>
-    <Value>0</Value>
+    <Value>-62</Value>
 </Widget>
 <Widget>
     <Kind>2</Kind>
@@ -196,14 +131,14 @@
 <Widget>
     <Kind>6</Kind>
     <Name>SPEED</Name>
-    <HighValue>1.896551847</HighValue>
-    <LowValue>1.051724195</LowValue>
+    <HighValue>2.500000000</HighValue>
+    <LowValue>1.500000000</LowValue>
 </Widget>
 <Widget>
     <Kind>6</Kind>
     <Name>ROTATION SPEED</Name>
-    <HighValue>0.059113301</HighValue>
-    <LowValue>0.000000000</LowValue>
+    <HighValue>1.500000000</HighValue>
+    <LowValue>0.500000000</LowValue>
 </Widget>
 <Widget>
     <Kind>2</Kind>
@@ -223,7 +158,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>KINECT 1 THRESHOLD</Name>
-    <Value>0.009852217</Value>
+    <Value>0.008866995</Value>
 </Widget>
 <Widget>
     <Kind>42</Kind>
@@ -258,12 +193,12 @@
 <Widget>
     <Kind>4</Kind>
     <Name>KINECT 2 FRAME DIFF</Name>
-    <Value>0.000224865</Value>
+    <Value>0.000000000</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>KINECT 2 THRESHOLD</Name>
-    <Value>0.006896552</Value>
+    <Value>0.008866995</Value>
 </Widget>
 <Widget>
     <Kind>42</Kind>

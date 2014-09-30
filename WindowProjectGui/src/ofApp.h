@@ -47,6 +47,8 @@ public:
     int nearestFaceIndex;
     int modelDistance;
     int destructMode;
+    int numModels;
+    int curModelNum;
     
     float startCameraFOV;
     float startCameraAspectRatio;
@@ -56,6 +58,7 @@ public:
     float cameraXOrbit;
     float cameraYOrbit;
     float modelY;
+    float guiXPosPercent;
     
     bool isPaused;
     bool bShowBoundingBox;
@@ -86,6 +89,7 @@ public:
     
     ofxAssimpModelLoader model;
     ofxUIScrollableCanvas *gui;
+    ofxUIScrollableCanvas *gui2;
     ofxDOF depthOfField;
     
     MotionDetector mD1;
