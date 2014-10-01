@@ -3,7 +3,7 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
 
-    ofSetFrameRate(60);
+    ofSetFrameRate(30);
     ofSetVerticalSync(true);
     ofSetWindowShape(1200, 500);
     ofEnableAntiAliasing();
@@ -127,7 +127,7 @@ void ofApp::setup(){
 
     gui->addSpacer();
     gui->addLabel("MODELS");
-    gui->addRadio("MODEL NUMBER", modelNames);
+    gui->addRadio("MODEL NUMBER", modelNames, OFX_UI_ORIENTATION_HORIZONTAL);
     gui->addSlider("MODEL DISTANCE", 0, maxModelDistance, modelDistance);
     gui->addIntSlider("MODELS Y", -150.0, 150.0, 0.0);
     gui->addRadio("MODEL DESTRUCT MODE", names);

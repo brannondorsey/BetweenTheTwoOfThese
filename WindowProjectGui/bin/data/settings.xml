@@ -6,7 +6,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>CAMERA ASPECT RATIO</Name>
-    <Value>2.400000095</Value>
+    <Value>1.600000024</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -21,7 +21,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>CAMERA DISTANCE</Name>
-    <Value>1175.369506836</Value>
+    <Value>942.857177734</Value>
 </Widget>
 <Widget>
     <Kind>42</Kind>
@@ -41,7 +41,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>BOX WIDTH</Name>
-    <Value>2040.000000000</Value>
+    <Value>1133.000000000</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -51,7 +51,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>BOX DEPTH</Name>
-    <Value>200.000000000</Value>
+    <Value>1419.364501953</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -81,12 +81,12 @@
 <Widget>
     <Kind>4</Kind>
     <Name>DOF FOCAL DISTANCE</Name>
-    <Value>0.000000000</Value>
+    <Value>325.123168945</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>DOF FOCAL RANGE</Name>
-    <Value>50.000000000</Value>
+    <Value>144.827575684</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -106,12 +106,12 @@
 <Widget>
     <Kind>4</Kind>
     <Name>MODEL DISTANCE</Name>
-    <Value>2040.000000000</Value>
+    <Value>1133.005004883</Value>
 </Widget>
 <Widget>
     <Kind>42</Kind>
     <Name>MODELS Y</Name>
-    <Value>-62</Value>
+    <Value>1</Value>
 </Widget>
 <Widget>
     <Kind>2</Kind>
@@ -131,8 +131,8 @@
 <Widget>
     <Kind>6</Kind>
     <Name>SPEED</Name>
-    <HighValue>2.500000000</HighValue>
-    <LowValue>1.500000000</LowValue>
+    <HighValue>4.413793087</HighValue>
+    <LowValue>1.172413826</LowValue>
 </Widget>
 <Widget>
     <Kind>6</Kind>
@@ -163,7 +163,7 @@
 <Widget>
     <Kind>42</Kind>
     <Name>KINECT 1 INTERVAL</Name>
-    <Value>100</Value>
+    <Value>280</Value>
 </Widget>
 <Widget>
     <Kind>42</Kind>
