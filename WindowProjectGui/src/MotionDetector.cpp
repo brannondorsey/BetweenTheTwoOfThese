@@ -36,7 +36,7 @@ void MotionDetector::setup(int deviceId) {
     _displayImage.allocate(_kinect.getWidth(), _kinect.getHeight(), OF_IMAGE_GRAYSCALE);
     _displayImage.setFromPixels(_video.getPixelsRef());
     
-    setUseLiveVideo(false);
+    setUseLiveVideo(_kinect.isConnected());
     
     if (!usingLiveVideo()) {
         _video.play();
