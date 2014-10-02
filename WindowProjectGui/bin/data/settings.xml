@@ -61,7 +61,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>BOX Y</Name>
-    <Value>-51.231529236</Value>
+    <Value>-28.000020981</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -95,13 +95,18 @@
 </Widget>
 <Widget>
     <Kind>2</Kind>
+    <Name>CYCLE MODELS</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
     <Name>1</Name>
     <Value>0</Value>
 </Widget>
 <Widget>
     <Kind>2</Kind>
     <Name>2</Name>
-    <Value>1</Value>
+    <Value>0</Value>
 </Widget>
 <Widget>
     <Kind>2</Kind>
@@ -116,7 +121,7 @@
 <Widget>
     <Kind>2</Kind>
     <Name>5</Name>
-    <Value>0</Value>
+    <Value>1</Value>
 </Widget>
 <Widget>
     <Kind>2</Kind>
@@ -134,6 +139,11 @@
     <Value>0</Value>
 </Widget>
 <Widget>
+    <Kind>2</Kind>
+    <Name>9</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
     <Kind>4</Kind>
     <Name>MODEL DISTANCE</Name>
     <Value>1625.615844727</Value>
@@ -141,17 +151,17 @@
 <Widget>
     <Kind>42</Kind>
     <Name>MODELS Y</Name>
-    <Value>-8</Value>
+    <Value>-28</Value>
 </Widget>
 <Widget>
     <Kind>2</Kind>
     <Name>TOP</Name>
-    <Value>0</Value>
+    <Value>1</Value>
 </Widget>
 <Widget>
     <Kind>2</Kind>
     <Name>BOTTOM</Name>
-    <Value>1</Value>
+    <Value>0</Value>
 </Widget>
 <Widget>
     <Kind>2</Kind>
@@ -188,7 +198,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>KINECT 1 FRAME DIFF</Name>
-    <Value>0.024519965</Value>
+    <Value>0.000000000</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -228,7 +238,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>KINECT 2 FRAME DIFF</Name>
-    <Value>0.000005579</Value>
+    <Value>0.000000000</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>

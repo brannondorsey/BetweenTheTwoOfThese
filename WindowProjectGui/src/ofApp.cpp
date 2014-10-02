@@ -59,6 +59,7 @@ void ofApp::setup(){
     bAllFacesDislodged2 = false;
     bFacesWaiting = true;
     bRotateDLight = false;
+    bCycleModelsOnLoad = false;
     modelY = 0;
     modelDistance = ofGetWidth() * 1.7;
     curModelNum = 2; //tmp
@@ -128,6 +129,7 @@ void ofApp::setup(){
 
     gui->addSpacer();
     gui->addLabel("MODELS");
+    gui->addToggle("CYCLE MODELS", &bCycleModelsOnLoad);
     gui->addRadio("MODEL NUMBER", modelNames);
     gui->addSlider("MODEL DISTANCE", 0, maxModelDistance, modelDistance);
     gui->addIntSlider("MODELS Y", -150.0, 150.0, 0.0);
@@ -250,12 +252,28 @@ void ofApp::setup(){
     
     // dof
     depthOfField.setup();
-
-    initMeshFaces();
     
     // these have to be retriggered after initMeshFaces();
     gui->getWidget("SPEED")->triggerSelf();
     gui->getWidget("ROTATION SPEED")->triggerSelf();
+    
+    // ofxUIRadio can't load states so we must do it manually
+    if (miscSettings.load("miscsettings.xml")) {
+
+        ofxUIRadio* modelNumSlider = (ofxUIRadio *) gui->getWidget("MODEL NUMBER");
+        int modelNum = miscSettings.getValue("CURMODEL", 1);
+        if (bCycleModelsOnLoad) modelNum++;
+        if (modelNum > numModels) modelNum = 1;
+        modelNumSlider->activateToggle(ofToString(modelNum));
+        modelNumSlider->triggerSelf();
+        
+        ofxUIRadio* destructModeSlider = (ofxUIRadio *) gui->getWidget("MODEL DESTRUCT MODE");
+        std::string destructMode = miscSettings.getValue("DESTRUCTMODE", "BOTTOM");
+        destructModeSlider->activateToggle(destructMode);
+        destructModeSlider->triggerSelf();
+    }
+    
+    initMeshFaces();
 }
 
 //--------------------------------------------------------------
@@ -416,11 +434,17 @@ void ofApp::update(){
 
 void ofApp::exit() {
     
+    // ofxUIRadio widgets can't save states so we must do it manually
+    miscSettings.setValue("CURMODEL", curModelNum);
+    miscSettings.setValue("DESTRUCTMODE", ((ofxUIRadio*) gui->getWidget("MODEL DESTRUCT MODE"))->getActiveName());
+    miscSettings.save("miscsettings.xml");
+    
     gui->saveSettings("settings.xml");
     delete gui;
     
     gui2->saveSettings("models/" + ofToString(curModelNum) + "/settings.xml");
     delete gui2;
+
 }
 
 //--------------------------------------------------------------
@@ -845,6 +869,11 @@ void ofApp::guiEvent(ofxUIEventArgs &e) {
         
         ofxUIIntSlider* slider = (ofxUIIntSlider *) e.getSlider();
         modelY = slider->getValue();
+        
+        ofVec3f position = boundingBox.getPosition();
+        position.y = modelY;
+        boundingBox.setPosition(position);
+        
         initMeshFaces();
     }
     
@@ -988,7 +1017,7 @@ void ofApp::guiEvent(ofxUIEventArgs &e) {
         ofxUISlider* ySlider = (ofxUISlider*) gui->getWidget("BOX Y");
         ofxUISlider* zSlider = (ofxUISlider*) gui->getWidget("BOX Z");
         xSlider->setValue(0);
-        ySlider->setValue(0);
+        ySlider->setValue(modelY);
         zSlider->setValue(0);
         bBoundingBoxChanged = true;
     }

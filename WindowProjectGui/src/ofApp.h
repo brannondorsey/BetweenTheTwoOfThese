@@ -83,6 +83,7 @@ public:
     bool bDestroyTop2;
     bool bFacesWaiting;
     bool bRotateDLight;
+    bool bCycleModelsOnLoad;
     
     ofVec3f nearestVertex;
     
@@ -98,6 +99,7 @@ public:
     ofMaterial material;
     ofLight dLight;
     
+    ofxXmlSettings miscSettings;
     ofxAssimpModelLoader model;
     ofxUIScrollableCanvas *gui;
     ofxUIScrollableCanvas *gui2;
