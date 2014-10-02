@@ -188,6 +188,10 @@ int MotionDetector::getFarClip() {
     return _farClip;
 }
 
+int MotionDetector::nextAvailableId() {
+    return _kinect.nextAvailableId();
+}
+
 float MotionDetector::getFrameDifference() {
     return _frameDiff;
 }

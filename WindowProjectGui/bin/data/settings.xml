@@ -1,12 +1,12 @@
 <Widget>
     <Kind>4</Kind>
     <Name>CAMERA FOV</Name>
-    <Value>60.000000000</Value>
+    <Value>8.866994858</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>CAMERA ASPECT RATIO</Name>
-    <Value>1.600000024</Value>
+    <Value>10.666666985</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -21,7 +21,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>CAMERA DISTANCE</Name>
-    <Value>942.857177734</Value>
+    <Value>1059.113281250</Value>
 </Widget>
 <Widget>
     <Kind>42</Kind>
@@ -41,7 +41,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>BOX WIDTH</Name>
-    <Value>1133.000000000</Value>
+    <Value>1477.000000000</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -51,22 +51,22 @@
 <Widget>
     <Kind>4</Kind>
     <Name>BOX DEPTH</Name>
-    <Value>1419.364501953</Value>
+    <Value>1754.256103516</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>BOX X</Name>
-    <Value>0.000000000</Value>
+    <Value>-25.123352051</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>BOX Y</Name>
-    <Value>0.000000000</Value>
+    <Value>3.940868378</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>BOX Z</Name>
-    <Value>0.000000000</Value>
+    <Value>195.960433960</Value>
 </Widget>
 <Widget>
     <Kind>2</Kind>
@@ -101,17 +101,47 @@
 <Widget>
     <Kind>2</Kind>
     <Name>2</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>3</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>4</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>5</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>6</Name>
     <Value>1</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>7</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>8</Name>
+    <Value>0</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>MODEL DISTANCE</Name>
-    <Value>1133.005004883</Value>
+    <Value>1477.832519531</Value>
 </Widget>
 <Widget>
     <Kind>42</Kind>
     <Name>MODELS Y</Name>
-    <Value>1</Value>
+    <Value>-46</Value>
 </Widget>
 <Widget>
     <Kind>2</Kind>
@@ -131,14 +161,14 @@
 <Widget>
     <Kind>6</Kind>
     <Name>SPEED</Name>
-    <HighValue>4.413793087</HighValue>
-    <LowValue>1.172413826</LowValue>
+    <HighValue>2.206896067</HighValue>
+    <LowValue>0.827586174</LowValue>
 </Widget>
 <Widget>
     <Kind>6</Kind>
     <Name>ROTATION SPEED</Name>
-    <HighValue>1.500000000</HighValue>
-    <LowValue>0.500000000</LowValue>
+    <HighValue>0.657635450</HighValue>
+    <LowValue>0.029556647</LowValue>
 </Widget>
 <Widget>
     <Kind>2</Kind>
@@ -163,7 +193,7 @@
 <Widget>
     <Kind>42</Kind>
     <Name>KINECT 1 INTERVAL</Name>
-    <Value>280</Value>
+    <Value>0</Value>
 </Widget>
 <Widget>
     <Kind>42</Kind>
@@ -193,7 +223,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>KINECT 2 FRAME DIFF</Name>
-    <Value>0.000000000</Value>
+    <Value>0.102654591</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -203,7 +233,7 @@
 <Widget>
     <Kind>42</Kind>
     <Name>KINECT 2 INTERVAL</Name>
-    <Value>100</Value>
+    <Value>0</Value>
 </Widget>
 <Widget>
     <Kind>42</Kind>

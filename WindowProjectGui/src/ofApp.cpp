@@ -7,7 +7,7 @@ void ofApp::setup(){
     ofSetVerticalSync(true);
     ofSetWindowShape(1200, 500);
     ofEnableAntiAliasing();
-    // ofSetWindowShape(1280 * 6, 720); // real aspect ratio
+    ofSetWindowShape(1280 * 6, 720); // real aspect ratio
     // ofSetWindowShape(1440, 135); // real aspect ratio
     ofBackground(0);
     
@@ -42,7 +42,7 @@ void ofApp::setup(){
     mD1.setup();
     bMD1UseLiveVideo = mD1.usingLiveVideo();
     
-    mD2.setup();
+    mD2.setup(mD1.nextAvailableId());
     bMD2UseLiveVideo = mD2.usingLiveVideo();
     
     // misc before gui
@@ -61,7 +61,7 @@ void ofApp::setup(){
     bRotateDLight = false;
     modelY = 0;
     modelDistance = ofGetWidth() * 1.7;
-    curModelNum = 1; //tmp
+    curModelNum = 2; //tmp
     guiXPosPercent = 1.0; // 0.0 - 1.0 signifying location on screen
     dLightXRotDir = 1;
     dLightZRotDir = 1;
@@ -127,7 +127,7 @@ void ofApp::setup(){
 
     gui->addSpacer();
     gui->addLabel("MODELS");
-    gui->addRadio("MODEL NUMBER", modelNames, OFX_UI_ORIENTATION_HORIZONTAL);
+    gui->addRadio("MODEL NUMBER", modelNames);
     gui->addSlider("MODEL DISTANCE", 0, maxModelDistance, modelDistance);
     gui->addIntSlider("MODELS Y", -150.0, 150.0, 0.0);
     gui->addRadio("MODEL DESTRUCT MODE", names);
@@ -565,8 +565,8 @@ bool ofApp::allFacesSettled() {
 void ofApp::initMeshFaces() {
     
     model.clear();
-    ofLogNotice() << ofToString(curModelNum);
-    model.loadModel("models/" + ofToString(curModelNum) + "/model.dae");
+    model.loadModel("models/" + ofToString(curModelNum) + "/model.obj");
+//    model.loadModel("models/" + ofToString(3) + "/model.obj");
     ofMesh mesh1 = model.getMesh(0);
     ofMesh mesh2 = mesh1;
     

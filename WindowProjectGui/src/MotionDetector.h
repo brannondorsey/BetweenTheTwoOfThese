@@ -44,6 +44,7 @@ public:
     int getTiltAngle();
     int getNearClip();
     int getFarClip();
+    int nextAvailableId();
     
     float getFrameDifference();
     float getThreshold();
