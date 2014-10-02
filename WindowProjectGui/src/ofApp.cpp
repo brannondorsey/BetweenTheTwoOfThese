@@ -7,8 +7,8 @@ void ofApp::setup(){
     ofSetVerticalSync(true);
     ofSetWindowShape(1200, 500);
     ofEnableAntiAliasing();
-    ofSetWindowShape(1280 * 6, 720); // real aspect ratio
-    // ofSetWindowShape(1440, 135); // real aspect ratio
+//    ofSetWindowShape(1280 * 6, 720); // real aspect ratio
+//    ofSetWindowShape(1440, 135); // real aspect ratio
     ofBackground(0);
     
     ofDirectory dir("models");
@@ -65,6 +65,7 @@ void ofApp::setup(){
     guiXPosPercent = 1.0; // 0.0 - 1.0 signifying location on screen
     dLightXRotDir = 1;
     dLightZRotDir = 1;
+    destructionRange = 1.0;
     
     // gui
     gui = new ofxUIScrollableCanvas();
@@ -131,6 +132,7 @@ void ofApp::setup(){
     gui->addSlider("MODEL DISTANCE", 0, maxModelDistance, modelDistance);
     gui->addIntSlider("MODELS Y", -150.0, 150.0, 0.0);
     gui->addRadio("MODEL DESTRUCT MODE", names);
+    gui->addSlider("MODEL DESTRUCTION RANGE", 0.0, 8.0, &destructionRange);
     
     gui->addSpacer();
     gui->addLabel("PARTICLES");
@@ -535,11 +537,26 @@ bool ofApp::dislodge(MotionDetector& mD,
                         usingModel1Face = false;
                     }
                 }
-                    
+                
             }
             
-            ModelFace& face = usingModel1Face ? modelFaces[faceIndex] : otherModelFaces[faceIndex];
-            face.dislodge();
+            if (destructionRange > 0.1) {
+                
+                std::vector<ModelFace>& faces = usingModel1Face ? modelFaces : otherModelFaces;
+                ModelFace& curFace = faces[faceIndex];
+                
+                for (int i = 0; i < faces.size(); i++) {
+                    
+                    ModelFace& face = faces[i];
+                    if (!face.isDislodged() && abs(curFace.getPosition().y - face.getPosition().y) <= destructionRange) face.dislodge();
+                    
+                }
+            } else {
+                
+                ModelFace& face = usingModel1Face ? modelFaces[faceIndex] : otherModelFaces[faceIndex];
+                face.dislodge();
+            }
+            
             
             return true;
         
@@ -566,7 +583,6 @@ void ofApp::initMeshFaces() {
     
     model.clear();
     model.loadModel("models/" + ofToString(curModelNum) + "/model.obj");
-//    model.loadModel("models/" + ofToString(3) + "/model.obj");
     ofMesh mesh1 = model.getMesh(0);
     ofMesh mesh2 = mesh1;
     
@@ -633,7 +649,10 @@ void ofApp::initMeshFaces() {
         model2Mesh.addVertex(model2FaceVerts[2]);
         model2Mesh.addNormal(model2FaceNorms[2]);
     }
-
+    
+    bAllFacesDislodged1 = false;
+    bAllFacesDislodged2 = false;
+    bFacesWaiting = true;
 }
 
 void ofApp::resetCamera() {

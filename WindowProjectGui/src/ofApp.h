@@ -42,6 +42,7 @@ public:
     
     void initMeshFaces();
     void resetCamera();
+//    void compareYPos(MeshFace);
     ofVec3f getPointInBoundingBox();
     
     int nearestFaceIndex;
@@ -67,6 +68,7 @@ public:
     float dLightZRotSpeed;
     float dLightZRotMin;
     float dLightZRotMax;
+    float destructionRange;
     
     bool isPaused;
     bool bShowBoundingBox;
