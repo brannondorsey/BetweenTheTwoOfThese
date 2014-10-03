@@ -18,15 +18,15 @@
 		background: url('../images/bg.jpg'), #000;
 		background-repeat:		no-repeat;
 		background-size:		100% auto;
-		background-position: 	top 							center 0;
-		background-attachment:	fixed,								fixed;
+		background-position: 	top center 0;
+		background-attachment:	fixed, fixed;
 
 	}
 
 		body.is-scroll
 		{
-			background-attachment:	scroll,								scroll;
-			background-size:		auto,								100% auto;
+			background-attachment:	scroll,	scroll;
+			background-size: 100% auto;
 		}
 
 		body.is-loading *
