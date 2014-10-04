@@ -1,12 +1,12 @@
 <Widget>
     <Kind>4</Kind>
     <Name>CAMERA FOV</Name>
-    <Value>8.866994858</Value>
+    <Value>60.000000000</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>CAMERA ASPECT RATIO</Name>
-    <Value>10.666666985</Value>
+    <Value>1.600000024</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -16,17 +16,17 @@
 <Widget>
     <Kind>4</Kind>
     <Name>CAMERA FAR CLIP</Name>
-    <Value>2093.595947266</Value>
+    <Value>0.000000000</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>CAMERA DISTANCE</Name>
-    <Value>1901.970458984</Value>
+    <Value>971.921142578</Value>
 </Widget>
 <Widget>
     <Kind>42</Kind>
     <Name>CAMERA X ORBIT</Name>
-    <Value>180</Value>
+    <Value>138</Value>
 </Widget>
 <Widget>
     <Kind>42</Kind>
@@ -41,7 +41,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>BOX WIDTH</Name>
-    <Value>2709.000000000</Value>
+    <Value>985.000000000</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -51,7 +51,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>BOX DEPTH</Name>
-    <Value>2463.438476562</Value>
+    <Value>1261.768432617</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -111,7 +111,7 @@
 <Widget>
     <Kind>2</Kind>
     <Name>3</Name>
-    <Value>1</Value>
+    <Value>0</Value>
 </Widget>
 <Widget>
     <Kind>2</Kind>
@@ -146,7 +146,7 @@
 <Widget>
     <Kind>2</Kind>
     <Name>10</Name>
-    <Value>0</Value>
+    <Value>1</Value>
 </Widget>
 <Widget>
     <Kind>2</Kind>
@@ -201,7 +201,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>MODEL DISTANCE</Name>
-    <Value>2709.359619141</Value>
+    <Value>985.221618652</Value>
 </Widget>
 <Widget>
     <Kind>42</Kind>
@@ -226,7 +226,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>MODEL DESTRUCTION RANGE</Name>
-    <Value>0.945812821</Value>
+    <Value>4.177340031</Value>
 </Widget>
 <Widget>
     <Kind>6</Kind>
@@ -253,7 +253,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>KINECT 1 FRAME DIFF</Name>
-    <Value>0.074134827</Value>
+    <Value>0.000000000</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>

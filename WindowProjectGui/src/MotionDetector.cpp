@@ -28,6 +28,7 @@ void MotionDetector::setup(int deviceId) {
     _kinect.setRegistration(true);
     _kinect.init(true);
     _kinect.open(deviceId);
+    _kinect.listDevices();
     
     _video.loadMovie(ofToDataPath("kinect_recording.mov"));
     _video.setPosition(ofRandom(1));

@@ -1,7 +1,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>D LIGHT X ROT</Name>
-    <Value>29.203912735</Value>
+    <Value>63.984569550</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -33,32 +33,32 @@
 <Widget>
     <Kind>4</Kind>
     <Name>D LIGHT AMBIENT R</Name>
-    <Value>0.275862068</Value>
+    <Value>0.187192112</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>D LIGHT AMBIENT G</Name>
-    <Value>0.064039409</Value>
+    <Value>0.192118227</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>D LIGHT AMBIENT B</Name>
-    <Value>0.167487681</Value>
+    <Value>0.197044328</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>D LIGHT DIFFUSE R</Name>
-    <Value>0.778325140</Value>
+    <Value>0.418719202</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>D LIGHT DIFFUSE G</Name>
-    <Value>0.729064047</Value>
+    <Value>0.448275864</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>D LIGHT DIFFUSE B</Name>
-    <Value>0.423645318</Value>
+    <Value>0.990147769</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -78,7 +78,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>MATERIAL SHINYNESS</Name>
-    <Value>101.083747864</Value>
+    <Value>10.640394211</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>

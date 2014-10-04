@@ -38,11 +38,10 @@ void ofApp::setup(){
     startCameraFarClip = camera.getFarClip();
     
     // motion detectors (Kinects)
-    mD1.setup();
-    bMD1UseLiveVideo = mD1.usingLiveVideo();
-    
+    mD1.setup(1);
     mD2.setup(mD1.nextAvailableId());
-    bMD2UseLiveVideo = mD2.usingLiveVideo();
+    mD1.setUseLiveVideo(true);
+    mD2.setUseLiveVideo(true);
     
     // misc before gui
     
