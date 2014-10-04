@@ -30,6 +30,23 @@ Tf 1.00 1.00 1.00
 Ni 1.00
 Ks 0.00 0.00 0.00
 Ns 0.00
+newmtl mesh6:Texture_0
+illum 4
+Kd 0.00 0.00 0.00
+Ka 1.00 1.00 1.00
+Tf 1.00 1.00 1.00
+map_Kd tex_0.jpg
+Ni 1.00
+Ks 0.00 0.00 0.00
+Ns 0.00
+newmtl mesh6:Untextured
+illum 4
+Kd 0.50 0.50 0.50
+Ka 0.50 0.50 0.50
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.00 0.00 0.00
+Ns 0.00
 newmtl model:ID1
 illum 4
 Kd 0.80 0.80 0.80
@@ -70,7 +87,7 @@ Tf 1.00 1.00 1.00
 Ni 1.00
 Ks 0.20 0.20 0.20
 Ns 0.50
-newmtl phong7SG
+newmtl phong8SG
 illum 4
 Kd 0.80 0.80 0.80
 Ka 0.10 0.10 0.10
@@ -78,7 +95,63 @@ Tf 1.00 1.00 1.00
 Ni 1.00
 Ks 0.20 0.20 0.20
 Ns 0.50
-newmtl phong8SG
+newmtl phong10SG
+illum 4
+Kd 0.80 0.80 0.80
+Ka 0.10 0.10 0.10
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.20 0.20 0.20
+Ns 0.50
+newmtl phong11SG
+illum 4
+Kd 0.80 0.80 0.80
+Ka 0.10 0.10 0.10
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.20 0.20 0.20
+Ns 0.50
+newmtl phong12SG
+illum 4
+Kd 0.80 0.80 0.80
+Ka 0.10 0.10 0.10
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.20 0.20 0.20
+Ns 0.50
+newmtl phong13SG
+illum 4
+Kd 0.80 0.80 0.80
+Ka 0.10 0.10 0.10
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.20 0.20 0.20
+Ns 0.50
+newmtl phong14SG
+illum 4
+Kd 0.80 0.80 0.80
+Ka 0.10 0.10 0.10
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.20 0.20 0.20
+Ns 0.50
+newmtl phong15SG
+illum 4
+Kd 0.80 0.80 0.80
+Ka 0.10 0.10 0.10
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.20 0.20 0.20
+Ns 0.50
+newmtl phong16SG
+illum 4
+Kd 0.80 0.80 0.80
+Ka 0.10 0.10 0.10
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.20 0.20 0.20
+Ns 0.50
+newmtl phong17SG
 illum 4
 Kd 0.80 0.80 0.80
 Ka 0.10 0.10 0.10

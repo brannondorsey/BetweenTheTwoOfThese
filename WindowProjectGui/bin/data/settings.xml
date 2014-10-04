@@ -1,12 +1,12 @@
 <Widget>
     <Kind>4</Kind>
     <Name>CAMERA FOV</Name>
-    <Value>60.000000000</Value>
+    <Value>8.866994858</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>CAMERA ASPECT RATIO</Name>
-    <Value>1.600000024</Value>
+    <Value>10.666666985</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -16,12 +16,12 @@
 <Widget>
     <Kind>4</Kind>
     <Name>CAMERA FAR CLIP</Name>
-    <Value>0.000000000</Value>
+    <Value>2093.595947266</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>CAMERA DISTANCE</Name>
-    <Value>1233.497558594</Value>
+    <Value>1901.970458984</Value>
 </Widget>
 <Widget>
     <Kind>42</Kind>
@@ -41,7 +41,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>BOX WIDTH</Name>
-    <Value>1624.999877930</Value>
+    <Value>2709.000000000</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -121,7 +121,7 @@
 <Widget>
     <Kind>2</Kind>
     <Name>5</Name>
-    <Value>1</Value>
+    <Value>0</Value>
 </Widget>
 <Widget>
     <Kind>2</Kind>
@@ -136,7 +136,7 @@
 <Widget>
     <Kind>2</Kind>
     <Name>8</Name>
-    <Value>0</Value>
+    <Value>1</Value>
 </Widget>
 <Widget>
     <Kind>2</Kind>
@@ -144,9 +144,64 @@
     <Value>0</Value>
 </Widget>
 <Widget>
+    <Kind>2</Kind>
+    <Name>10</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>11</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>12</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>13</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>14</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>15</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>16</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>17</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>18</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>19</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>20</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
     <Kind>4</Kind>
     <Name>MODEL DISTANCE</Name>
-    <Value>1625.615844727</Value>
+    <Value>2709.359619141</Value>
 </Widget>
 <Widget>
     <Kind>42</Kind>
@@ -156,12 +211,12 @@
 <Widget>
     <Kind>2</Kind>
     <Name>TOP</Name>
-    <Value>1</Value>
+    <Value>0</Value>
 </Widget>
 <Widget>
     <Kind>2</Kind>
     <Name>BOTTOM</Name>
-    <Value>0</Value>
+    <Value>1</Value>
 </Widget>
 <Widget>
     <Kind>2</Kind>

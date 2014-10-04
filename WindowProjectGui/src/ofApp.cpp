@@ -7,7 +7,7 @@ void ofApp::setup(){
     ofSetVerticalSync(true);
     ofSetWindowShape(1200, 500);
     ofEnableAntiAliasing();
-//    ofSetWindowShape(1280 * 6, 720); // real aspect ratio
+    ofSetWindowShape(1280 * 6, 720); // real aspect ratio
 //    ofSetWindowShape(1440, 135); // real aspect ratio
     ofBackground(0);
     

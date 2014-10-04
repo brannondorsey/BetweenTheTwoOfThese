@@ -1,0 +1,97 @@
+<Widget>
+    <Kind>4</Kind>
+    <Name>D LIGHT X ROT</Name>
+    <Value>34.352336884</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>D LIGHT X ROT SPEED</Name>
+    <Value>0.477832556</Value>
+</Widget>
+<Widget>
+    <Kind>6</Kind>
+    <Name>D LGT X RNG</Name>
+    <HighValue>93.103446960</HighValue>
+    <LowValue>-94.876846313</LowValue>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>D LIGHT Z ROT</Name>
+    <Value>0.886695385</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>D LIGHT Z ROT SPEED</Name>
+    <Value>0.004926085</Value>
+</Widget>
+<Widget>
+    <Kind>6</Kind>
+    <Name>D LGT Z RNG</Name>
+    <HighValue>180.000000000</HighValue>
+    <LowValue>-180.000000000</LowValue>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>D LIGHT AMBIENT R</Name>
+    <Value>0.068965517</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>D LIGHT AMBIENT G</Name>
+    <Value>0.162561581</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>D LIGHT AMBIENT B</Name>
+    <Value>0.118226603</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>D LIGHT DIFFUSE R</Name>
+    <Value>0.901477814</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>D LIGHT DIFFUSE G</Name>
+    <Value>0.364532024</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>D LIGHT DIFFUSE B</Name>
+    <Value>1.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>D LIGHT SPECULAR R</Name>
+    <Value>0.408867002</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>D LIGHT SPECULAR G</Name>
+    <Value>0.403940886</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>D LIGHT SPECULAR B</Name>
+    <Value>0.399014771</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>MATERIAL SHINYNESS</Name>
+    <Value>101.083747864</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>MATERIAL EMISSIVE R</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>MATERIAL EMISSIVE G</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>MATERIAL EMISSIVE B</Name>
+    <Value>0.000000000</Value>
+</Widget>
