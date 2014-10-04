@@ -111,7 +111,7 @@
 <Widget>
     <Kind>2</Kind>
     <Name>3</Name>
-    <Value>0</Value>
+    <Value>1</Value>
 </Widget>
 <Widget>
     <Kind>2</Kind>
@@ -136,7 +136,7 @@
 <Widget>
     <Kind>2</Kind>
     <Name>8</Name>
-    <Value>1</Value>
+    <Value>0</Value>
 </Widget>
 <Widget>
     <Kind>2</Kind>
@@ -253,7 +253,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>KINECT 1 FRAME DIFF</Name>
-    <Value>0.000000000</Value>
+    <Value>0.074134827</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>

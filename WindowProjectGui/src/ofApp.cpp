@@ -5,9 +5,8 @@ void ofApp::setup(){
 
     ofSetFrameRate(30);
     ofSetVerticalSync(true);
-    ofSetWindowShape(1200, 500);
     ofEnableAntiAliasing();
-    ofSetWindowShape(1280 * 6, 720); // real aspect ratio
+//    ofSetWindowShape(1280 * 6, 720); // real aspect ratio
 //    ofSetWindowShape(1440, 135); // real aspect ratio
     ofBackground(0);
     
@@ -67,6 +66,19 @@ void ofApp::setup(){
     dLightXRotDir = 1;
     dLightZRotDir = 1;
     destructionRange = 1.0;
+    
+    bool bMiscSettingsLoaded = miscSettings.load("miscsettings.xml");
+    if (bMiscSettingsLoaded) {
+        
+        int w = miscSettings.getValue("WINDOWWIDTH", 1200);
+        int h = miscSettings.getValue("WINDOWHEIGHT", 500);
+        ofSetWindowShape(w, h);
+        
+        bool fullScreen = ((int) miscSettings.getValue("FULLSCREEN", 1) == 1);
+        if (fullScreen) ofSetFullscreen(true);
+        
+        guiXPosPercent = miscSettings.getValue("GUIXPOSPERCENT", 1.0);
+    }
     
     // gui
     gui = new ofxUIScrollableCanvas();
@@ -258,7 +270,7 @@ void ofApp::setup(){
     gui->getWidget("ROTATION SPEED")->triggerSelf();
     
     // ofxUIRadio can't load states so we must do it manually
-    if (miscSettings.load("miscsettings.xml")) {
+    if (bMiscSettingsLoaded) {
 
         ofxUIRadio* modelNumSlider = (ofxUIRadio *) gui->getWidget("MODEL NUMBER");
         int modelNum = miscSettings.getValue("CURMODEL", 1);
@@ -271,6 +283,10 @@ void ofApp::setup(){
         std::string destructMode = miscSettings.getValue("DESTRUCTMODE", "BOTTOM");
         destructModeSlider->activateToggle(destructMode);
         destructModeSlider->triggerSelf();
+        
+        bool showGui = (((int) miscSettings.getValue("SHOWGUI", 0)) == 1);
+        gui->setVisible(showGui);
+        gui2->setVisible(showGui);
     }
     
     initMeshFaces();
@@ -437,6 +453,8 @@ void ofApp::exit() {
     // ofxUIRadio widgets can't save states so we must do it manually
     miscSettings.setValue("CURMODEL", curModelNum);
     miscSettings.setValue("DESTRUCTMODE", ((ofxUIRadio*) gui->getWidget("MODEL DESTRUCT MODE"))->getActiveName());
+    miscSettings.setValue("SHOWGUI", gui->isVisible());
+    
     miscSettings.save("miscsettings.xml");
     
     gui->saveSettings("settings.xml");
@@ -452,7 +470,7 @@ void ofApp::draw(){
     
     ofEnableDepthTest();
     ofSetColor(255);
-    
+
     if (bDOFEnabled) {
         depthOfField.begin();
     }

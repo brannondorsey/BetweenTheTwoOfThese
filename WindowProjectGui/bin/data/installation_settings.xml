@@ -1,7 +1,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>CAMERA FOV</Name>
-    <Value>7.093595982</Value>
+    <Value>8.866994858</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -16,74 +16,22 @@
 <Widget>
     <Kind>4</Kind>
     <Name>CAMERA FAR CLIP</Name>
-    <Value>0.000000000</Value>
+    <Value>2093.595947266</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>CAMERA DISTANCE</Name>
-    <Value>4000.000000000</Value>
-</Widget>
-<Widget>
-    <Kind>4</Kind>
-    <Name>CAMERA X ORBIT</Name>
-    <Value>179.113311768</Value>
-</Widget>
-<Widget>
-    <Kind>4</Kind>
-    <Name>CAMERA Y ORBIT</Name>
-    <Value>-6.650247574</Value>
-</Widget>
-<Widget>
-    <Kind>2</Kind>
-    <Name>ENABLE DOF</Name>
-    <Value>1</Value>
-</Widget>
-<Widget>
-    <Kind>2</Kind>
-    <Name>DOF FOCUS ASSISTANCE</Name>
-    <Value>0</Value>
-</Widget>
-<Widget>
-    <Kind>4</Kind>
-    <Name>DOF FOCAL DISTANCE</Name>
-    <Value>142.857147217</Value>
-</Widget>
-<Widget>
-    <Kind>4</Kind>
-    <Name>DOF FOCAL RANGE</Name>
-    <Value>6.896551609</Value>
-</Widget>
-<Widget>
-    <Kind>4</Kind>
-    <Name>DOF BLUR AMOUNT</Name>
-    <Value>0.428571463</Value>
-</Widget>
-<Widget>
-    <Kind>4</Kind>
-    <Name>MODEL DISTANCE</Name>
-    <Value>4482.758789062</Value>
+    <Value>1901.970458984</Value>
 </Widget>
 <Widget>
     <Kind>42</Kind>
-    <Name>MODELS Y</Name>
-    <Value>-69</Value>
+    <Name>CAMERA X ORBIT</Name>
+    <Value>180</Value>
 </Widget>
 <Widget>
-    <Kind>4</Kind>
-    <Name>MATERIAL SHINYNESS</Name>
-    <Value>0.000000000</Value>
-</Widget>
-<Widget>
-    <Kind>6</Kind>
-    <Name>SPEED</Name>
-    <HighValue>0.601970077</HighValue>
-    <LowValue>0.233497545</LowValue>
-</Widget>
-<Widget>
-    <Kind>6</Kind>
-    <Name>ROTATION SPEED</Name>
-    <HighValue>0.339901477</HighValue>
-    <LowValue>0.000000000</LowValue>
+    <Kind>42</Kind>
+    <Name>CAMERA Y ORBIT</Name>
+    <Value>0</Value>
 </Widget>
 <Widget>
     <Kind>2</Kind>
@@ -93,17 +41,17 @@
 <Widget>
     <Kind>4</Kind>
     <Name>BOX WIDTH</Name>
-    <Value>4482.000000000</Value>
+    <Value>2709.000000000</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>BOX HEIGHT</Name>
-    <Value>448.827575684</Value>
+    <Value>300.000000000</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>BOX DEPTH</Name>
-    <Value>1557.261108398</Value>
+    <Value>2463.438476562</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -113,12 +61,184 @@
 <Widget>
     <Kind>4</Kind>
     <Name>BOX Y</Name>
-    <Value>45.221900940</Value>
+    <Value>-28.000020981</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>BOX Z</Name>
-    <Value>-115.566329956</Value>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>ENABLE DOF</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>DOF FOCUS ASSISTANCE</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>DOF FOCAL DISTANCE</Name>
+    <Value>354.679809570</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>DOF FOCAL RANGE</Name>
+    <Value>144.827575684</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>DOF BLUR AMOUNT</Name>
+    <Value>0.502463043</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>CYCLE MODELS</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>1</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>2</Name>
+    <Value>1</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>3</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>4</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>5</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>6</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>7</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>8</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>9</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>10</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>11</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>12</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>13</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>14</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>15</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>16</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>17</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>18</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>19</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>20</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>MODEL DISTANCE</Name>
+    <Value>2709.359619141</Value>
+</Widget>
+<Widget>
+    <Kind>42</Kind>
+    <Name>MODELS Y</Name>
+    <Value>-28</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>TOP</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>BOTTOM</Name>
+    <Value>1</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>OPPOSITE</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>MODEL DESTRUCTION RANGE</Name>
+    <Value>0.945812821</Value>
+</Widget>
+<Widget>
+    <Kind>6</Kind>
+    <Name>SPEED</Name>
+    <HighValue>1.482757330</HighValue>
+    <LowValue>0.655172408</LowValue>
+</Widget>
+<Widget>
+    <Kind>6</Kind>
+    <Name>ROTATION SPEED</Name>
+    <HighValue>0.657635450</HighValue>
+    <LowValue>0.029556647</LowValue>
 </Widget>
 <Widget>
     <Kind>2</Kind>
@@ -138,22 +258,22 @@
 <Widget>
     <Kind>4</Kind>
     <Name>KINECT 1 THRESHOLD</Name>
-    <Value>0.006896552</Value>
+    <Value>0.008866995</Value>
 </Widget>
 <Widget>
     <Kind>42</Kind>
     <Name>KINECT 1 INTERVAL</Name>
-    <Value>103</Value>
+    <Value>0</Value>
 </Widget>
 <Widget>
     <Kind>42</Kind>
     <Name>KINECT 1 NEAR CLIP</Name>
-    <Value>36</Value>
+    <Value>70</Value>
 </Widget>
 <Widget>
     <Kind>42</Kind>
     <Name>KINECT 1 FAR CLIP</Name>
-    <Value>229</Value>
+    <Value>70</Value>
 </Widget>
 <Widget>
     <Kind>42</Kind>
@@ -173,17 +293,17 @@
 <Widget>
     <Kind>4</Kind>
     <Name>KINECT 2 FRAME DIFF</Name>
-    <Value>0.000000000</Value>
+    <Value>0.000007506</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>KINECT 2 THRESHOLD</Name>
-    <Value>0.006403941</Value>
+    <Value>0.008866995</Value>
 </Widget>
 <Widget>
     <Kind>42</Kind>
     <Name>KINECT 2 INTERVAL</Name>
-    <Value>100</Value>
+    <Value>0</Value>
 </Widget>
 <Widget>
     <Kind>42</Kind>
