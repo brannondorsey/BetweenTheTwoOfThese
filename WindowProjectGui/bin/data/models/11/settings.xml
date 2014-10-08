@@ -1,23 +1,23 @@
 <Widget>
     <Kind>4</Kind>
     <Name>D LIGHT X ROT</Name>
-    <Value>56.934436798</Value>
+    <Value>53.418403625</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>D LIGHT X ROT SPEED</Name>
-    <Value>0.477832556</Value>
+    <Value>1.000000000</Value>
 </Widget>
 <Widget>
     <Kind>6</Kind>
     <Name>D LGT X RNG</Name>
-    <HighValue>93.103446960</HighValue>
-    <LowValue>-94.876846313</LowValue>
+    <HighValue>101.970443726</HighValue>
+    <LowValue>-34.581249237</LowValue>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>D LIGHT Z ROT</Name>
-    <Value>0.886695385</Value>
+    <Value>6.206889153</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -43,22 +43,22 @@
 <Widget>
     <Kind>4</Kind>
     <Name>D LIGHT AMBIENT B</Name>
-    <Value>0.118226603</Value>
+    <Value>0.477832526</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>D LIGHT DIFFUSE R</Name>
-    <Value>0.901477814</Value>
+    <Value>0.561576366</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>D LIGHT DIFFUSE G</Name>
-    <Value>0.364532024</Value>
+    <Value>0.551724136</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>D LIGHT DIFFUSE B</Name>
-    <Value>1.000000000</Value>
+    <Value>0.305418730</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -68,7 +68,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>D LIGHT SPECULAR G</Name>
-    <Value>0.403940886</Value>
+    <Value>0.512315273</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>

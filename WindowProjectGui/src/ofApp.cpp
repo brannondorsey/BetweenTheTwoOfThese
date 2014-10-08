@@ -40,8 +40,10 @@ void ofApp::setup(){
     // motion detectors (Kinects)
     mD1.setup(1);
     mD2.setup(mD1.nextAvailableId());
-    mD1.setUseLiveVideo(true);
-    mD2.setUseLiveVideo(true);
+
+    // Uncomment for production
+//    mD1.setUseLiveVideo(true);
+//    mD2.setUseLiveVideo(true);
     
     // misc before gui
     

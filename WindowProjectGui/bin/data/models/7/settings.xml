@@ -1,7 +1,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>D LIGHT X ROT</Name>
-    <Value>4.293465614</Value>
+    <Value>2.883439064</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -43,22 +43,22 @@
 <Widget>
     <Kind>4</Kind>
     <Name>D LIGHT AMBIENT B</Name>
-    <Value>0.167487681</Value>
+    <Value>0.315270931</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>D LIGHT DIFFUSE R</Name>
-    <Value>0.778325140</Value>
+    <Value>0.226600990</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>D LIGHT DIFFUSE G</Name>
-    <Value>0.729064047</Value>
+    <Value>0.704433501</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>D LIGHT DIFFUSE B</Name>
-    <Value>0.423645318</Value>
+    <Value>0.812807858</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
