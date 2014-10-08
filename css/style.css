@@ -922,6 +922,7 @@
 		text-shadow: 0 0 0.5px rgba(255,255,255,0.25);
 		text-align: center;
 		margin: 4.5em 0 0 0;
+		background-color: #000;
 	}
 
 		#footer:after
