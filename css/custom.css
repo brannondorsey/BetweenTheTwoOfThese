@@ -2,3 +2,11 @@
 	background-color: #000 !important;
 	padding-top: 50px;
 }
+
+.gallery img {
+	border: 1px solid #fff !important;
+}
+
+.poptrox-popup .pic {
+	border: 2px solid #fff;
+}
