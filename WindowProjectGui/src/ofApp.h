@@ -4,6 +4,7 @@
 #include "ofxAssimpModelLoader.h"
 #include "ofxUI.h"
 #include "ofxDOF.h"
+#include "ofxGameCamera.h"
 #include "MotionDetector.h"
 #include "ModelFace.h"
 
@@ -84,6 +85,7 @@ public:
     bool bFacesWaiting;
     bool bRotateDLight;
     bool bCycleModelsOnLoad;
+    bool bCursorShowing;
     
     ofVec3f nearestVertex;
     
@@ -95,7 +97,7 @@ public:
     
     ofBoxPrimitive boundingBox;
     
-    ofEasyCam camera;
+    ofxGameCamera camera;
     ofMaterial material;
     ofLight dLight;
     

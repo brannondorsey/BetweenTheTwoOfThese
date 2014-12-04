@@ -207,6 +207,8 @@
 		F850CCE919C217B8008DFC9F /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F850CCE519C217B8008DFC9F /* tinyxmlparser.cpp */; };
 		F852388C19C2BB1100F6C8E7 /* ofxDOF.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F852388A19C2BB1100F6C8E7 /* ofxDOF.cpp */; };
 		F880879819C0E3DB00651426 /* ModelFace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F880879619C0E3DB00651426 /* ModelFace.cpp */; };
+		F8EAB3BF1A3018F4009DC964 /* ofxGameCamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8EAB3BD1A3018F4009DC964 /* ofxGameCamera.cpp */; };
+		F8EAB3C01A3018F4009DC964 /* ofxGameCamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8EAB3BD1A3018F4009DC964 /* ofxGameCamera.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -488,6 +490,8 @@
 		F852388B19C2BB1100F6C8E7 /* ofxDOF.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxDOF.h; sourceTree = "<group>"; };
 		F880879619C0E3DB00651426 /* ModelFace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ModelFace.cpp; sourceTree = "<group>"; };
 		F880879719C0E3DB00651426 /* ModelFace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelFace.h; sourceTree = "<group>"; };
+		F8EAB3BD1A3018F4009DC964 /* ofxGameCamera.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxGameCamera.cpp; sourceTree = "<group>"; };
+		F8EAB3BE1A3018F4009DC964 /* ofxGameCamera.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxGameCamera.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -589,6 +593,7 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				F8EAB3BB1A3018F4009DC964 /* ofxGameCamera */,
 				F826FA8419C96046000BB049 /* ofxCv */,
 				F826FA0519C96032000BB049 /* ofxKinect */,
 				F852388819C2BB1100F6C8E7 /* ofxDOF */,
@@ -1133,6 +1138,24 @@
 			path = ../../../addons/ofxDOF/src;
 			sourceTree = "<group>";
 		};
+		F8EAB3BB1A3018F4009DC964 /* ofxGameCamera */ = {
+			isa = PBXGroup;
+			children = (
+				F8EAB3BC1A3018F4009DC964 /* src */,
+			);
+			name = ofxGameCamera;
+			sourceTree = "<group>";
+		};
+		F8EAB3BC1A3018F4009DC964 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				F8EAB3BD1A3018F4009DC964 /* ofxGameCamera.cpp */,
+				F8EAB3BE1A3018F4009DC964 /* ofxGameCamera.h */,
+			);
+			name = src;
+			path = ../../../addons/ofxGameCamera/src;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1253,6 +1276,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F8EAB3BF1A3018F4009DC964 /* ofxGameCamera.cpp in Sources */,
 				F826FAB619C96046000BB049 /* ObjectFinder.cpp in Sources */,
 				F850CCC719C21487008DFC9F /* ofxUIMultiImageToggle.cpp in Sources */,
 				F826FA8019C96033000BB049 /* registration.c in Sources */,
@@ -1341,6 +1365,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F8EAB3C01A3018F4009DC964 /* ofxGameCamera.cpp in Sources */,
 				F8014AB519CFC94A003FE98D /* ObjectFinder.cpp in Sources */,
 				F8014AB619CFC94A003FE98D /* ofxUIMultiImageToggle.cpp in Sources */,
 				F8014AB719CFC94A003FE98D /* registration.c in Sources */,

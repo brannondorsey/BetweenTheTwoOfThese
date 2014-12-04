@@ -60,6 +60,7 @@ void ofApp::setup(){
     bFacesWaiting = true;
     bRotateDLight = false;
     bCycleModelsOnLoad = false;
+    bCursorShowing = true;
     modelY = 0;
     modelDistance = ofGetWidth() * 1.7;
     curModelNum = 2; //tmp
@@ -103,6 +104,10 @@ void ofApp::setup(){
     gui->addSlider("CAMERA NEAR CLIP", 0.0, 1000.0, camera.getNearClip());
     gui->addSlider("CAMERA FAR CLIP", 0.0, 5000.0, camera.getFarClip());
     gui->addSpacer();
+    gui->addSlider("CAMERA SPEED", 0.0, 10.0, &camera.speed);
+    gui->addSlider("CAMERA ROLL SPEED", 0.0, 10.0, &camera.rollSpeed);
+    gui->addSlider("CAMERA SENSITIVITY X", 0.0, 0.30, &camera.sensitivityX);
+    gui->addSlider("CAMERA SENSITIVITY Y", 0.0, 0.30, &camera.sensitivityY);
     gui->addSlider("CAMERA DISTANCE", 100, 6000, 1800);
     gui->addIntSlider("CAMERA X ORBIT", 0, 360, 0);
     gui->addIntSlider("CAMERA Y ORBIT", -90, 90, 0);
@@ -253,10 +258,12 @@ void ofApp::setup(){
     cameraDistance = ((ofxUISlider *) gui->getWidget("CAMERA DISTANCE"))->getScaledValue();
     
     // camera
-    camera.disableMouseInput();
-    camera.setDistance(cameraDistance);
+//    camera.disableMouseInput();
+//    camera.setDistance(cameraDistance);
+    camera.setup();
     camera.orbit(cameraXOrbit, cameraYOrbit, camera.getPosition().distance(ofVec3f(0, 0, 0)));
     camera.lookAt(ofVec3f(0, 0, 0));
+    camera.dampen = true;
     
     // lights
     ofxUISlider* dLightXRotSlider = (ofxUISlider*) gui2->getWidget("D LIGHT X ROT");
@@ -295,6 +302,8 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
+    
+    camera.usemouse = !gui->isVisible();
     
     // update Kinect GUI stuff
     ofxUIButton* mD1MotionDetectedbutton = (ofxUIButton* ) gui->getWidget("KINECT 1 MOTION DETECTED");
@@ -447,6 +456,7 @@ void ofApp::update(){
         
         bBoundingBoxChanged = false;
     }
+    
 }
 
 void ofApp::exit() {
@@ -1142,7 +1152,7 @@ void ofApp::keyPressed(int key){
         isPaused = !isPaused;
     } else if (key == 'f') {
         ofToggleFullscreen();
-    } else if (key == 'r') {
+    } else if (key == 'v') {
         initMeshFaces();
     } else if (key == 'h') {
         gui->toggleVisible();
@@ -1156,6 +1166,13 @@ void ofApp::keyPressed(int key){
             model2Faces[i].dislodge();
             model1Faces[i].settle();
         }
+    } else if (key == 'm') {
+        if (bCursorShowing) {
+            ofHideCursor();
+        } else {
+            ofShowCursor();
+        }
+        bCursorShowing = !bCursorShowing;
     }
 }
 
